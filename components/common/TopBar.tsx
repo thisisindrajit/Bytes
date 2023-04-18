@@ -20,7 +20,7 @@ const TopBar: FC<TopBarProps> = ({ className }) => {
             priority
           />
         </div>
-        <span className="text-[#362b20] hidden sm:block uppercase tracking-[0.25em]">
+        <span className="hidden sm:block uppercase tracking-[0.25em]">
           Bytes
         </span>
       </div>
@@ -34,7 +34,7 @@ const TopBar: FC<TopBarProps> = ({ className }) => {
             priority
           />
         </div>
-        <span className="text-[#362b20] hidden sm:block">Install</span>
+        <span className="hidden sm:block">Install</span>
       </div>
     </div>
   );
