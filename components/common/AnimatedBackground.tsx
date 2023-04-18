@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 
 interface AnimatedBackgroundProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
@@ -11,17 +11,11 @@ const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
       <style jsx>
         {`
           .animated-background {
-            background: linear-gradient(
-              -45deg,
-              #152746,
-              #504676,
-              #bc7ca0,
-              #fbe4db
-            );
-            background-size: 200% 200%;
-            -webkit-animation: gradient 25s ease infinite;
-            -moz-animation: gradient 25s ease infinite;
-            animation: gradient 25s ease infinite;
+            background: linear-gradient(-45deg, #ae8b69, #bcab8a, #ecd9cb);
+            background-size: 350% 350%;
+            -webkit-animation: gradient-animation 25s ease infinite;
+            -moz-animation: gradient-animation 25s ease infinite;
+            animation: gradient-animation 25s ease infinite;
           }
 
           .paused {
@@ -29,7 +23,7 @@ const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
             animation-play-state: paused;
           }
 
-          @-webkit-keyframes gradient {
+          @-webkit-keyframes gradient-animation {
             0% {
               background-position: 0% 50%;
             }
@@ -41,7 +35,7 @@ const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
             }
           }
 
-          @-moz-keyframes gradient {
+          @-moz-keyframes gradient-animation {
             0% {
               background-position: 0% 50%;
             }
@@ -53,7 +47,7 @@ const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
             }
           }
 
-          @keyframes gradient {
+          @keyframes gradient-animation {
             0% {
               background-position: 0% 50%;
             }

@@ -139,8 +139,6 @@ const timerTrigger: AzureFunction = async function (
       apiUrl += `&page=${nextPage}`;
     }
 
-    context.log("API URL: ", apiUrl);
-
     const response = await axios.get(apiUrl);
 
     if (response.status !== 200) {
@@ -174,8 +172,6 @@ const timerTrigger: AzureFunction = async function (
 
     const id = mapStringToHash(newsArticles[i].link);
 
-    context.log("Article id: ", id);
-
     // Summarize text, predict sentiment and emotion
     try {
       const content =
@@ -194,8 +190,6 @@ const timerTrigger: AzureFunction = async function (
         "'"
       );
 
-      context.log("Summarized article: ", summarized);
-
       const query_2 = `SELECT sentiment
     FROM mindsdb.hf_sentiment
     WHERE text="${summarized}";`;
@@ -203,16 +197,12 @@ const timerTrigger: AzureFunction = async function (
       const queryResult_2 = await MindsDB.default.SQL.runQuery(query_2);
       const sentiment = await queryResult_2.rows[0].sentiment;
 
-      context.log("Sentiment: ", sentiment);
-
       const query_3 = `SELECT emotion
     FROM mindsdb.hf_emotions_6
     WHERE text="${summarized}";`;
 
       const queryResult_3 = await MindsDB.default.SQL.runQuery(query_3);
       const emotion = await queryResult_3.rows[0].emotion;
-
-      context.log("Emotion: ", emotion);
 
       client.query(
         "CALL usp_insert_articles(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
