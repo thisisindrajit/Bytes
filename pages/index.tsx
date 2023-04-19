@@ -1,6 +1,7 @@
 import Holder from "@/components/common/Holder";
 import TopBar from "@/components/common/TopBar";
 import ArticleHolder from "@/components/news/ArticleHolder";
+import { CarouselProvider } from "pure-react-carousel";
 import { useEffect } from "react";
 
 const Home = () => {
@@ -23,16 +24,37 @@ const Home = () => {
     >
       <TopBar />
       <Holder>
-        <ArticleHolder id="1" className="min-h-screen snap-center p-4">
-          <div onClick={() => showInView("2")}>Next</div>
-        </ArticleHolder>
-        <ArticleHolder id="2" className="min-h-screen snap-center p-4">
-          <div onClick={() => showInView("1")}>Previous</div>
-          <div onClick={() => showInView("3")}>Next</div>
-        </ArticleHolder>
-        <ArticleHolder id="3" className="min-h-screen snap-center p-4">
-          <div onClick={() => showInView("2")}>Previous</div>
-        </ArticleHolder>
+        <CarouselProvider
+          naturalSlideWidth={0}
+          naturalSlideHeight={0}
+          isIntrinsicHeight={false}
+          totalSlides={2}
+        >
+          <ArticleHolder id="1" className="min-h-screen snap-center p-4">
+            <div onClick={() => showInView("2")}>Next</div>
+          </ArticleHolder>
+        </CarouselProvider>
+        <CarouselProvider
+          naturalSlideWidth={0}
+          naturalSlideHeight={0}
+          isIntrinsicHeight={false}
+          totalSlides={2}
+        >
+          <ArticleHolder id="2" className="min-h-screen snap-center p-4">
+            <div onClick={() => showInView("1")}>Previous</div>
+            <div onClick={() => showInView("3")}>Next</div>
+          </ArticleHolder>
+        </CarouselProvider>
+        <CarouselProvider
+          naturalSlideWidth={0}
+          naturalSlideHeight={0}
+          isIntrinsicHeight={false}
+          totalSlides={2}
+        >
+          <ArticleHolder id="3" className="min-h-screen snap-center p-4">
+            <div onClick={() => showInView("2")}>Previous</div>
+          </ArticleHolder>
+        </CarouselProvider>
       </Holder>
       <style jsx>
         {`
