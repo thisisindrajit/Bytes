@@ -5,12 +5,6 @@ import { CarouselProvider } from "pure-react-carousel";
 import { useEffect } from "react";
 
 const Home = () => {
-  const showInView = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
     document.getElementById("all-articles-holder")?.focus();
@@ -29,31 +23,51 @@ const Home = () => {
           naturalSlideHeight={0}
           isIntrinsicHeight={false}
           totalSlides={2}
+          lockOnWindowScroll
         >
-          <ArticleHolder id="1" className="min-h-screen snap-center p-4">
-            <div onClick={() => showInView("2")}>Next</div>
-          </ArticleHolder>
+          <ArticleHolder
+            id="1"
+            className="min-h-screen snap-center p-4"
+            hasPrevious={false}
+            hasNext={true}
+            imgUrl={null}
+            prevId={null}
+            nextId="2"
+          />
         </CarouselProvider>
         <CarouselProvider
           naturalSlideWidth={0}
           naturalSlideHeight={0}
           isIntrinsicHeight={false}
           totalSlides={2}
+          lockOnWindowScroll
         >
-          <ArticleHolder id="2" className="min-h-screen snap-center p-4">
-            <div onClick={() => showInView("1")}>Previous</div>
-            <div onClick={() => showInView("3")}>Next</div>
-          </ArticleHolder>
+          <ArticleHolder
+            id="2"
+            className="min-h-screen snap-center p-4"
+            hasPrevious={true}
+            hasNext={true}
+            imgUrl="https://i0.wp.com/www.orissapost.com/wp-content/uploads/2022/09/Harvard-startup-EV.jpg?fit=300%2C200=1"
+            prevId="1"
+            nextId="3"
+          />
         </CarouselProvider>
         <CarouselProvider
           naturalSlideWidth={0}
           naturalSlideHeight={0}
           isIntrinsicHeight={false}
           totalSlides={2}
+          lockOnWindowScroll
         >
-          <ArticleHolder id="3" className="min-h-screen snap-center p-4">
-            <div onClick={() => showInView("2")}>Previous</div>
-          </ArticleHolder>
+          <ArticleHolder
+            id="3"
+            className="min-h-screen snap-center p-4"
+            hasPrevious={true}
+            hasNext={false}
+            imgUrl={null}
+            prevId="2"
+            nextId={null}
+          />
         </CarouselProvider>
       </Holder>
       <style jsx>
