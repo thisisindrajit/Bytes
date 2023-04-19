@@ -5,13 +5,13 @@ interface TopBarProps {
   className?: string;
 }
 
-const TopBar: FC<TopBarProps> = ({ className }) => {
+const TopBar: FC<TopBarProps> = ({ className = "" }) => {
   return (
     <div
-      className={`bg-white/75 backdrop-blur-lg w-full flex items-center justify-between text-sm fixed p-4 ${className}`}
+      className={`bg-white w-full flex items-center justify-between text-sm fixed drop-shadow-[0_25px_25px_rgba(188,171,138,0.2)] z-10 ${className}`}
     >
       {/* Logo and title */}
-      <div className="w-fit flex items-center gap-2.5 cursor-pointer">
+      <div className="p-4 w-fit flex items-center gap-2.5 cursor-pointer">
         <div className="relative h-4 w-4">
           <Image
             src="/images/bytes_logo.png"
@@ -25,7 +25,7 @@ const TopBar: FC<TopBarProps> = ({ className }) => {
         </span>
       </div>
       {/* Install button */}
-      <div className="rounded w-fit flex items-center gap-2 cursor-pointer">
+      <div className="bg-[#ecd9cb] p-4 min-h-full w-fit flex items-center gap-2 cursor-pointer">
         <div className="relative h-4 w-4">
           <Image
             src="/images/svg/download.svg"
