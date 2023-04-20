@@ -83,7 +83,11 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
         </div>
         <div className="flex-1 flex lg:flex-col items-center justify-center gap-4 lg:gap-2">
           {!isImageLoaded && <div className="text-sm">Loading...</div>}
-          <div className="relative h-16 w-16 lg:h-32 lg:w-32 xl:h-44 xl:w-44 3xl:h-64 3xl:w-64">
+          <div
+            className={`${
+              isImageLoaded ? "block" : "hidden"
+            } relative h-16 w-16 lg:h-32 lg:w-32 xl:h-44 xl:w-44 3xl:h-64 3xl:w-64`}
+          >
             <Image
               src={showEmotion(emotion)}
               alt={`${returnEmotionValue(emotion)} icon`}
