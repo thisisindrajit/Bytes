@@ -1,5 +1,11 @@
 {
     "marquee.widgets.npm-stats.packageNames": [
         "bytes"
-    ]
+    ],
+    "azureFunctions.deploySubpath": "azure functions",
+    "azureFunctions.postDeployTask": "npm install (functions)",
+    "azureFunctions.projectLanguage": "TypeScript",
+    "azureFunctions.projectRuntime": "~4",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "npm prune (functions)"
 }

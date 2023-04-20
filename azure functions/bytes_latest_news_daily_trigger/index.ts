@@ -7,14 +7,40 @@ const crypto = require("crypto");
 
 // Helper functions
 const removeLastIncompleteSentence = (paragraph) => {
+  // Adding custom sentence delimiter to the paragraph
+  paragraph += "|";
+
   // Define the regular expression pattern for detecting sentences
-  var sentencePattern = /[A-Z][^.!?]*[.!?]/g;
+  var sentencePattern = /.*?\|(?=\s|$)/g;
 
   // Use the match() method to find all matches of the sentence pattern in the paragraph
   var sentences = paragraph.match(sentencePattern);
 
-  // Return the updated paragraph if there are any sentences, otherwise return the original paragraph
-  return sentences?.length > 0 ? sentences.join(" ") : paragraph;
+  sentences = sentences && sentences.map((s) => s.replace("|", "").trim());
+
+  // Check if there are any sentences found
+  if (sentences && sentences.length > 0) {
+    // Get the last sentence from the array
+    var lastSentence = sentences[sentences.length - 1];
+
+    // Check if the last sentence is incomplete (i.e., does not end with a period, exclamation mark, or question mark)
+    if (!/[?.!]\s*$/.test(lastSentence)) {
+      // Remove the last sentence from the sentences array
+      sentences = sentences.slice(0, -1);
+    }
+  }
+
+  return sentences?.length > 0
+    ? sentences.join(" ")
+    : paragraph
+        .replaceAll("|", "")
+        .slice(
+          0,
+          paragraph.lastIndexOf(".") !== -1
+            ? paragraph.lastIndexOf(".") + 1
+            : paragraph.length + 1
+        )
+        .trim();
 };
 
 const getRandomValuesFromArray = (arr, n) => {
@@ -175,12 +201,12 @@ const timerTrigger: AzureFunction = async function (
     // Summarize text, predict sentiment and emotion
     try {
       const content =
-        newsArticles[i]?.description.length > 256
+        newsArticles[i]?.description?.length > 256
           ? newsArticles[i].description
           : newsArticles[i].content.slice(0, 512);
 
       const query_1 = `SELECT summarized_article
-                        FROM mindsdb.text_summarization_openai
+                        FROM mindsdb.text_summarization_custom_separator_openai
                         WHERE content="${content.replace(/"/g, "'")}";`;
 
       const queryResult_1 = await MindsDB.default.SQL.runQuery(query_1);
