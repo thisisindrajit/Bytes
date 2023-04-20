@@ -4,6 +4,11 @@ import { CarouselContext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import Image from "next/image";
 import BottomBar from "./BottomBar";
+import ArticleThumbnailHolder from "./ArticleThumbnailHolder";
+import ArticleSummaryHolder from "./ArticleSummaryHolder";
+import ArticleDetailsHolder from "./ArticleDetailsHolder";
+import SentimentHolder from "./SentimentHolder";
+import EmotionHolder from "./EmotionHolder";
 
 interface ArticleHolderProps {
   id?: string;
@@ -17,7 +22,22 @@ interface ArticleHolderProps {
   title: string;
   pubDate: string;
   description: string | null;
-  aiSummary: string;
+  summary: string;
+  category: string[];
+  creator: string[] | null;
+  source: string;
+  country: string[];
+  keywords: string[] | null;
+  sentiment: "pos" | "neg" | "neu";
+  emotion:
+    | "anger"
+    | "disgust"
+    | "fear"
+    | "joy"
+    | "sadness"
+    | "surprise"
+    | "neutral";
+  tabIndexStart: number;
   // All other props
   [x: string]: any;
 }
@@ -34,38 +54,21 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   title,
   pubDate,
   description,
-  aiSummary,
+  summary,
+  category,
+  creator,
+  source,
+  country,
+  keywords,
+  sentiment,
+  emotion,
+  tabIndexStart,
   ...props
 }) => {
   const carouselContext = useContext(CarouselContext);
   const [currentSlide, setCurrentSlide] = useState(
     carouselContext.state.currentSlide
   );
-
-  const formatDateAndTime = (inputDate: string) => {
-    const publishedObj = new Date(inputDate);
-
-    const date = publishedObj.getDate();
-    const month = publishedObj.getMonth() + 1;
-    const year = publishedObj.getFullYear();
-
-    const hours =
-      publishedObj.getHours() > 12
-        ? publishedObj.getHours() - 12
-        : publishedObj.getHours() === 0
-        ? 12
-        : publishedObj.getHours();
-    const minutes =
-      publishedObj.getMinutes() < 10
-        ? "0" + publishedObj.getMinutes()
-        : publishedObj.getMinutes();
-    const seconds = publishedObj.getSeconds();
-    const amOrPm = publishedObj.getHours() >= 12 ? "PM" : "AM";
-
-    let fullDate = `${date}/${month}/${year}`;
-
-    return `${fullDate} AT ${hours}:${minutes}:${seconds} ${amOrPm} (GMT)`;
-  };
 
   useEffect(() => {
     function onChange() {
@@ -88,127 +91,62 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100vh-10rem)]">
           {/* Carousel holder */}
           <div className="bg-[#303030] rounded flex flex-col overflow-y-auto max-h-[calc(100vh-10rem)]">
-            <div className="flex-1 flex flex-col justify-between max-h-[calc(100vh-10rem)]rounded">
-              <Slider>
+            <div className="flex-1 flex flex-col justify-between max-h-[calc(100vh-10rem)] rounded">
+              <Slider tabIndex={-1}>
+                {/* Two urls are added in background image so that even if the first link is broken, the default background image is used */}
                 <Slide
                   index={0}
-                  className="min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto bg-scroll bg-no-repeat bg-cover text-white "
+                  tabIndex={-1}
+                  className="min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto bg-[#303030] bg-scroll bg-no-repeat bg-cover text-white"
                   style={{
                     backgroundImage: imgUrl
-                      ? `linear-gradient(0deg, rgba(0, 0, 0, 0.8) 75%, rgba(0, 0, 0, 0.9) 100%), url("${imgUrl}")`
+                      ? `linear-gradient(0deg, rgba(0, 0, 0, 0.8) 75%, rgba(0, 0, 0, 0.9) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
                       : "none",
                   }}
                 >
-                  <div className="p-4">
-                    {/* Title */}
-                    <div className="text-2xl/relaxed lg:text-3xl/relaxed font-bold line-clamp-6">
-                      {title}
-                    </div>
-                    {/* Pub date */}
-                    <div className="text-xs my-4 flex items-center w-fit gap-2">
-                      <div className="relative h-3 w-3">
-                        <Image
-                          src="/images/svg/clock.svg"
-                          alt="clock icon"
-                          fill={true}
-                          priority
-                        />
-                      </div>
-                      <span>{formatDateAndTime(pubDate)}</span>
-                    </div>
-                    {/* Horizontal separator */}
-                    <div className="my-4 lg:my-6 h-[1px] w-full bg-[#ecd9cb]"></div>
-                    {/* Description */}
-                    {description && (
-                      <div className="text-base/loose mt-2 line-clamp-[8]">
-                        {description}
-                      </div>
-                    )}
-                    {/* Check out AI summary text block */}
-                    <div className="text-base/loose mt-4 lg:mt-6 border-l border-[#ecd9cb] w-fit px-4 py-2">
-                      <span>Click on</span>
-                      <div className="inline-block mx-2">
-                        <span className="text-sm uppercase text-[#ecd9cb]">
-                          Summary by AI
-                        </span>
-                        <div className="inline-block relative h-4 w-4 align-middle ml-2">
-                          <Image
-                            src="/images/svg/right-arrow-cream.svg"
-                            alt="right arrow cream icon"
-                            fill={true}
-                            priority
-                          />
-                        </div>
-                      </div>
-                      <span>
-                        to read the AI generated summary for the article.
-                      </span>
-                    </div>
-                    {/* How to read full article text block */}
-                    <div className="text-base/loose mb-4 lg:mb-6 border-l border-[#ecd9cb] w-fit px-4 py-2">
-                      <span>Click on</span>
-                      <div className="inline-block mx-2">
-                        <div className="inline-block relative h-4 w-4 align-middle">
-                          <Image
-                            src="/images/svg/link-cream.svg"
-                            alt="link cream icon"
-                            fill={true}
-                            priority
-                          />
-                        </div>
-                      </div>
-                      <span>in the bottom bar to read the full article.</span>
-                    </div>
-                  </div>
+                  <ArticleThumbnailHolder
+                    title={title}
+                    description={description}
+                    pubDate={pubDate}
+                  />
                 </Slide>
                 <Slide
                   index={1}
+                  tabIndex={-1}
                   className="p-4 min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto text-white"
                 >
-                  <div className="p-4">
-                    <div className="text-lg text-[#ecd9cb]">
-                      Article Summary
-                    </div>
-                    {/* Summary holder */}
-                    <div className="bg-[#212121] border border-[#ecd9cb] px-6 py-4 rounded text-base/loose my-4">
-                      {aiSummary}
-                      <div className="text-xs mt-6 mb-2 text-[#ecd9cb]">
-                        Generated by AI
-                      </div>
-                    </div>
-                    {/* Link to read full article */}
-                    <div className="text-base/loose my-4 lg:my-6 border-l border-[#ecd9cb] w-fit px-4 py-2">
-                      <span>Want to know more?</span>
-                      <a
-                        href={articleUrl}
-                        className="text-[#ecd9cb] mx-1 no-underline hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Click here
-                      </a>
-                      <span>to read the full article!</span>
-                    </div>
-                  </div>
+                  <ArticleSummaryHolder
+                    summary={summary}
+                    articleUrl={articleUrl}
+                  />
                 </Slide>
                 <Slide
                   index={2}
+                  tabIndex={-1}
                   className="p-4 min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto text-white"
                 >
-                  <div className="p-4">
-                    Other data and link to show meta data
-                  </div>
+                  <ArticleDetailsHolder
+                    category={category}
+                    creator={creator}
+                    source={source}
+                    country={country}
+                    keywords={keywords}
+                  />
                 </Slide>
               </Slider>
               <div className="bg-[#ecd9cb] flex items-center py-[1.6rem] px-4 lg:py-6 h-8">
                 {currentSlide === 2 && (
-                  <ButtonBack className="animate-slide-right">
+                  <ButtonBack
+                    tabIndex={tabIndexStart + 3}
+                    className="animate-slide-right"
+                  >
                     <div className="flex gap-2 items-center">
                       <div className="relative h-4 w-4">
                         <Image
                           src="/images/svg/left-arrow.svg"
                           alt="left arrow icon"
                           fill={true}
+                          priority
                         />
                       </div>
                       <span className="text-sm uppercase">Summary by AI</span>
@@ -217,26 +155,34 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 )}
                 {currentSlide === 1 && (
                   <div className="flex items-center justify-between w-full">
-                    <ButtonBack className="animate-slide-right">
+                    <ButtonBack
+                      tabIndex={tabIndexStart + 1}
+                      className="animate-slide-right"
+                    >
                       <div className="flex gap-2 items-center">
                         <div className="relative h-4 w-4">
                           <Image
                             src="/images/svg/left-arrow.svg"
                             alt="left arrow icon"
                             fill={true}
+                            priority
                           />
                         </div>
-                        <span className="text-sm uppercase">Details</span>
+                        <span className="text-sm uppercase">Thumbnail</span>
                       </div>
                     </ButtonBack>
-                    <ButtonNext className="animate-slide-left">
+                    <ButtonNext
+                      tabIndex={tabIndexStart + 2}
+                      className="animate-slide-left"
+                    >
                       <div className="flex gap-2 items-center">
-                        <span className="text-sm uppercase">Other data</span>
+                        <span className="text-sm uppercase">Details</span>
                         <div className="relative h-4 w-4">
                           <Image
                             src="/images/svg/right-arrow.svg"
                             alt="right arrow icon"
                             fill={true}
+                            priority
                           />
                         </div>
                       </div>
@@ -244,7 +190,10 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   </div>
                 )}
                 {currentSlide === 0 && (
-                  <ButtonNext className="mx-auto mr-0 animate-slide-left">
+                  <ButtonNext
+                    tabIndex={tabIndexStart}
+                    className="mx-auto mr-0 animate-slide-left"
+                  >
                     <div className="flex gap-2 items-center">
                       <span className="text-sm uppercase">Summary by AI</span>
                       <div className="relative h-4 w-4">
@@ -252,6 +201,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                           src="/images/svg/right-arrow.svg"
                           alt="right arrow icon"
                           fill={true}
+                          priority
                         />
                       </div>
                     </div>
@@ -262,12 +212,8 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
           </div>
           {/* Emotion and sentiment predictions holder */}
           <div className="grid grid-cols-2 lg:grid-cols-1 xl:grid-rows-2 gap-3">
-            <div className="bg-[#303030] rounded p-4 h-32 lg:h-full overflow-y-auto text-white">
-              <div className="text-sm text-[#ecd9cb] uppercase">Sentiment</div>
-            </div>
-            <div className="bg-[#303030] rounded p-4 h-32 lg:h-full overflow-y-auto text-white">
-            <div className="text-sm text-[#ecd9cb] uppercase">Emotion</div>
-            </div>
+            <SentimentHolder sentiment={sentiment} />
+            <EmotionHolder emotion={emotion} />
           </div>
         </div>
         {/* Ads holder (Can be used in future if needed) */}
@@ -282,6 +228,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         hasNext={hasNext}
         prevId={prevId}
         nextId={nextId}
+        tabIndex={tabIndexStart + 4}
       />
     </div>
   );

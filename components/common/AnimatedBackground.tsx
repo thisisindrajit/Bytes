@@ -11,7 +11,6 @@ const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
       <style jsx>
         {`
           .animated-background {
-            // background: linear-gradient(-45deg, #ae8b69, #bcab8a, #ecd9cb);
             background: linear-gradient(-45deg, #212121, #131313, #000000);
             background-size: 250% 250%;
             -webkit-animation: gradient-animation 25s ease infinite;

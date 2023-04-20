@@ -18,3 +18,8 @@ body {
   @apply overflow-x-hidden max-w-[100vw] scroll-smooth;
   font-family: var(--font-family);
 }
+
+/* This styling is to remove the outline in the carousel slides */
+.focusRing___1airF.carousel__slide-focus-ring {
+  outline: none !important;
+}

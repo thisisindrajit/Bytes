@@ -8,6 +8,7 @@ interface BottomBarProps {
   hasNext: boolean;
   prevId: string | null;
   nextId: string | null;
+  tabIndex: number;
 }
 
 const BottomBar: FC<BottomBarProps> = ({
@@ -17,18 +18,21 @@ const BottomBar: FC<BottomBarProps> = ({
   prevId,
   nextId,
   link,
+  tabIndex,
 }) => {
   const showInView = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
     });
+    document.getElementById(id)?.focus();
   };
 
   return (
     <div
       className={`grid grid-cols-3 place-content-stretch w-full md:w-[32rem] m-auto rounded overflow-hidden ${className}`}
     >
-      <div
+      <button
+        tabIndex={-1}
         className={`${
           hasPrevious ? "bg-white cursor-pointer" : "bg-gray-200 text-gray-500"
         }  p-3 flex items-center justify-center gap-3`}
@@ -43,11 +47,13 @@ const BottomBar: FC<BottomBarProps> = ({
             }
             alt="up arrow icon"
             fill={true}
+            priority
           />
         </div>
         <span className="hidden sm:block">Previous</span>
-      </div>
-      <div
+      </button>
+      <button
+        tabIndex={-1}
         className={`${
           hasNext ? "bg-white cursor-pointer" : "bg-gray-200 text-gray-500"
         }  p-3 flex items-center justify-center gap-3`}
@@ -62,18 +68,25 @@ const BottomBar: FC<BottomBarProps> = ({
             }
             alt="down arrow icon"
             fill={true}
+            priority
           />
         </div>
         <span className="hidden sm:block">Next</span>
-      </div>
+      </button>
       <a
         href={link}
+        tabIndex={tabIndex}
         className="bg-[#ecd9cb] p-3 flex items-center justify-center"
         target="_blank"
         rel="noopener noreferrer"
       >
         <div className="relative h-5 w-5">
-          <Image src="/images/svg/link.svg" alt="link icon" fill={true} />
+          <Image
+            src="/images/svg/link.svg"
+            alt="link icon"
+            fill={true}
+            priority
+          />
         </div>
       </a>
     </div>
