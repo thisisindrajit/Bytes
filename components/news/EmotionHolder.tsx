@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface EmotionHolderProps {
   emotion:
@@ -13,6 +13,8 @@ interface EmotionHolderProps {
 }
 
 const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const showEmotion = (
     emotion:
       | "anger"
@@ -80,20 +82,26 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
           Emotion
         </div>
         <div className="flex-1 flex lg:flex-col items-center justify-center gap-4 lg:gap-2">
+          {!isImageLoaded && <div className="text-sm">Loading...</div>}
           <div className="relative h-16 w-16 lg:h-32 lg:w-32 xl:h-44 xl:w-44 3xl:h-64 3xl:w-64">
             <Image
               src={showEmotion(emotion)}
               alt={`${returnEmotionValue(emotion)} icon`}
               fill={true}
               className="self-center"
-              unoptimized
+              onLoadingComplete={() => {
+                setIsImageLoaded(true);
+              }}
+              priority
             />
           </div>
-          <div className="hidden md:flex my-2 text-center text-white text-sm xl:text-base items-center justify-center gap-2">
-            <span className="text-[#ecd9cb]">•</span>
-            <span>{returnEmotionValue(emotion)}</span>
-            <span className="text-[#ecd9cb]">•</span>
-          </div>
+          {isImageLoaded && (
+            <div className="hidden md:flex my-2 text-center text-white text-sm xl:text-base items-center justify-center gap-2">
+              <span className="text-[#ecd9cb]">•</span>
+              <span>{returnEmotionValue(emotion)}</span>
+              <span className="text-[#ecd9cb]">•</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

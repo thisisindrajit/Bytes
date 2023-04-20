@@ -1,11 +1,13 @@
 import Image from "next/image";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 interface SentimentHolderProps {
   sentiment: "pos" | "neg" | "neu";
 }
 
 const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
+
   const showSentiment = (sentiment: "pos" | "neg" | "neu") => {
     switch (sentiment) {
       case "pos":
@@ -39,20 +41,26 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
           Sentiment
         </div>
         <div className="flex-1 flex lg:flex-col items-center justify-center gap-4 lg:gap-2">
+          {!isImageLoaded && <div className="text-sm">Loading...</div>}
           <div className="relative h-16 w-16 lg:h-32 lg:w-32 xl:h-44 xl:w-44 3xl:h-64 3xl:w-64">
             <Image
               src={showSentiment(sentiment)}
               alt={`${returnSentimentValue(sentiment)} icon`}
               fill={true}
               className="self-center"
-              unoptimized
+              onLoadingComplete={() => {
+                setIsImageLoaded(true);
+              }}
+              priority
             />
           </div>
-          <div className="hidden md:flex my-2 text-center text-white text-sm xl:text-base items-center justify-center gap-2">
-            <span className="text-[#ecd9cb]">•</span>
-            <span>{returnSentimentValue(sentiment)}</span>
-            <span className="text-[#ecd9cb]">•</span>
-          </div>
+          {isImageLoaded && (
+            <div className="hidden md:flex my-2 text-center text-white text-sm xl:text-base items-center justify-center gap-2">
+              <span className="text-[#ecd9cb]">•</span>
+              <span>{returnSentimentValue(sentiment)}</span>
+              <span className="text-[#ecd9cb]">•</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

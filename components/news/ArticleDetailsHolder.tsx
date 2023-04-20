@@ -50,7 +50,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
       </div>
       {/* Keywords */}
       {keywords && (
-        <div className="mt-8 mb-2 flex flex-col gap-2">
+        <div className="my-8 flex flex-col gap-2">
           <div className="text-sm uppercase">Keywords</div>
           <div className="text-base/relaxed text-[#ecd9cb]">
             {keywords.join(", ")}
