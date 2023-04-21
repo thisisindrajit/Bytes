@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FC, useState } from "react";
+import Loading from "../common/Loading";
 
 interface EmotionHolderProps {
   emotion:
@@ -82,7 +83,12 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
           Emotion
         </div>
         <div className="flex-1 flex lg:flex-col items-center justify-center gap-4 lg:gap-2">
-          {!isImageLoaded && <div className="text-sm">Loading...</div>}
+          {!isImageLoaded && (
+            <Loading
+              heightAndWidthClassesForLoadingIcon="h-8 w-8 lg:h-16 lg:w-16"
+              noText
+            />
+          )}
           <div
             className={`${
               isImageLoaded ? "block" : "hidden"

@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { FC } from "react";
+import ImageHolder from "../common/ImageHolder";
 
 interface ArticleSummaryHolderProps {
   summary: string;
@@ -46,12 +46,14 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
         <span>Click on</span>
         <div className="inline-block mx-2">
           <span className="text-sm uppercase text-[#ecd9cb]">Details</span>
-          <div className="inline-block relative h-4 w-4 align-middle ml-2">
-            <Image
+          <div className="inline-block align-middle ml-2">
+            <ImageHolder
+              heightAndWidthClasses="h-4 w-4"
               src="/images/svg/right-arrow-cream.svg"
               alt="right arrow cream icon"
-              fill={true}
-              priority
+              priority={true}
+              color="white"
+              showLoading
             />
           </div>
         </div>

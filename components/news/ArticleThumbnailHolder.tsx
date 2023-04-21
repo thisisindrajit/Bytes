@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { FC } from "react";
+import ImageHolder from "../common/ImageHolder";
 
 interface ArticleThumbnailHolderProps {
   title: string;
@@ -45,14 +45,14 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       </div>
       {/* Pub date */}
       <div className="text-xs my-4 flex items-center w-fit gap-2">
-        <div className="relative h-3 w-3">
-          <Image
-            src="/images/svg/clock.svg"
-            alt="clock icon"
-            fill={true}
-            priority
-          />
-        </div>
+        <ImageHolder
+          heightAndWidthClasses="h-3 w-3"
+          src="/images/svg/clock.svg"
+          alt="clock icon"
+          priority={true}
+          color="white"
+          showLoading
+        />
         <span>{formatDateAndTime(pubDate)}</span>
       </div>
       {/* Horizontal separator */}
@@ -68,12 +68,13 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
           <span className="text-sm uppercase text-[#ecd9cb]">
             Summary by AI
           </span>
-          <div className="inline-block relative h-4 w-4 align-middle ml-2">
-            <Image
+          <div className="inline-block align-middle ml-2">
+            <ImageHolder
+              heightAndWidthClasses="h-4 w-4"
               src="/images/svg/right-arrow-cream.svg"
               alt="right arrow cream icon"
-              fill={true}
-              priority
+              priority={true}
+              showLoading
             />
           </div>
         </div>
@@ -83,12 +84,13 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       <div className="text-base/loose mb-4 lg:mb-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
         <span>Click on</span>
         <div className="inline-block mx-2">
-          <div className="inline-block relative h-4 w-4 align-middle">
-            <Image
+          <div className="inline-block align-middle">
+            <ImageHolder
+              heightAndWidthClasses=" h-4 w-4"
               src="/images/svg/link-cream.svg"
               alt="link cream icon"
-              fill={true}
-              priority
+              priority={true}
+              showLoading
             />
           </div>
         </div>

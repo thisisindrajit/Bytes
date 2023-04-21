@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Image from "next/image";
+import ImageHolder from "./ImageHolder";
 
 interface TopBarProps {
   className?: string;
@@ -12,28 +12,27 @@ const TopBar: FC<TopBarProps> = ({ className = "" }) => {
     >
       {/* Logo and title */}
       <div className="bg-white p-4 w-fit flex items-center gap-2.5 cursor-pointer">
-        <div className="relative h-5 w-5">
-          <Image
-            src="/images/bytes_logo.png"
-            alt="bytes logo"
-            fill={true}
-            priority
-          />
-        </div>
-        <span className="tracking-[0.1em]">
-          Bytes
-        </span>
+        <ImageHolder
+          heightAndWidthClasses="h-5 w-5"
+          src="/images/bytes_logo.png"
+          alt="bytes logo"
+          priority={true}
+          color="black"
+          showLoading
+        />
+        <span className="tracking-[0.1em]">Bytes</span>
       </div>
       {/* Install button */}
       <div className="bg-[#ecd9cb] p-4 min-h-full w-fit flex items-center gap-2 cursor-pointer">
-        <div className="relative h-5 w-5 sm:h-4 sm:w-4">
-          <Image
-            src="/images/svg/download.svg"
-            alt="download icon"
-            fill={true}
-            priority
-          />
-        </div>
+        <ImageHolder
+          heightAndWidthClasses="h-5 w-5 sm:h-4 sm:w-4"
+          heightAndWidthClassesForLoadingIcon="h-5 w-5"
+          src="/images/svg/download.svg"
+          alt="download icon"
+          priority={true}
+          color="black"
+          showLoading
+        />
         <span className="hidden sm:block">Install</span>
       </div>
     </div>

@@ -1,14 +1,14 @@
-import { FC, ReactNode, useContext, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import { CarouselContext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import Image from "next/image";
 import BottomBar from "./BottomBar";
 import ArticleThumbnailHolder from "./ArticleThumbnailHolder";
 import ArticleSummaryHolder from "./ArticleSummaryHolder";
 import ArticleDetailsHolder from "./ArticleDetailsHolder";
 import SentimentHolder from "./SentimentHolder";
 import EmotionHolder from "./EmotionHolder";
+import ImageHolder from "../common/ImageHolder";
 
 interface ArticleHolderProps {
   id?: string;
@@ -141,14 +141,14 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                     className="animate-slide-right"
                   >
                     <div className="flex gap-2 items-center">
-                      <div className="relative h-4 w-4">
-                        <Image
-                          src="/images/svg/left-arrow.svg"
-                          alt="left arrow icon"
-                          fill={true}
-                          priority
-                        />
-                      </div>
+                      <ImageHolder
+                        heightAndWidthClasses="h-4 w-4"
+                        src="/images/svg/left-arrow.svg"
+                        alt="left arrow icon"
+                        priority={true}
+                        color="black"
+                        showLoading
+                      />
                       <span className="text-sm uppercase">Summary by AI</span>
                     </div>
                   </ButtonBack>
@@ -160,14 +160,14 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                       className="animate-slide-right"
                     >
                       <div className="flex gap-2 items-center">
-                        <div className="relative h-4 w-4">
-                          <Image
-                            src="/images/svg/left-arrow.svg"
-                            alt="left arrow icon"
-                            fill={true}
-                            priority
-                          />
-                        </div>
+                        <ImageHolder
+                          heightAndWidthClasses="h-4 w-4"
+                          src="/images/svg/left-arrow.svg"
+                          alt="left arrow icon"
+                          priority={true}
+                          color="black"
+                          showLoading
+                        />
                         <span className="text-sm uppercase">Thumbnail</span>
                       </div>
                     </ButtonBack>
@@ -177,14 +177,14 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                     >
                       <div className="flex gap-2 items-center">
                         <span className="text-sm uppercase">Details</span>
-                        <div className="relative h-4 w-4">
-                          <Image
-                            src="/images/svg/right-arrow.svg"
-                            alt="right arrow icon"
-                            fill={true}
-                            priority
-                          />
-                        </div>
+                        <ImageHolder
+                          heightAndWidthClasses="h-4 w-4"
+                          src="/images/svg/right-arrow.svg"
+                          alt="right arrow icon"
+                          priority={true}
+                          color="black"
+                          showLoading
+                        />
                       </div>
                     </ButtonNext>
                   </div>
@@ -196,14 +196,14 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   >
                     <div className="flex gap-2 items-center">
                       <span className="text-sm uppercase">Summary by AI</span>
-                      <div className="relative h-4 w-4">
-                        <Image
-                          src="/images/svg/right-arrow.svg"
-                          alt="right arrow icon"
-                          fill={true}
-                          priority
-                        />
-                      </div>
+                      <ImageHolder
+                        heightAndWidthClasses="h-4 w-4"
+                        src="/images/svg/right-arrow.svg"
+                        alt="right arrow icon"
+                        priority={true}
+                        color="black"
+                        showLoading
+                      />
                     </div>
                   </ButtonNext>
                 )}
