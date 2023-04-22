@@ -20,11 +20,11 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
       </div>
       {/* Link to read full article */}
       <div className="text-base/loose mt-4 lg:mt-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span>Want to know more?</span>
+        <span className="mr-1 lg:mr-2">Want to know more?</span>
         <a
           href={articleUrl}
           tabIndex={-1}
-          className="hidden lg:inline text-[#ecd9cb] mx-2 border border-[#ecd9cb] p-2 rounded hover:bg-[#ecd9cb] hover:text-black"
+          className="hidden lg:inline text-[#ecd9cb] border border-[#ecd9cb] p-2 rounded hover:bg-[#ecd9cb] hover:text-black"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -33,18 +33,18 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
         <a
           href={articleUrl}
           tabIndex={-1}
-          className="lg:hidden text-[#ecd9cb] mx-1 no-underline hover:underline"
+          className="lg:hidden text-[#ecd9cb] no-underline hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
           Click here
         </a>
-        <span>to read the full article!</span>
+        <span className="ml-1 lg:ml-2">to read the full article!</span>
       </div>
       {/* Check out article details text block */}
       <div className="text-base/loose mb-4 lg:mb-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span>Click on</span>
-        <div className="inline-block mx-2">
+        <span className="mr-2">Swipe right or click on</span>
+        <div className="inline-block">
           <span className="text-sm uppercase text-[#ecd9cb]">Details</span>
           <div className="inline-block align-middle ml-2">
             <ImageHolder
@@ -57,7 +57,7 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
             />
           </div>
         </div>
-        <span>to check out few details about the article.</span>
+        <span className="ml-2">to view article details.</span>
       </div>
     </div>
   );

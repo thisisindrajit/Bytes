@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model articles {
+  id                  String    @id @db.VarChar(512)
+  title               String    @db.VarChar(1024)
+  link                String    @db.Text
+  description         String?   @db.VarChar(2048)
+  content             String?   @db.Text
+  pub_date            DateTime? @db.DateTime(0)
+  image_url           String?   @db.Text
+  category            String?   @db.VarChar(1024)
+  creator             String?   @db.VarChar(1024)
+  source              String?   @db.VarChar(512)
+  country             String?   @db.VarChar(2048)
+  keywords            String?   @db.VarChar(4096)
+  addedToTableAt      DateTime? @default(now()) @db.Timestamp(3)
+  summarized_text     String?   @db.VarChar(2048)
+  predicted_sentiment String?   @db.VarChar(3)
+  predicted_emotion   String?   @db.VarChar(16)
+}

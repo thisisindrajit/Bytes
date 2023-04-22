@@ -1,10 +1,10 @@
 import { FC } from "react";
 
 interface ArticleDetailsHolderProps {
-  category: string[];
+  category: string[] | null;
   creator: string[] | null;
-  source: string;
-  country: string[];
+  source: string | null;
+  country: string[] | null;
   keywords: string[] | null;
 }
 
@@ -21,12 +21,14 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
       {/* Horizontal separator */}
       <div className="my-4 h-[1px] w-full bg-white"></div>
       {/* Category */}
-      <div className="mt-6 mb-8 flex flex-col gap-2">
-        <div className="text-sm uppercase">Category</div>
-        <div className="text-base/relaxed text-[#ecd9cb]">
-          {category.join(", ")}
+      {category && (
+        <div className="mt-6 mb-8 flex flex-col gap-2">
+          <div className="text-sm uppercase">Category</div>
+          <div className="text-base/relaxed text-[#ecd9cb]">
+            {category.join(", ")}
+          </div>
         </div>
-      </div>
+      )}
       {/* Creator */}
       {creator && (
         <div className="my-8 flex flex-col gap-2">
@@ -37,17 +39,21 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
         </div>
       )}
       {/* Source */}
-      <div className="my-8 flex flex-col gap-2">
-        <div className="text-sm uppercase">Source</div>
-        <div className="text-base/relaxed text-[#ecd9cb]">{source}</div>
-      </div>
-      {/* Country */}
-      <div className="my-8 flex flex-col gap-2">
-        <div className="text-sm uppercase">Country</div>
-        <div className="text-base/relaxed text-[#ecd9cb]">
-          {country.join(", ")}
+      {source && (
+        <div className="my-8 flex flex-col gap-2">
+          <div className="text-sm uppercase">Source</div>
+          <div className="text-base/relaxed text-[#ecd9cb]">{source}</div>
         </div>
-      </div>
+      )}
+      {/* Country */}
+      {country && (
+        <div className="my-8 flex flex-col gap-2">
+          <div className="text-sm uppercase">Country</div>
+          <div className="text-base/relaxed text-[#ecd9cb]">
+            {country.join(", ")}
+          </div>
+        </div>
+      )}
       {/* Keywords */}
       {keywords && (
         <div className="my-8 flex flex-col gap-2">

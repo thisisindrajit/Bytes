@@ -3,26 +3,26 @@ import { FC, useState } from "react";
 import Loading from "../common/Loading";
 
 interface SentimentHolderProps {
-  sentiment: "pos" | "neg" | "neu";
+  sentiment: string;
 }
 
 const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const showSentiment = (sentiment: "pos" | "neg" | "neu") => {
+  const showSentiment = (sentiment: string) => {
     switch (sentiment) {
       case "pos":
-        return "/images/emojis/positive.png";
+        return "/images/emojis/pos.png";
       case "neg":
-        return "/images/emojis/negative.png";
+        return "/images/emojis/neg.png";
       case "neu":
-        return "/images/emojis/neutral.png";
+        return "/images/emojis/neu.png";
       default:
-        return "/images/emojis/neutral.png";
+        return "/images/emojis/neu.png";
     }
   };
 
-  const returnSentimentValue = (sentiment: "pos" | "neg" | "neu") => {
+  const returnSentimentValue = (sentiment: string) => {
     switch (sentiment) {
       case "pos":
         return "Positive";
@@ -31,12 +31,12 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
       case "neu":
         return "Neutral";
       default:
-        return "No sentiment";
+        return "Neutral";
     }
   };
 
   return (
-    <div className="bg-[#303030] rounded  p-2 md:p-4 h-32 lg:h-full overflow-y-auto text-white">
+    <div className="bg-[#303030] rounded p-2 md:p-4 h-32 lg:h-full overflow-y-auto text-white">
       <div className="flex flex-col min-h-full h-fit gap-2">
         <div className="text-xs lg:text-sm text-[#ecd9cb] uppercase">
           Sentiment
@@ -51,7 +51,7 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
           <div
             className={`${
               isImageLoaded ? "block" : "hidden"
-            } relative h-16 w-16 lg:h-32 lg:w-32 xl:h-44 xl:w-44 3xl:h-64 3xl:w-64`}
+            } relative h-16 w-16 lg:h-24 lg:w-24 xl:h-32 xl:w-32 3xl:h-48 3xl:w-48`}
           >
             <Image
               src={showSentiment(sentiment)}

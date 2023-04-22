@@ -53,7 +53,12 @@ const ImageHolder: FC<ImageHolderProps> = ({
     </div>
   ) : (
     <div className={`relative ${heightAndWidthClasses}`}>
-      <Image src={src} alt={alt} fill={true} priority={priority} />
+      <Image
+        src={src}
+        alt={alt}
+        fill={true}
+        priority={priority ? priority : false}
+      />
     </div>
   );
 };

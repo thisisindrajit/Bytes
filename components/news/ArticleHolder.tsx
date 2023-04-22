@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { Dispatch, FC, SetStateAction, use, useContext, useEffect, useState } from "react";
 import { Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import { CarouselContext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
@@ -20,23 +20,16 @@ interface ArticleHolderProps {
   imgUrl: string | null;
   articleUrl: string;
   title: string;
-  pubDate: string;
+  pubDate: string | null;
   description: string | null;
   summary: string;
-  category: string[];
+  category: string[] | null;
   creator: string[] | null;
-  source: string;
-  country: string[];
+  source: string | null;
+  country: string[] | null;
   keywords: string[] | null;
-  sentiment: "pos" | "neg" | "neu";
-  emotion:
-    | "anger"
-    | "disgust"
-    | "fear"
-    | "joy"
-    | "sadness"
-    | "surprise"
-    | "neutral";
+  sentiment: string;
+  emotion: string;
   tabIndexStart: number;
   // All other props
   [x: string]: any;
@@ -97,10 +90,10 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={0}
                   tabIndex={-1}
-                  className="min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto bg-[#303030] bg-scroll bg-no-repeat bg-cover text-white"
+                  className="min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto bg-[#303030] bg-scroll bg-no-repeat bg-cover bg-center text-white"
                   style={{
                     backgroundImage: imgUrl
-                      ? `linear-gradient(0deg, rgba(0, 0, 0, 0.8) 75%, rgba(0, 0, 0, 0.9) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
+                      ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
                       : "none",
                   }}
                 >

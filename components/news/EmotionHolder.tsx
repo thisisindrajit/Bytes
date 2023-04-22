@@ -3,29 +3,13 @@ import { FC, useState } from "react";
 import Loading from "../common/Loading";
 
 interface EmotionHolderProps {
-  emotion:
-    | "anger"
-    | "disgust"
-    | "fear"
-    | "joy"
-    | "sadness"
-    | "surprise"
-    | "neutral";
+  emotion: string;
 }
 
 const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
-  const showEmotion = (
-    emotion:
-      | "anger"
-      | "disgust"
-      | "fear"
-      | "joy"
-      | "sadness"
-      | "surprise"
-      | "neutral"
-  ) => {
+  const showEmotion = (emotion: string) => {
     switch (emotion) {
       case "anger":
         return "/images/emojis/anger.png";
@@ -46,16 +30,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
     }
   };
 
-  const returnEmotionValue = (
-    emotion:
-      | "anger"
-      | "disgust"
-      | "fear"
-      | "joy"
-      | "sadness"
-      | "surprise"
-      | "neutral"
-  ) => {
+  const returnEmotionValue = (emotion: string) => {
     switch (emotion) {
       case "anger":
         return "Anger";
@@ -72,7 +47,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
       case "neutral":
         return "Neutral";
       default:
-        return "No emotion";
+        return "Neutral";
     }
   };
 
@@ -92,7 +67,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
           <div
             className={`${
               isImageLoaded ? "block" : "hidden"
-            } relative h-16 w-16 lg:h-32 lg:w-32 xl:h-44 xl:w-44 3xl:h-64 3xl:w-64`}
+            } relative h-16 w-16 lg:h-24 lg:w-24 xl:h-32 xl:w-32 3xl:h-48 3xl:w-48`}
           >
             <Image
               src={showEmotion(emotion)}

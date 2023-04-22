@@ -1,10 +1,54 @@
 import Holder from "@/components/common/Holder";
+import Loading from "@/components/common/Loading";
 import TopBar from "@/components/common/TopBar";
 import ArticleHolder from "@/components/news/ArticleHolder";
+import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
-import { useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
+import { useInfiniteQuery } from "react-query";
 
 const Home = () => {
+  let curTabIndexStartValue = 2;
+
+  const getArticles = async (curLastKey: string | null) => {
+    const options = {
+      method: "GET",
+    };
+
+    const response = await fetch(
+      curLastKey ? `/api/articles?curLastKey=${curLastKey}` : `/api/articles`,
+      options
+    );
+
+    if (response.status !== 200) {
+      throw "Error fetching articles!";
+    }
+
+    const allArticles = await response.json();
+
+    return allArticles;
+  };
+
+  const {
+    data: results,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery(
+    ["articles"],
+    ({ pageParam = null }) => getArticles(pageParam),
+    {
+      getNextPageParam: (lastAPIQueryData) => {
+        return lastAPIQueryData.lastKey ? lastAPIQueryData.lastKey : null;
+      },
+      keepPreviousData: true,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
+
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
     document.getElementById("all-articles-holder")?.focus();
@@ -18,99 +62,100 @@ const Home = () => {
     >
       <TopBar />
       <Holder>
-        <CarouselProvider
-          naturalSlideWidth={0}
-          naturalSlideHeight={0}
-          isIntrinsicHeight={false}
-          totalSlides={3}
-          touchEnabled={true}
-          dragEnabled={false}
-        >
-          <ArticleHolder
-            id="1"
-            className="min-h-screen snap-center p-4"
-            hasPrevious={false}
-            hasNext={true}
-            prevId={null}
-            nextId="2"
-            title="Are you a Facebook user? You could get some settlement cash"
-            description="Meta has agreed to pay Facebook users $725m privacy settlement"
-            pubDate="2023-04-20 05:12:44"
-            imgUrl="https://static.independent.co.uk/2023/04/19/19/Facebook-Settlement_38212.jpg?width=1200&auto=webp"
-            articleUrl="https://www.independent.co.uk/news/facebook-settlement-privacy-meta-how-to-claim-b2323197.html"
-            summary="Facebook users with accounts between May 2007 and December 2022 can apply for a share of Meta's $725 million privacy settlement. Meta agreed to this payment in December after a four-year class action lawsuit accused the company of letting millions of users' personal information be accessed by Cambridge Analytica. This data analytics firm supported Donald Trump's 2016 presidential campaign. A claim form is now available for eligible users to apply for their share of the settlement."
-            category={["top"]}
-            creator={["Chelsea Ritschel"]}
-            source="independentUK"
-            country={["united kingdom"]}
-            keywords={null}
-            sentiment="neu"
-            emotion="neutral"
-            tabIndexStart={2}
-          />
-        </CarouselProvider>
-        <CarouselProvider
-          naturalSlideWidth={0}
-          naturalSlideHeight={0}
-          isIntrinsicHeight={false}
-          totalSlides={3}
-          touchEnabled={true}
-          dragEnabled={false}
-        >
-          <ArticleHolder
-            id="2"
-            className="min-h-screen snap-center p-4"
-            hasPrevious={true}
-            hasNext={true}
-            prevId="1"
-            nextId="3"
-            title="Musk threatens to sue Microsoft over its digital ad changes that won't include Twitter"
-            pubDate="2023-04-20 15:06:49"
-            imgUrl="https://twt-thumbs.washtimes.com/media/image/2020/09/29/microsoft-results_80521_s1440x1000.jpg?3df6c398ab1dbaf88e0a3d57e9bfedb215a2ccc1"
-            articleUrl="https://www.washingtontimes.com/news/2023/apr/20/elon-musk-feuding-microsoft-over-digital-ad-change/?utm_source=RSS_Feed&utm_medium=RSS"
-            description="Microsoft is preparing to remove Twitter from its advertising platform, provoking the social media company's billionaire owner Elon Musk to threaten legal action against the Big Tech titan."
-            summary="Microsoft plans to remove Twitter from its advertising platform, which has led to billionaire owner Elon Musk threatening legal action against the tech giant. Microsoft's website features a notification stating that it will no longer offer advertising customers the option to use its services for posting on Twitter, starting April 25. However, Microsoft will continue to collaborate with Facebook and Instagram for advertising purposes."
-            category={["top"]}
-            creator={["Ryan Lovelace"]}
-            source="washingtontimes"
-            country={["united states of america"]}
-            keywords={null}
-            sentiment="neu"
-            emotion="fear"
-            tabIndexStart={7}
-          />
-        </CarouselProvider>
-        <CarouselProvider
-          naturalSlideWidth={0}
-          naturalSlideHeight={0}
-          isIntrinsicHeight={false}
-          totalSlides={3}
-          touchEnabled={true}
-          dragEnabled={false}
-        >
-          <ArticleHolder
-            id="3"
-            className="min-h-screen snap-center p-4"
-            hasPrevious={true}
-            hasNext={false}
-            prevId="2"
-            nextId={null}
-            title="Man killed in hit-and-run crash, Fort Collins police say; Medina Alert issued"
-            pubDate="2023-04-19 13:18:24"
-            imgUrl={null}
-            articleUrl="https://247newsaroundtheworld.com/crime/man-killed-in-hit-and-run-crash-fort-collins-police-say-medina-alert-issued/"
-            description="247 News Around The World 247 News Around The World FORT COLLINS, Colo. — A man is dead in Fort Collins following… The post Man killed in hit-and-run crash, Fort Collins police say; Medina Alert issued appeared first on 247 News Around The World."
-            summary="A fatal hit-and-run incident occurred in Fort Collins, Colorado, resulting in the death of a pedestrian. The crash took place near Mulberry St. Riverside Ave. Tuesday. Fort Collins police closed down Mulberry St. Riverside Ave. Lemay Ave. It is believed that the pedestrian was struck by at least two different cars, both of which fled the scene without stopping."
-            category={["top"]}
-            creator={["247 News Around the World"]}
-            source="247newsaroundtheworld"
-            country={["united kingdom"]}
-            keywords={["Crime"]}
-            sentiment="neg"
-            emotion="fear"
-            tabIndexStart={12}
-          />
-        </CarouselProvider>
+        {isError ? (
+          <div className="h-screen w-full flex items-center justify-center p-4">
+            <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500">
+              Error fetching articles! Please try again by refreshing the page!
+            </span>
+          </div>
+        ) : !isLoading && results ? (
+          <>
+            {results.pages.map((page: any, index: number) => (
+              <Fragment key={index}>
+                {page.data.map((article: Article, index: number) => {
+                  if (index > 0) {
+                    curTabIndexStartValue += 5;
+                  }
+
+                  return (
+                    <CarouselProvider
+                      key={index}
+                      naturalSlideWidth={0}
+                      naturalSlideHeight={0}
+                      isIntrinsicHeight={false}
+                      totalSlides={3}
+                      touchEnabled={true}
+                      dragEnabled={false}
+                    >
+                      <ArticleHolder
+                        id={article.id}
+                        className="min-h-screen snap-center p-4"
+                        hasPrevious={index === 0 ? false : true}
+                        hasNext={index === page.data.length - 1 ? false : true}
+                        prevId={page.data[index - 1]?.id}
+                        nextId={page.data[index + 1]?.id}
+                        title={article.title}
+                        description={article.description}
+                        pubDate={
+                          article.pub_date
+                            ? new Date(article.pub_date).toUTCString()
+                            : null
+                        }
+                        imgUrl={article.image_url}
+                        articleUrl={article.link}
+                        summary={
+                          article.summarized_text
+                            ? article.summarized_text
+                            : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
+                        }
+                        category={
+                          article.category
+                            ? JSON.parse(article.category).category
+                            : null
+                        }
+                        creator={
+                          article.creator
+                            ? JSON.parse(article.creator).creator
+                            : null
+                        }
+                        source={article.source}
+                        country={
+                          article.country
+                            ? JSON.parse(article.country).country
+                            : null
+                        }
+                        keywords={
+                          article.keywords
+                            ? JSON.parse(article.keywords).keywords
+                            : null
+                        }
+                        sentiment={
+                          article.predicted_sentiment
+                            ? article.predicted_sentiment
+                            : "neu"
+                        }
+                        emotion={
+                          article.predicted_emotion
+                            ? article.predicted_emotion
+                            : "neutral"
+                        }
+                        tabIndexStart={curTabIndexStartValue}
+                      />
+                    </CarouselProvider>
+                  );
+                })}
+              </Fragment>
+            ))}
+          </>
+        ) : (
+          <div className="h-screen w-full flex items-center justify-center">
+            <Loading
+              heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
+              loadingText="Fetching articles..."
+              className="text-white text-sm lg:text-base"
+            />
+          </div>
+        )}
       </Holder>
       <style jsx>
         {`

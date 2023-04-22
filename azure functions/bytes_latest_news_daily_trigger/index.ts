@@ -139,10 +139,9 @@ const timerTrigger: AzureFunction = async function (
     "world",
     "environment",
   ];
-  const countries = ["in", "us", "gb"];
+  const countries = ["in", "us", "gb", "au"];
 
   let newsArticles = [];
-  let nextPage = null;
 
   for (let i = 0; i < noOfIterations; i++) {
     // Getting n random countries and categories
@@ -156,15 +155,6 @@ const timerTrigger: AzureFunction = async function (
       ","
     )}&category=${randomCategories.join(",")}`;
 
-    // If country includes India, then add the query parameter q=India
-    if (randomCountries.includes("in")) {
-      apiUrl += "&q=India";
-    }
-
-    if (i > 0 && nextPage) {
-      apiUrl += `&page=${nextPage}`;
-    }
-
     const response = await axios.get(apiUrl);
 
     if (response.status !== 200) {
@@ -176,9 +166,6 @@ const timerTrigger: AzureFunction = async function (
     }
 
     const api_data: any = response.data;
-
-    // Setting the value of nextPage for fetching next page of data
-    nextPage = api_data.nextPage;
 
     // Adding the data to the totalResponse array
     newsArticles = [...newsArticles, ...api_data.results];

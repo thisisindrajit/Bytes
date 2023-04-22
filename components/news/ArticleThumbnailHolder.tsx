@@ -4,7 +4,7 @@ import ImageHolder from "../common/ImageHolder";
 interface ArticleThumbnailHolderProps {
   title: string;
   description: string | null;
-  pubDate: string;
+  pubDate: string | null;
 }
 
 const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
@@ -44,17 +44,19 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
         {title}
       </div>
       {/* Pub date */}
-      <div className="text-xs my-4 flex items-center w-fit gap-2">
-        <ImageHolder
-          heightAndWidthClasses="h-3 w-3"
-          src="/images/svg/clock.svg"
-          alt="clock icon"
-          priority={true}
-          color="white"
-          showLoading
-        />
-        <span>{formatDateAndTime(pubDate)}</span>
-      </div>
+      {pubDate && (
+        <div className="text-xs my-4 flex items-center w-fit gap-2">
+          <ImageHolder
+            heightAndWidthClasses="h-3 w-3"
+            src="/images/svg/clock.svg"
+            alt="clock icon"
+            priority={true}
+            color="white"
+            showLoading
+          />
+          <span>{formatDateAndTime(pubDate)}</span>
+        </div>
+      )}
       {/* Horizontal separator */}
       <div className="my-4 lg:my-6 h-[1px] w-full bg-[#ecd9cb]"></div>
       {/* Description */}
@@ -63,8 +65,8 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       )}
       {/* Check out AI summary text block */}
       <div className="text-base/loose mt-4 lg:mt-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span>Click on</span>
-        <div className="inline-block mx-2">
+        <span className="mr-2">Swipe right or click on</span>
+        <div className="inline-block">
           <span className="text-sm uppercase text-[#ecd9cb]">
             Summary by AI
           </span>
@@ -78,12 +80,14 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
             />
           </div>
         </div>
-        <span>to read the AI generated summary for the article.</span>
+        <span className="ml-2">
+          to read the AI generated summary for the article.
+        </span>
       </div>
       {/* How to read full article text block */}
       <div className="text-base/loose mb-4 lg:mb-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span>Click on</span>
-        <div className="inline-block mx-2">
+        <span className="mr-2">Click on</span>
+        <div className="inline-block">
           <div className="inline-block align-middle">
             <ImageHolder
               heightAndWidthClasses=" h-4 w-4"
@@ -94,7 +98,9 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
             />
           </div>
         </div>
-        <span>in the bottom bar to read the full article.</span>
+        <span className="ml-2">
+          in the bottom navigation bar to read the full article.
+        </span>
       </div>
     </div>
   );

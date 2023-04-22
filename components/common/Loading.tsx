@@ -31,7 +31,7 @@ const Loading: FC<LoadingProps> = ({
 
   return (
     <div
-      className={`flex gap-2 items-center justify-center w-fit ${className}`}
+      className={`flex gap-4 items-center justify-center w-fit ${className}`}
     >
       <ImageHolder
         heightAndWidthClasses={heightAndWidthClassesForLoadingIcon}
