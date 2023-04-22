@@ -4,6 +4,7 @@ import type { AppProps } from "next/app";
 import AnimatedBackground from "@/components/common/AnimatedBackground";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { Analytics } from "@vercel/analytics/react";
 
 export const queryClient = new QueryClient();
 
@@ -16,6 +17,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <AnimatedBackground>
         <Component {...pageProps} />
+        <Analytics />
         <ReactQueryDevtools initialIsOpen={false} />
       </AnimatedBackground>
     </QueryClientProvider>
