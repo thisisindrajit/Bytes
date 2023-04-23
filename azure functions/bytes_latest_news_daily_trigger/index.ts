@@ -188,7 +188,7 @@ const timerTrigger: AzureFunction = async function (
     // Summarize text, predict sentiment and emotion
     try {
       const content =
-        newsArticles[i]?.description?.length > 256
+        newsArticles[i]?.description?.length > 512
           ? newsArticles[i].description
           : newsArticles[i].content.slice(0, 512);
 

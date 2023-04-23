@@ -21,9 +21,14 @@ const getArticles = async (
     return res.status(405).json({ message: "Only GET requests allowed!" });
   }
 
+  if (!req.query?.curLastKey) {
+    res.status(400).json({ message: 'Missing curLastKey query parameter!' });
+    return;
+  }
+
   const limit = 10;
 
-  const curLastKey = req.query.curLastKey
+  const curLastKey = req.query.curLastKey !== "1"
     ? new Date(req.query.curLastKey as string)
     : null;
 

@@ -29,7 +29,10 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       publishedObj.getMinutes() < 10
         ? "0" + publishedObj.getMinutes()
         : publishedObj.getMinutes();
-    const seconds = publishedObj.getSeconds();
+    const seconds =
+      publishedObj.getSeconds() < 10
+        ? "0" + publishedObj.getSeconds()
+        : publishedObj.getSeconds();
     const amOrPm = publishedObj.getHours() >= 12 ? "PM" : "AM";
 
     let fullDate = `${date}/${month}/${year}`;
@@ -99,7 +102,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
           </div>
         </div>
         <span className="ml-2">
-          in the bottom navigation bar to read the full article.
+          in the bottom navigation bar to read the full article!
         </span>
       </div>
     </div>

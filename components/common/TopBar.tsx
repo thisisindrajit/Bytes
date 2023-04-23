@@ -3,15 +3,16 @@ import ImageHolder from "./ImageHolder";
 
 interface TopBarProps {
   className?: string;
+  onClickIcon?: () => any;
 }
 
-const TopBar: FC<TopBarProps> = ({ className = "" }) => {
+const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
   return (
     <div
       className={`bg-[#ecd9cb]/80 backdrop-blur-xl w-full flex items-center justify-between text-sm fixed drop-shadow-[0_25px_25px_rgba(0,0,0,0.25)] z-10 ${className}`}
     >
       {/* Logo and title */}
-      <div className="bg-white p-4 w-fit flex items-center gap-2.5 cursor-pointer">
+      <div className="bg-white p-4 w-fit flex items-center gap-2.5 cursor-pointer" onClick={onClickIcon}>
         <ImageHolder
           heightAndWidthClasses="h-5 w-5"
           src="/images/bytes_logo.png"

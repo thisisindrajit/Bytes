@@ -111,6 +111,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   className="p-4 min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto text-white"
                 >
                   <ArticleSummaryHolder
+                    source={source}
                     summary={summary}
                     generatedByAi={generatedByAi}
                     articleUrl={articleUrl}

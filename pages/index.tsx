@@ -2,21 +2,25 @@ import Holder from "@/components/common/Holder";
 import Loading from "@/components/common/Loading";
 import TopBar from "@/components/common/TopBar";
 import ArticleHolder from "@/components/news/ArticleHolder";
+import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
-import { Fragment, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 
 const Home = () => {
+  const loadMoreRef: any = useRef(null);
+  const [pagesFetched, setPagesFetched] = useState<number>(0);
+  const [articlesData, setArticlesData] = useState<Article[]>([]);
   let curTabIndexStartValue = 2;
 
-  const getArticles = async (curLastKey: string | null) => {
+  const getArticles = async (curLastKey: string) => {
     const options = {
       method: "GET",
     };
 
     const response = await fetch(
-      curLastKey ? `/api/articles?curLastKey=${curLastKey}` : `/api/articles`,
+      `/api/articles?curLastKey=${curLastKey}`,
       options
     );
 
@@ -29,16 +33,24 @@ const Home = () => {
     return allArticles;
   };
 
+  const scrollToTop = () => {
+    document.getElementById("all-articles-holder")?.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   const {
     data: results,
     isLoading,
     isError,
+    isRefetchError,
     isFetchingNextPage,
     hasNextPage,
     fetchNextPage,
   } = useInfiniteQuery(
     ["articles"],
-    ({ pageParam = null }) => getArticles(pageParam),
+    ({ pageParam = "1" }) => getArticles(pageParam),
     {
       getNextPageParam: (lastAPIQueryData) => {
         return lastAPIQueryData.lastKey ? lastAPIQueryData.lastKey : null;
@@ -48,6 +60,31 @@ const Home = () => {
       refetchOnWindowFocus: false,
     }
   );
+
+  // intersection observer
+  useIntersectionObserver({
+    target: loadMoreRef,
+    onIntersect: fetchNextPage,
+    enabled: !!hasNextPage,
+  });
+
+  useEffect(() => {
+    if (!isFetchingNextPage && results) {
+      const curPageFetched = pagesFetched + 1;
+      if (results.pages[curPageFetched - 1]?.data) {
+        setArticlesData([
+          ...articlesData,
+          ...results.pages[curPageFetched - 1].data,
+        ]);
+        setPagesFetched(curPageFetched);
+        // const firstIdOfCurPage = results.pages[curPageFetched - 1].data[0].id;
+        // document.getElementById(firstIdOfCurPage)?.scrollTo({
+        //   top: 0,
+        //   behavior: "instant",
+        // });
+      }
+    }
+  }, [isFetchingNextPage, results]);
 
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
@@ -60,96 +97,117 @@ const Home = () => {
       id="all-articles-holder"
       className="max-h-screen w-full relative overflow-y-auto outline-none"
     >
-      <TopBar />
+      <TopBar onClickIcon={scrollToTop} />
       <Holder
         className={`${
-          (isError || isLoading) &&
+          (isError || isLoading || isRefetchError) &&
           "h-screen w-full flex items-center justify-center"
         }`}
       >
-        {isError ? (
+        {isError || isRefetchError ? (
           <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500 m-6">
             Error fetching articles! Please try again by refreshing the page!
           </span>
-        ) : !isLoading && results ? (
+        ) : !isLoading && articlesData ? (
           <>
-            {results.pages.map((page: any, index: number) => (
-              <Fragment key={index}>
-                {page.data.map((article: Article, index: number) => {
-                  if (index > 0) {
-                    curTabIndexStartValue += 5;
-                  }
+            {articlesData.map((article: Article, index: number) => {
+              if (index > 0) {
+                curTabIndexStartValue += 5;
+              }
 
-                  return (
-                    <CarouselProvider
-                      key={index}
-                      naturalSlideWidth={0}
-                      naturalSlideHeight={0}
-                      isIntrinsicHeight={false}
-                      totalSlides={3}
-                      touchEnabled={true}
-                      dragEnabled={false}
-                    >
-                      <ArticleHolder
-                        id={article.id}
-                        className="min-h-screen snap-center p-4"
-                        hasPrevious={index === 0 ? false : true}
-                        hasNext={index === page.data.length - 1 ? false : true}
-                        prevId={page.data[index - 1]?.id}
-                        nextId={page.data[index + 1]?.id}
-                        title={article.title}
-                        description={article.description}
-                        pubDate={
-                          article.pub_date
-                            ? new Date(article.pub_date).toUTCString()
-                            : null
-                        }
-                        imgUrl={article.image_url}
-                        articleUrl={article.link}
-                        summary={
-                          article.summarized_text
-                            ? article.summarized_text
-                            : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
-                        }
-                        generatedByAi={article.summarized_text ? true : false}
-                        category={
-                          article.category
-                            ? JSON.parse(article.category).category
-                            : null
-                        }
-                        creator={
-                          article.creator
-                            ? JSON.parse(article.creator).creator
-                            : null
-                        }
-                        source={article.source}
-                        country={
-                          article.country
-                            ? JSON.parse(article.country).country
-                            : null
-                        }
-                        keywords={
-                          article.keywords
-                            ? JSON.parse(article.keywords).keywords
-                            : null
-                        }
-                        sentiment={
-                          article.predicted_sentiment
-                            ? article.predicted_sentiment
-                            : "neu"
-                        }
-                        emotion={
-                          article.predicted_emotion
-                            ? article.predicted_emotion
-                            : "neutral"
-                        }
-                        tabIndexStart={curTabIndexStartValue}
-                      />
-                    </CarouselProvider>
-                  );
-                })}
-              </Fragment>
-            ))}
+              return (
+                <CarouselProvider
+                  key={article.id}
+                  naturalSlideWidth={0}
+                  naturalSlideHeight={0}
+                  isIntrinsicHeight={false}
+                  totalSlides={3}
+                  touchEnabled={true}
+                  dragEnabled={false}
+                >
+                  <ArticleHolder
+                    id={article.id}
+                    className="min-h-screen snap-center p-4"
+                    hasPrevious={index === 0 ? false : true}
+                    hasNext={index === articlesData.length - 1 ? false : true}
+                    prevId={articlesData[index - 1]?.id}
+                    nextId={articlesData[index + 1]?.id}
+                    title={article.title}
+                    description={article.description}
+                    pubDate={
+                      article.pub_date
+                        ? new Date(article.pub_date).toUTCString()
+                        : null
+                    }
+                    imgUrl={article.image_url}
+                    articleUrl={article.link}
+                    summary={
+                      article.summarized_text
+                        ? article.summarized_text
+                        : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
+                    }
+                    generatedByAi={article.summarized_text ? true : false}
+                    category={
+                      article.category
+                        ? JSON.parse(article.category).category
+                        : null
+                    }
+                    creator={
+                      article.creator
+                        ? JSON.parse(article.creator).creator
+                        : null
+                    }
+                    source={article.source}
+                    country={
+                      article.country
+                        ? JSON.parse(article.country).country
+                        : null
+                    }
+                    keywords={
+                      article.keywords
+                        ? JSON.parse(article.keywords).keywords
+                        : null
+                    }
+                    sentiment={
+                      article.predicted_sentiment
+                        ? article.predicted_sentiment
+                        : "neu"
+                    }
+                    emotion={
+                      article.predicted_emotion
+                        ? article.predicted_emotion
+                        : "neutral"
+                    }
+                    tabIndexStart={curTabIndexStartValue}
+                  />
+                </CarouselProvider>
+              );
+            })}
+            {/* If there are no articles in DB */}
+            {!hasNextPage ? (
+              articlesData.length === 0 ? (
+                <div className="h-screen w-full flex items-center justify-center text-white">
+                  No articles available! 🥺
+                </div>
+              ) : (
+                <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
+                  You have viewed all articles! 🎉
+                </div>
+              )
+            ) : (
+              <div ref={loadMoreRef}>
+                {!isFetchingNextPage ? (
+                  <div className="bg-white flex items-center justify-center">
+                    <Loading
+                      heightAndWidthClassesForLoadingIcon="h-8 w-8"
+                      loadingText="Fetching more articles..."
+                      className="text-sm lg:text-base m-6"
+                      color="black"
+                    />
+                  </div>
+                ) : null}
+              </div>
+            )}
           </>
         ) : (
           <Loading
