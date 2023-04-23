@@ -4,7 +4,7 @@ import TopBar from "@/components/common/TopBar";
 import ArticleHolder from "@/components/news/ArticleHolder";
 import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect } from "react";
 import { useInfiniteQuery } from "react-query";
 
 const Home = () => {
@@ -61,13 +61,16 @@ const Home = () => {
       className="max-h-screen w-full relative overflow-y-auto outline-none"
     >
       <TopBar />
-      <Holder>
+      <Holder
+        className={`${
+          (isError || isLoading) &&
+          "h-screen w-full flex items-center justify-center"
+        }`}
+      >
         {isError ? (
-          <div className="h-screen w-full flex items-center justify-center p-4">
-            <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500">
-              Error fetching articles! Please try again by refreshing the page!
-            </span>
-          </div>
+          <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500 m-6">
+            Error fetching articles! Please try again by refreshing the page!
+          </span>
         ) : !isLoading && results ? (
           <>
             {results.pages.map((page: any, index: number) => (
@@ -108,6 +111,7 @@ const Home = () => {
                             ? article.summarized_text
                             : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
                         }
+                        generatedByAi={article.summarized_text ? true : false}
                         category={
                           article.category
                             ? JSON.parse(article.category).category
@@ -148,13 +152,11 @@ const Home = () => {
             ))}
           </>
         ) : (
-          <div className="h-screen w-full flex items-center justify-center">
-            <Loading
-              heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
-              loadingText="Fetching articles..."
-              className="text-white text-sm lg:text-base"
-            />
-          </div>
+          <Loading
+            heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
+            loadingText="Fetching articles..."
+            className="text-white text-sm lg:text-base m-6"
+          />
         )}
       </Holder>
       <style jsx>

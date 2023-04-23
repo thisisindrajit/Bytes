@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, use, useContext, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import { CarouselContext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
@@ -23,6 +23,7 @@ interface ArticleHolderProps {
   pubDate: string | null;
   description: string | null;
   summary: string;
+  generatedByAi: boolean;
   category: string[] | null;
   creator: string[] | null;
   source: string | null;
@@ -48,6 +49,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   pubDate,
   description,
   summary,
+  generatedByAi,
   category,
   creator,
   source,
@@ -110,6 +112,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 >
                   <ArticleSummaryHolder
                     summary={summary}
+                    generatedByAi={generatedByAi}
                     articleUrl={articleUrl}
                   />
                 </Slide>
