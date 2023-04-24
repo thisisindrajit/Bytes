@@ -36,7 +36,8 @@ const getArticles = async (
 
   if (curLastKey) {
     where = {
-      addedToTableAt: { lt: curLastKey },
+      ...where,
+      addedToTableAt: { lt: curLastKey }
     };
   }
 

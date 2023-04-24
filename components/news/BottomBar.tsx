@@ -61,12 +61,12 @@ const BottomBar: FC<BottomBarProps> = ({
           hasNext && !isFetchingNewArticles
             ? "bg-white cursor-pointer"
             : "bg-gray-200"
-        }  p-3 flex items-center justify-center gap-3`}
+        } p-3 flex items-center justify-center gap-3`}
         onClick={hasNext && nextId ? () => showInView(nextId) : () => {}}
       >
         {isFetchingNewArticles ? (
           <Loading
-            heightAndWidthClassesForLoadingIcon="h-5 w-5"
+            heightAndWidthClassesForLoadingIcon="h-5 w-5 sm:h-6 sm:w-6"
             color="grey"
             noText
           />

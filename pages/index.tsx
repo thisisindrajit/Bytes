@@ -7,7 +7,8 @@ import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
 import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
-import {decode} from 'html-entities';
+import { decode } from "html-entities";
+import iconVLite from "iconv-lite";
 
 const Home = () => {
   const loadMoreRef: any = useRef(null);
@@ -41,12 +42,13 @@ const Home = () => {
     });
   };
 
-  const cleanTitle = (title: string) => {
-    // This is done to correct few titles not having correct ascii symbols
-    let modifiedTitle = title.replaceAll("#39;", "&#39;");
+  const cleanIfSourceIsMoneycontrol = (input: string) => {
+    // This is done to correct text from moneycontrol because it uses a different encoding
+    let modifiedInput = input.replaceAll("#39;", "&#39;");
+    let encodedInput = iconVLite.encode(modifiedInput, "windows-1252");
 
-    return decode(modifiedTitle);
-  }
+    return decode(iconVLite.decode(encodedInput, "utf-8").toString());
+  };
 
   const {
     data: results,
@@ -140,8 +142,18 @@ const Home = () => {
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
                     nextId={articlesData[index + 1]?.id}
-                    title={cleanTitle(article.title)}
-                    description={decode(article.description)}
+                    title={
+                      article.source === "moneycontrol"
+                        ? cleanIfSourceIsMoneycontrol(article.title)
+                        : article.title
+                    }
+                    description={
+                      article.description
+                        ? article.source === "moneycontrol"
+                          ? cleanIfSourceIsMoneycontrol(article.description)
+                          : article.description
+                        : null
+                    }
                     pubDate={
                       article.pub_date
                         ? new Date(article.pub_date).toUTCString()
