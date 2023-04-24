@@ -28,7 +28,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
           {category && (
             <div className="mt-6 mb-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Category</div>
-              <div className="text-base/relaxed text-[#ecd9cb]">
+              <div className="text-base/relaxed capitalize text-[#ecd9cb]">
                 {category.join(", ")}
               </div>
             </div>
@@ -37,7 +37,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
           {creator && (
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Creator</div>
-              <div className="text-base/relaxed text-[#ecd9cb]">
+              <div className="text-base/relaxed capitalize text-[#ecd9cb]">
                 {creator.join(", ")}
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
+import Loading from "../common/Loading";
 
 interface BottomBarProps {
   className?: string;
@@ -9,6 +10,7 @@ interface BottomBarProps {
   prevId: string | null;
   nextId: string | null;
   tabIndex: number;
+  isFetchingNewArticles: boolean;
 }
 
 const BottomBar: FC<BottomBarProps> = ({
@@ -19,6 +21,7 @@ const BottomBar: FC<BottomBarProps> = ({
   nextId,
   link,
   tabIndex,
+  isFetchingNewArticles,
 }) => {
   const showInView = (id: string) => {
     document.getElementById(id)?.scrollIntoView({
@@ -55,23 +58,43 @@ const BottomBar: FC<BottomBarProps> = ({
       <button
         tabIndex={-1}
         className={`${
-          hasNext ? "bg-white cursor-pointer" : "bg-gray-200 text-gray-500"
+          hasNext && !isFetchingNewArticles
+            ? "bg-white cursor-pointer"
+            : "bg-gray-200"
         }  p-3 flex items-center justify-center gap-3`}
         onClick={hasNext && nextId ? () => showInView(nextId) : () => {}}
       >
-        <ImageHolder
-          heightAndWidthClasses="h-5 w-5"
-          src={
-            hasNext
-              ? "/images/svg/down-arrow.svg"
-              : "/images/svg/down-arrow-greyed.svg"
-          }
-          alt="down arrow icon"
-          color={hasNext ? "black" : "grey"}
-          priority={true}
-          showLoading
-        />
-        <span className="hidden sm:block">Next</span>
+        {isFetchingNewArticles ? (
+          <Loading
+            heightAndWidthClassesForLoadingIcon="h-6 w-6"
+            color="grey"
+            noText
+          />
+        ) : (
+          <>
+            <ImageHolder
+              heightAndWidthClasses="h-5 w-5"
+              src={
+                hasNext
+                  ? "/images/svg/down-arrow.svg"
+                  : "/images/svg/down-arrow-greyed.svg"
+              }
+              alt="down arrow icon"
+              color={hasNext && !isFetchingNewArticles ? "black" : "grey"}
+              priority={true}
+              showLoading
+            />
+            <span
+              className={`hidden sm:block ${
+                hasNext && !isFetchingNewArticles
+                  ? "text-black"
+                  : "text-gray-500"
+              }`}
+            >
+              Next
+            </span>
+          </>
+        )}
       </button>
       <a
         href={link}

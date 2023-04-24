@@ -7,6 +7,7 @@ import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
 import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
+import {decode} from 'html-entities';
 
 const Home = () => {
   const loadMoreRef: any = useRef(null);
@@ -39,6 +40,13 @@ const Home = () => {
       behavior: "smooth",
     });
   };
+
+  const cleanTitle = (title: string) => {
+    // This is done to correct few titles not having correct ascii symbols
+    let modifiedTitle = title.replaceAll("#39;", "&#39;");
+
+    return decode(modifiedTitle);
+  }
 
   const {
     data: results,
@@ -127,13 +135,13 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-screen snap-center p-4"
+                    className="min-h-screen snap-start p-4"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
                     nextId={articlesData[index + 1]?.id}
-                    title={article.title}
-                    description={article.description}
+                    title={cleanTitle(article.title)}
+                    description={decode(article.description)}
                     pubDate={
                       article.pub_date
                         ? new Date(article.pub_date).toUTCString()
@@ -179,6 +187,7 @@ const Home = () => {
                         : "neutral"
                     }
                     tabIndexStart={curTabIndexStartValue}
+                    isFetchingNewArticles={isFetchingNextPage}
                   />
                 </CarouselProvider>
               );

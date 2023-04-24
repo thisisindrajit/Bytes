@@ -19,7 +19,7 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
       <div className="text-lg text-[#ecd9cb]">Article Summary</div>
       {/* Summary holder */}
       <div
-        className={`bg-[#212121] border px-6 py-4 rounded text-base/loose text-justify my-4 ${
+        className={`bg-[#212121] border px-6 py-4 rounded text-base/loose text-justify first-letter:capitalize my-4 ${
           generatedByAi ? "border-[#ecd9cb]" : "border-red-500"
         }`}
       >
