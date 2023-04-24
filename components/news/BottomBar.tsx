@@ -66,7 +66,7 @@ const BottomBar: FC<BottomBarProps> = ({
       >
         {isFetchingNewArticles ? (
           <Loading
-            heightAndWidthClassesForLoadingIcon="h-6 w-6"
+            heightAndWidthClassesForLoadingIcon="h-5 w-5"
             color="grey"
             noText
           />

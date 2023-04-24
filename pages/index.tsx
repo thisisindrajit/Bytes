@@ -135,7 +135,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-screen snap-start p-4"
+                    className="min-h-screen snap-center p-4"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
