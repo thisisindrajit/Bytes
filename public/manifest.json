@@ -1,6 +1,12 @@
 {
-  "name": "",
-  "short_name": "",
+  "theme_color": "#ecd9cb",
+  "background_color": "#131313",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "name": "Bytes",
+  "short_name": "Bytes",
+  "description": "Bytes - News, redefined.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -12,8 +18,5 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  ]
 }

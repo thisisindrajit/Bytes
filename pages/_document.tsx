@@ -8,8 +8,11 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Anuphan:wght@200;300;400;500;600&display=swap"
           rel="stylesheet"
         />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#ecd9cb" />
         <meta name="description" content="Bytes - News, redefined." />
-        <meta name="keywords" content="" />
+        <meta name="keywords" content="news, artificial intelligence, open source" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
