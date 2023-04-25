@@ -24,8 +24,14 @@ body {
   outline: none !important;
 }
 
-/* This styling is to make sure that if the height is less than 768px then these styles are applied */
-@media screen and (max-height: 768px) and (min-width:1024px) {
+/* If height is less than 540px, then everything will be hidden except for "use a bigger screen" message */
+
+/* If the height is less than 667px (height of IPhone SE) then the emoji sizes are decreased and values are hidden */
+@media screen and (max-height: 667px) and (min-width:1024px) {
+  .emojis-holder .emoji-holder {
+    @apply h-20 w-20;
+  }
+
   .emojis-holder .value-holder{
     @apply hidden;
   }

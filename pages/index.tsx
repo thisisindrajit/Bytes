@@ -204,20 +204,22 @@ const Home = () => {
                 </CarouselProvider>
               );
             })}
-            {/* If there are no articles in DB */}
+            {/* If there are no more pages (data) to be shown */}
             {!hasNextPage ? (
+              // If there are no articles in DB
               articlesData.length === 0 ? (
                 <div className="h-screen w-full flex items-center justify-center text-white">
                   No articles available! 🥺
                 </div>
               ) : (
+                // If user has viewed all articles
                 <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
                   You have viewed all articles! 🎉
                 </div>
               )
             ) : (
               <div ref={loadMoreRef}>
-                {!isFetchingNextPage ? (
+                {!isLoading && isFetchingNextPage ? (
                   <div className="bg-white flex items-center justify-center">
                     <Loading
                       heightAndWidthClassesForLoadingIcon="h-8 w-8"

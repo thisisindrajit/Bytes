@@ -51,7 +51,7 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
           <div
             className={`${
               isImageLoaded ? "block" : "hidden"
-            } relative h-16 w-16 lg:h-24 lg:w-24 xl:h-32 xl:w-32 3xl:h-48 3xl:w-48`}
+            } relative h-16 w-16 lg:h-24 lg:w-24 xl:h-32 xl:w-32 3xl:h-48 3xl:w-48 emoji-holder`}
           >
             <Image
               src={showSentiment(sentiment)}
