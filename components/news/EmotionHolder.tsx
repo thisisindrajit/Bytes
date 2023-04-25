@@ -52,12 +52,12 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
   };
 
   return (
-    <div className="bg-[#303030] rounded  p-2 md:p-4 h-32 lg:h-full overflow-y-auto text-white">
+    <div className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white">
       <div className="flex flex-col min-h-full h-fit gap-2">
         <div className="text-xs lg:text-sm text-[#ecd9cb] uppercase">
           Emotion
         </div>
-        <div className="flex-1 flex lg:flex-col items-center justify-center gap-4 lg:gap-2">
+        <div className="flex-1 flex lg:flex-col items-center justify-center gap-4 lg:gap-2 lg:my-4 emojis-holder">
           {!isImageLoaded && (
             <Loading
               heightAndWidthClassesForLoadingIcon="h-8 w-8 lg:h-16 lg:w-16"
@@ -81,7 +81,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
             />
           </div>
           {isImageLoaded && (
-            <div className="hidden md:flex my-2 text-center text-white text-sm xl:text-base items-center justify-center gap-2">
+            <div className="hidden md:flex my-2 text-center text-white text-sm xl:text-base items-center justify-center gap-2 value-holder">
               <span className="text-[#ecd9cb]">•</span>
               <span>{returnEmotionValue(emotion)}</span>
               <span className="text-[#ecd9cb]">•</span>

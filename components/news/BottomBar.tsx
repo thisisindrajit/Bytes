@@ -34,8 +34,7 @@ const BottomBar: FC<BottomBarProps> = ({
     <div
       className={`grid grid-cols-3 place-content-stretch w-full md:w-[32rem] m-auto rounded overflow-hidden ${className}`}
     >
-      <button
-        tabIndex={-1}
+      <div
         className={`${
           hasPrevious ? "bg-white cursor-pointer" : "bg-gray-200 text-gray-500"
         }  p-3 flex items-center justify-center gap-3`}
@@ -54,23 +53,14 @@ const BottomBar: FC<BottomBarProps> = ({
           showLoading
         />
         <span className="hidden sm:block">Previous</span>
-      </button>
-      <button
-        tabIndex={-1}
+      </div>
+      <div
         className={`${
-          hasNext && !isFetchingNewArticles
-            ? "bg-white cursor-pointer"
-            : "bg-gray-200"
+          hasNext ? "bg-white cursor-pointer" : "bg-gray-200"
         } p-3 flex items-center justify-center gap-3`}
         onClick={hasNext && nextId ? () => showInView(nextId) : () => {}}
       >
-        {isFetchingNewArticles ? (
-          <Loading
-            heightAndWidthClassesForLoadingIcon="h-5 w-5 sm:h-6 sm:w-6"
-            color="grey"
-            noText
-          />
-        ) : (
+        {hasNext || !isFetchingNewArticles ? (
           <>
             <ImageHolder
               heightAndWidthClasses="h-5 w-5"
@@ -80,13 +70,13 @@ const BottomBar: FC<BottomBarProps> = ({
                   : "/images/svg/down-arrow-greyed.svg"
               }
               alt="down arrow icon"
-              color={hasNext && !isFetchingNewArticles ? "black" : "grey"}
+              color={hasNext ? "black" : "grey"}
               priority={true}
               showLoading
             />
             <span
               className={`hidden sm:block ${
-                hasNext && !isFetchingNewArticles
+                hasNext
                   ? "text-black"
                   : "text-gray-500"
               }`}
@@ -94,8 +84,14 @@ const BottomBar: FC<BottomBarProps> = ({
               Next
             </span>
           </>
+        ) : (
+          <Loading
+            heightAndWidthClassesForLoadingIcon="h-5 w-5 sm:h-6 sm:w-6"
+            color="grey"
+            noText
+          />
         )}
-      </button>
+      </div>
       <a
         href={link}
         tabIndex={tabIndex}

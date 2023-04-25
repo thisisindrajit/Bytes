@@ -23,3 +23,10 @@ body {
 .focusRing___1airF.carousel__slide-focus-ring {
   outline: none !important;
 }
+
+/* This styling is to make sure that if the height is less than 768px then these styles are applied */
+@media screen and (max-height: 768px) and (min-width:1024px) {
+  .emojis-holder .value-holder{
+    @apply hidden;
+  }
+}
