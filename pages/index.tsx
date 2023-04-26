@@ -133,11 +133,11 @@ const Home = () => {
                   isIntrinsicHeight={false}
                   totalSlides={3}
                   touchEnabled={true}
-                  dragEnabled={false}
+                  dragEnabled={true}
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-screen snap-center p-4"
+                    className="min-h-screen snap-start p-4"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
@@ -219,7 +219,7 @@ const Home = () => {
               )
             ) : (
               <div ref={loadMoreRef}>
-                {!isLoading && isFetchingNextPage ? (
+                {articlesData.length > 0 && (
                   <div className="bg-white flex items-center justify-center">
                     <Loading
                       heightAndWidthClassesForLoadingIcon="h-8 w-8"
@@ -228,7 +228,7 @@ const Home = () => {
                       color="black"
                     />
                   </div>
-                ) : null}
+                )}
               </div>
             )}
           </>

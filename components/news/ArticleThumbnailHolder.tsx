@@ -64,11 +64,11 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       <div className="my-4 lg:my-6 h-[1px] w-full bg-[#ecd9cb]"></div>
       {/* Description */}
       {description && (
-        <div className="text-base/loose mt-2 line-clamp-[8]">{description}</div>
+        <div className="text-base/loose mt-2 line-clamp-[6]">{description}</div>
       )}
       {/* Check out AI summary text block */}
       <div className="text-base/loose mt-4 lg:mt-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span className="mr-2">Swipe right or click on</span>
+        <span className="mr-2">Swipe/Drag right or click on</span>
         <div className="inline-block">
           <span className="text-sm uppercase text-[#ecd9cb]">
             Summary by AI

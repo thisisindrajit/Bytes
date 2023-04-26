@@ -62,7 +62,7 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
       </div>
       {/* Check out article details text block */}
       <div className="text-base/loose mb-4 lg:mb-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span className="mr-2">Swipe right or click on</span>
+        <span className="mr-2">Swipe/Drag right or click on</span>
         <div className="inline-block">
           <span className="text-sm uppercase text-[#ecd9cb]">Details</span>
           <div className="inline-block align-middle ml-2">
