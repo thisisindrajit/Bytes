@@ -31,7 +31,6 @@ const Home = () => {
     type: "emotion" | "sentiment" | "info" | null,
     predictedValue: string | null
   ) => {
-    // This URL change is done to make sure that in PWA when user uses the back button to navigate to home, only the modal will be closed and the app will still be open.
     router.push("/?type=modal", undefined, { shallow: true }); 
     setModalType(type);
     setPredictedValueToUseInModal(predictedValue);
@@ -127,7 +126,7 @@ const Home = () => {
 
   useEffect(() => {
     router.beforePopState(({ url, as, options }) => {
-      if (as === '/') {
+      if (router.asPath === '/?type=modal') {
         // Close any modal that is open when navigating back to home page
         closeModal();
       }
@@ -199,13 +198,13 @@ const Home = () => {
                     title={
                       article.source === "moneycontrol"
                         ? cleanIfSourceIsMoneycontrol(article.title)
-                        : article.title
+                        : decode(article.title)
                     }
                     description={
                       article.description
                         ? article.source === "moneycontrol"
                           ? cleanIfSourceIsMoneycontrol(article.description)
-                          : article.description
+                          : decode(article.description)
                         : null
                     }
                     pubDate={
