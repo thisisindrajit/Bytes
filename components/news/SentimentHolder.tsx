@@ -1,14 +1,12 @@
 import Image from "next/image";
 import { FC, useState } from "react";
 import Loading from "../common/Loading";
-import InfoModal from "../common/InfoModal";
 
 interface SentimentHolderProps {
   sentiment: string;
-  openModal: (type: "emotion" | "sentiment" | "info" | null, predictedValue: string | null) => void;
 }
 
-const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment, openModal }) => {
+const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const showSentiment = (sentiment: string) => {
@@ -39,8 +37,11 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment, openModal }) => 
 
   return (
       <div
-        className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white cursor-pointer lg:hover:bg-[#525252]"
-        onClick={() => openModal("sentiment", sentiment)}
+        data-tooltip-id="pred-sentiment"
+        data-tooltip-content={`The predicted sentiment is ${returnSentimentValue(
+          sentiment
+        ).toUpperCase()}.`}
+        className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white"
       >
         <div className="flex flex-col min-h-full h-fit gap-2">
           <div className="text-xs lg:text-sm text-[#ecd9cb] uppercase">

@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 
 interface InfoModalProps {
   isOpen: boolean;
-  onClose: () => any;
+  onClose: () => void;
   title: string;
   children?: ReactNode;
 }

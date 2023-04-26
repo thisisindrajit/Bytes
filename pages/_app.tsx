@@ -5,6 +5,8 @@ import AnimatedBackground from "@/components/common/AnimatedBackground";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { Analytics } from "@vercel/analytics/react";
+import "pure-react-carousel/dist/react-carousel.es.css";
+import 'react-tooltip/dist/react-tooltip.css';
 
 export const queryClient = new QueryClient();
 

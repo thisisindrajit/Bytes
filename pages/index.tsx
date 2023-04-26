@@ -11,6 +11,7 @@ import { decode } from "html-entities";
 import iconVLite from "iconv-lite";
 import InfoModal from "@/components/common/InfoModal";
 import { useRouter } from "next/router";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
@@ -21,27 +22,14 @@ const Home = () => {
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [modalType, setModalType] = useState<
-    "emotion" | "sentiment" | "info" | null
-  >(null);
-  const [predictedValueToUseInModal, setPredictedValueToUseInModal] = useState<
-    string | null
-  >(null);
 
-  const openModal = (
-    type: "emotion" | "sentiment" | "info" | null,
-    predictedValue: string | null
-  ) => {
+  const openModal = () => {
     router.push("/?type=modal", undefined, { shallow: true });
-    setModalType(type);
-    setPredictedValueToUseInModal(predictedValue);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     router.back();
-    setModalType(null);
-    setPredictedValueToUseInModal(null);
     setIsModalOpen(false);
   };
 
@@ -105,6 +93,7 @@ const Home = () => {
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
+    rootMargin: "12px",
   });
 
   useEffect(() => {
@@ -128,9 +117,7 @@ const Home = () => {
   useEffect(() => {
     router.beforePopState(({ url, as, options }) => {
       if (url === "/") {
-        // Close any modal that is open when navigating back to home page
-        setModalType(null);
-        setPredictedValueToUseInModal(null);
+        // Close modal when navigating back to home page
         setIsModalOpen(false);
       }
 
@@ -154,15 +141,13 @@ const Home = () => {
         <InfoModal
           isOpen={isModalOpen}
           onClose={closeModal}
-          title={modalType ? modalType : ""}
+          title="About Bytes"
         >
-          <div>
-            The predicted {modalType} is {predictedValueToUseInModal}.
-          </div>
+          <div>Bytes info goes here.</div>
         </InfoModal>
       )}
       {/* Top bar */}
-      <TopBar onClickIcon={scrollToTop} />
+      <TopBar onClickIcon={scrollToTop} openModal={openModal} />
       {/* Article holder */}
       <Holder
         className={`${
@@ -193,7 +178,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-screen snap-start p-4"
+                    className="min-h-screen snap-end p-4"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
@@ -223,27 +208,11 @@ const Home = () => {
                         : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
                     }
                     generatedByAi={article.summarized_text ? true : false}
-                    category={
-                      article.category
-                        ? JSON.parse(article.category).category
-                        : null
-                    }
-                    creator={
-                      article.creator
-                        ? JSON.parse(article.creator).creator
-                        : null
-                    }
+                    category={article.category}
+                    creator={article.creator}
                     source={article.source}
-                    country={
-                      article.country
-                        ? JSON.parse(article.country).country
-                        : null
-                    }
-                    keywords={
-                      article.keywords
-                        ? JSON.parse(article.keywords).keywords
-                        : null
-                    }
+                    country={article.country}
+                    keywords={article.keywords}
                     sentiment={
                       article.predicted_sentiment
                         ? article.predicted_sentiment
@@ -256,7 +225,6 @@ const Home = () => {
                     }
                     tabIndexStart={curTabIndexStartValue}
                     isFetchingNewArticles={isFetchingNextPage}
-                    openModal={openModal}
                   />
                 </CarouselProvider>
               );
@@ -275,18 +243,22 @@ const Home = () => {
                 </div>
               )
             ) : (
-              <div ref={loadMoreRef}>
-                {articlesData.length > 0 && (
-                  <div className="bg-white flex items-center justify-center">
-                    <Loading
-                      heightAndWidthClassesForLoadingIcon="h-8 w-8"
-                      loadingText="Fetching more articles..."
-                      className="text-sm lg:text-base m-6"
-                      color="black"
-                    />
-                  </div>
-                )}
-              </div>
+              <>
+                {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes to the last fetched article */}
+                <div ref={loadMoreRef}></div>
+                <div>
+                  {articlesData.length > 0 && (
+                    <div className="bg-white flex items-center justify-center">
+                      <Loading
+                        heightAndWidthClassesForLoadingIcon="h-8 w-8"
+                        loadingText="Fetching more articles..."
+                        className="text-sm lg:text-base m-6"
+                        color="black"
+                      />
+                    </div>
+                  )}
+                </div>
+              </>
             )}
           </>
         ) : (
@@ -296,6 +268,19 @@ const Home = () => {
             className="text-white text-sm lg:text-base m-6"
           />
         )}
+        {/* Tooltips */}
+        <ReactTooltip
+          id="pred-sentiment"
+          place="top"
+          className="block md:hidden"
+          variant="light"
+        />
+        <ReactTooltip
+          id="pred-emotion"
+          place="top"
+          className="block md:hidden"
+          variant="light"
+        />
       </Holder>
       <style jsx>
         {`

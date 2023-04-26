@@ -4,7 +4,8 @@ import InstallButton from "./InstallButton";
 
 interface TopBarProps {
   className?: string;
-  onClickIcon?: () => any;
+  onClickIcon?: () => void;
+  openModal: () => void;
 }
 
 const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {

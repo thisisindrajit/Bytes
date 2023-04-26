@@ -1,7 +1,6 @@
 import { FC, useContext, useEffect, useState } from "react";
 import { Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import { CarouselContext } from "pure-react-carousel";
-import "pure-react-carousel/dist/react-carousel.es.css";
 import BottomBar from "./BottomBar";
 import ArticleThumbnailHolder from "./ArticleThumbnailHolder";
 import ArticleSummaryHolder from "./ArticleSummaryHolder";
@@ -24,16 +23,15 @@ interface ArticleHolderProps {
   description: string | null;
   summary: string;
   generatedByAi: boolean;
-  category: string[] | null;
-  creator: string[] | null;
+  category: string | null;
+  creator: string | null;
   source: string | null;
-  country: string[] | null;
-  keywords: string[] | null;
+  country: string | null;
+  keywords: string | null;
   sentiment: string;
   emotion: string;
   tabIndexStart: number;
   isFetchingNewArticles: boolean;
-  openModal: (type: "emotion" | "sentiment" | "info" | null, predictedValue: string | null) => void;
   // All other props
   [x: string]: any;
 }
@@ -61,7 +59,6 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   emotion,
   tabIndexStart,
   isFetchingNewArticles,
-  openModal,
   ...props
 }) => {
   const carouselContext = useContext(CarouselContext);
@@ -213,8 +210,8 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
           </div>
           {/* Emotion and sentiment predictions holder */}
           <div className="grid grid-cols-2 lg:grid-cols-1 xl:grid-rows-2 gap-3">
-            <SentimentHolder sentiment={sentiment} openModal={openModal} />
-            <EmotionHolder emotion={emotion} openModal={openModal} />
+            <SentimentHolder sentiment={sentiment} />
+            <EmotionHolder emotion={emotion} />
           </div>
         </div>
         {/* Ads holder (Can be used in future if needed) */}

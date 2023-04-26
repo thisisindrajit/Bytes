@@ -1,11 +1,11 @@
 import { FC } from "react";
 
 interface ArticleDetailsHolderProps {
-  category: string[] | null;
-  creator: string[] | null;
+  category: string | null;
+  creator: string | null;
   source: string | null;
-  country: string[] | null;
-  keywords: string[] | null;
+  country: string | null;
+  keywords: string | null;
 }
 
 const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
@@ -21,7 +21,9 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
       {/* Horizontal separator */}
       <div className="my-4 h-[1px] w-full bg-white"></div>
       {!category && !creator && !source && !country && !keywords ? (
-        <div className="text-red-500">No details available for this article!</div>
+        <div className="text-red-500">
+          No details available for this article!
+        </div>
       ) : (
         <>
           {/* Category */}
@@ -29,7 +31,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             <div className="mt-6 mb-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Category</div>
               <div className="text-base/relaxed capitalize text-[#ecd9cb]">
-                {category.join(", ")}
+                {JSON.parse(category).category.join(", ")}
               </div>
             </div>
           )}
@@ -38,7 +40,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Creator</div>
               <div className="text-base/relaxed capitalize text-[#ecd9cb]">
-                {creator.join(", ")}
+                {JSON.parse(creator).creator.join(", ")}
               </div>
             </div>
           )}
@@ -54,7 +56,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Country</div>
               <div className="text-base/relaxed text-[#ecd9cb]">
-                {country.join(", ")}
+                {JSON.parse(country).country.join(", ")}
               </div>
             </div>
           )}
@@ -63,7 +65,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Keywords</div>
               <div className="text-base/relaxed text-[#ecd9cb]">
-                {keywords.join(", ")}
+                {JSON.parse(keywords).keywords.join(", ")}
               </div>
             </div>
           )}
