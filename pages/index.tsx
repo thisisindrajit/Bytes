@@ -133,7 +133,7 @@ const Home = () => {
                   isIntrinsicHeight={false}
                   totalSlides={3}
                   touchEnabled={true}
-                  dragEnabled={true}
+                  dragEnabled={false}
                 >
                   <ArticleHolder
                     id={article.id}

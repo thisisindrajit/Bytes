@@ -190,7 +190,7 @@ const timerTrigger: AzureFunction = async function (
       const content =
         newsArticles[i]?.description?.length > 512
           ? newsArticles[i].description
-          : newsArticles[i].content.slice(0, 512);
+          : newsArticles[i].content.slice(0, 2048);
 
       const query_1 = `SELECT summarized_article
                         FROM mindsdb.text_summarization_custom_separator_openai
