@@ -17,6 +17,7 @@ const Home = () => {
 
   const loadMoreRef: any = useRef(null);
   const router = useRouter();
+
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -31,14 +32,14 @@ const Home = () => {
     type: "emotion" | "sentiment" | "info" | null,
     predictedValue: string | null
   ) => {
-    router.push("/?type=modal", undefined, { shallow: true }); 
+    router.push("/?type=modal", undefined, { shallow: true });
     setModalType(type);
     setPredictedValueToUseInModal(predictedValue);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    router.push("/", undefined, { shallow: true }); 
+    router.back();
     setModalType(null);
     setPredictedValueToUseInModal(null);
     setIsModalOpen(false);
@@ -126,14 +127,16 @@ const Home = () => {
 
   useEffect(() => {
     router.beforePopState(({ url, as, options }) => {
-      if (router.asPath === '/?type=modal') {
+      if (url === "/") {
         // Close any modal that is open when navigating back to home page
-        closeModal();
+        setModalType(null);
+        setPredictedValueToUseInModal(null);
+        setIsModalOpen(false);
       }
 
       return true;
-    })
-  }, [router])
+    });
+  }, [router]);
 
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
