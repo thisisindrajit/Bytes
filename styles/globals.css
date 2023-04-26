@@ -11,6 +11,7 @@
 
 * {
   @apply transition-all duration-300 ease-in-out box-border p-0 m-0;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,

@@ -39,7 +39,7 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment, openModal }) => 
 
   return (
       <div
-        className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white cursor-pointer hover:bg-[#525252]"
+        className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white cursor-pointer lg:hover:bg-[#525252]"
         onClick={() => openModal("sentiment", sentiment)}
       >
         <div className="flex flex-col min-h-full h-fit gap-2">
