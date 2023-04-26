@@ -46,7 +46,7 @@ const InfoModal: FC<InfoModalProps> = ({
                   {/* Title */}
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6 text-black capitalize"
                   >
                     {title}
                   </Dialog.Title>

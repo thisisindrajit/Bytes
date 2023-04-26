@@ -9,12 +9,41 @@ import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { decode } from "html-entities";
 import iconVLite from "iconv-lite";
+import InfoModal from "@/components/common/InfoModal";
+import { useRouter } from "next/router";
 
 const Home = () => {
+  let curTabIndexStartValue = 2;
+
   const loadMoreRef: any = useRef(null);
+  const router = useRouter();
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
-  let curTabIndexStartValue = 2;
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalType, setModalType] = useState<
+    "emotion" | "sentiment" | "info" | null
+  >(null);
+  const [predictedValueToUseInModal, setPredictedValueToUseInModal] = useState<
+    string | null
+  >(null);
+
+  const openModal = (
+    type: "emotion" | "sentiment" | "info" | null,
+    predictedValue: string | null
+  ) => {
+    // This URL change is done to make sure that in PWA when user uses the back button to navigate to home, only the modal will be closed and the app will still be open.
+    router.push("/?type=modal", undefined, { shallow: true }); 
+    setModalType(type);
+    setPredictedValueToUseInModal(predictedValue);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    router.push("/", undefined, { shallow: true }); 
+    setModalType(null);
+    setPredictedValueToUseInModal(null);
+    setIsModalOpen(false);
+  };
 
   const getArticles = async (curLastKey: string) => {
     const options = {
@@ -97,6 +126,17 @@ const Home = () => {
   }, [isFetchingNextPage, results]);
 
   useEffect(() => {
+    router.beforePopState(({ url, as, options }) => {
+      if (as === '/') {
+        // Close any modal that is open when navigating back to home page
+        closeModal();
+      }
+
+      return true;
+    })
+  }, [router])
+
+  useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
     document.getElementById("all-articles-holder")?.focus();
   }, []);
@@ -107,7 +147,21 @@ const Home = () => {
       id="all-articles-holder"
       className="max-h-screen w-full relative overflow-y-auto outline-none"
     >
+      {/* Modal */}
+      {isModalOpen && (
+        <InfoModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          title={modalType ? modalType : ""}
+        >
+          <div>
+            The predicted {modalType} is {predictedValueToUseInModal}.
+          </div>
+        </InfoModal>
+      )}
+      {/* Top bar */}
       <TopBar onClickIcon={scrollToTop} />
+      {/* Article holder */}
       <Holder
         className={`${
           (isError || isLoading || isRefetchError) &&
@@ -200,6 +254,7 @@ const Home = () => {
                     }
                     tabIndexStart={curTabIndexStartValue}
                     isFetchingNewArticles={isFetchingNextPage}
+                    openModal={openModal}
                   />
                 </CarouselProvider>
               );

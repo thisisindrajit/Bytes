@@ -33,6 +33,7 @@ interface ArticleHolderProps {
   emotion: string;
   tabIndexStart: number;
   isFetchingNewArticles: boolean;
+  openModal: (type: "emotion" | "sentiment" | "info" | null, predictedValue: string | null) => void;
   // All other props
   [x: string]: any;
 }
@@ -60,6 +61,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   emotion,
   tabIndexStart,
   isFetchingNewArticles,
+  openModal,
   ...props
 }) => {
   const carouselContext = useContext(CarouselContext);
@@ -211,8 +213,8 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
           </div>
           {/* Emotion and sentiment predictions holder */}
           <div className="grid grid-cols-2 lg:grid-cols-1 xl:grid-rows-2 gap-3">
-            <SentimentHolder sentiment={sentiment} />
-            <EmotionHolder emotion={emotion} />
+            <SentimentHolder sentiment={sentiment} openModal={openModal} />
+            <EmotionHolder emotion={emotion} openModal={openModal} />
           </div>
         </div>
         {/* Ads holder (Can be used in future if needed) */}
