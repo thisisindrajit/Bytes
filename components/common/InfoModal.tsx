@@ -1,4 +1,4 @@
-import { FC, Fragment, ReactNode } from "react";
+import { FC, Fragment, ReactNode, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 interface InfoModalProps {
@@ -14,9 +14,11 @@ const InfoModal: FC<InfoModalProps> = ({
   title,
   children,
 }) => {
+  const childRef = useRef(null);
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={onClose}>
+      <Dialog as="div" initialFocus={childRef} className="relative z-10" onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-200"
@@ -29,7 +31,7 @@ const InfoModal: FC<InfoModalProps> = ({
         <div className="fixed inset-0 bg-black bg-opacity-75" />
         </Transition.Child>
 
-        <div className="fixed inset-0 overflow-y-auto">
+        <div className="fixed inset-0 overflow-y-auto" ref={childRef}>
           <div className="flex min-h-full items-center justify-center p-4 text-center">
             <Transition.Child
               as={Fragment}

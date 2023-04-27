@@ -34,7 +34,17 @@ const BytesInfo: FC = () => {
           clean and modern interface that puts the focus squarely on the news.
           Try Bytes today and experience a new way to stay informed!
         </span>
-        <div className="mt-6 font-bold">Created with ❤️ by <a href="https://thisisindrajit.github.io/portfolio/" className="underline" target="_blank" rel="noopener noreferrer">Indrajit</a></div>
+        <div className="mt-6 font-bold">
+          <span>Created with ❤️ by</span>
+          <a
+            href="https://thisisindrajit.github.io/portfolio/"
+            className="underline mx-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Indrajit
+          </a>
+        </div>
       </div>
       {/* Horizontal separator */}
       <div className="my-2 h-[1px] w-full bg-green-500"></div>
