@@ -4,12 +4,14 @@ import ImageHolder from "../common/ImageHolder";
 interface ArticleThumbnailHolderProps {
   title: string;
   description: string | null;
+  country: string | null;
   pubDate: string | null;
 }
 
 const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
   title,
   description,
+  country,
   pubDate,
 }) => {
   const formatDateAndTime = (inputDate: string) => {
@@ -40,15 +42,71 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
     return `${fullDate} AT ${hours}:${minutes}:${seconds} ${amOrPm} (GMT)`;
   };
 
+  const formatCountry = (inputCountries: string[]) => {
+    if (inputCountries.length === 0) return null;
+
+    if (inputCountries.length > 1) {
+      return (
+        <>
+          <span>🌏</span>
+          <span>{inputCountries.join(", ")}</span>
+        </>
+      );
+    }
+
+    const country = inputCountries[0];
+
+    switch (country) {
+      case "india":
+        return (
+          <>
+            <span>🇮🇳</span>
+            <span>India</span>
+          </>
+        );
+      case "united states of america":
+        return (
+          <>
+            <span>🇺🇸</span>
+            <span>United States of America</span>
+          </>
+        );
+      case "australia":
+        return (
+          <>
+            <span>🇦🇺</span>
+            <span>Australia</span>
+          </>
+        );
+      case "united kingdom":
+        return (
+          <>
+            <span>🇬🇧</span>
+            <span>United Kingdom</span>
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="p-4">
       {/* Title */}
-      <div className="text-2xl/relaxed lg:text-3xl/relaxed font-bold line-clamp-4">
+      <div className="text-2xl/relaxed lg:text-3xl/relaxed font-bold first-letter:capitalize">
         {title}
       </div>
+      {/* Country */}
+      {country && formatCountry(JSON.parse(country).country) && (
+        <div className="text-sm/relaxed my-2">
+          <span className="flex gap-2">
+            {formatCountry(JSON.parse(country).country)}
+          </span>
+        </div>
+      )}
       {/* Pub date */}
       {pubDate && (
-        <div className="text-xs my-4 flex items-center w-fit gap-2">
+        <div className="text-xs/relaxed my-4 flex items-center w-fit gap-2">
           <ImageHolder
             heightAndWidthClasses="h-3 w-3"
             src="/images/svg/clock.svg"

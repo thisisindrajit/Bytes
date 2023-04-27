@@ -40,11 +40,10 @@ const TopBar: FC<TopBarProps> = ({
         >
           <ImageHolder
             heightAndWidthClasses="h-4 w-4"
-            heightAndWidthClassesForLoadingIcon="h-5 w-5"
             src="/images/svg/info.svg"
             alt="info icon"
             priority={true}
-            loadingIconColor="white"
+            loadingIconColor="black"
             showLoading
           />
           <span className="hidden sm:block">Info</span>
@@ -54,7 +53,6 @@ const TopBar: FC<TopBarProps> = ({
           <div className="bg-[#ecd9cb] p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer">
             <ImageHolder
               heightAndWidthClasses="h-4 w-4"
-              heightAndWidthClassesForLoadingIcon="h-5 w-5"
               src="/images/svg/download.svg"
               alt="download icon"
               priority={true}

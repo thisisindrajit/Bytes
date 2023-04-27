@@ -103,6 +103,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   <ArticleThumbnailHolder
                     title={title}
                     description={description}
+                    country={country}
                     pubDate={pubDate}
                   />
                 </Slide>
