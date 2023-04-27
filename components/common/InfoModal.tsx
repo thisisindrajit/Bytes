@@ -31,7 +31,7 @@ const InfoModal: FC<InfoModalProps> = ({
 
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
-            {/* <Transition.Child
+            <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0 scale-95"
@@ -39,7 +39,7 @@ const InfoModal: FC<InfoModalProps> = ({
               leave="ease-in duration-200"
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
-            > */}
+            >
             <Dialog.Panel className="w-full lg:max-w-[calc(80vw)] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
               {/* Title and close button */}
               <div className="flex items-center justify-between">
@@ -58,7 +58,7 @@ const InfoModal: FC<InfoModalProps> = ({
               {/* Modal content goes here */}
               <div className="my-6">{children}</div>
             </Dialog.Panel>
-            {/* </Transition.Child> */}
+            </Transition.Child>
           </div>
         </div>
       </Dialog>

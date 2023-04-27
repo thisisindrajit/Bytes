@@ -11,7 +11,7 @@ const removeLastIncompleteSentence = (paragraph) => {
   paragraph += "|";
 
   // Define the regular expression pattern for detecting sentences
-  var sentencePattern = /.*?\|(?=\s|$)/g;
+  var sentencePattern = /.*?\|(?=|$)/g;
 
   // Use the match() method to find all matches of the sentence pattern in the paragraph
   var sentences = paragraph.match(sentencePattern);
