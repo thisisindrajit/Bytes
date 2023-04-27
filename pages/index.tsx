@@ -11,7 +11,7 @@ import { decode } from "html-entities";
 import iconVLite from "iconv-lite";
 import InfoModal from "@/components/common/InfoModal";
 import { useRouter } from "next/router";
-import { Tooltip as ReactTooltip } from "react-tooltip";
+// import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
