@@ -268,7 +268,7 @@ const Home = () => {
           />
         )}
         {/* Tooltips */}
-        <ReactTooltip
+        {/* <ReactTooltip
           id="pred-sentiment"
           place="top"
           className="block md:hidden"
@@ -279,7 +279,7 @@ const Home = () => {
           place="top"
           className="block md:hidden"
           variant="light"
-        />
+        /> */}
       </Holder>
       <style jsx>
         {`

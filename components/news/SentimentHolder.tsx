@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FC, useState } from "react";
 import Loading from "../common/Loading";
+import Tippy from "@tippyjs/react";
 
 interface SentimentHolderProps {
   sentiment: string;
@@ -36,11 +37,23 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
   };
 
   return (
+    <Tippy
+      theme="light"
+      className="p-2 md:hidden"
+      content={
+        <div>
+          <span>The predicted sentiment is</span>
+          <span className="font-bold underline decoration-dotted mx-1 uppercase">
+            {returnSentimentValue(sentiment)}
+          </span>
+        </div>
+      }
+    >
       <div
-        data-tooltip-id="pred-sentiment"
-        data-tooltip-content={`The predicted sentiment is ${returnSentimentValue(
-          sentiment
-        ).toUpperCase()}.`}
+        // data-tooltip-id="pred-sentiment"
+        // data-tooltip-content={`The predicted sentiment is ${returnSentimentValue(
+        //   sentiment
+        // ).toUpperCase()}.`}
         className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white"
       >
         <div className="flex flex-col min-h-full h-fit gap-2">
@@ -80,6 +93,7 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
           </div>
         </div>
       </div>
+    </Tippy>
   );
 };
 
