@@ -41,12 +41,13 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
       theme="light"
       className="p-2 md:hidden tippy-tooltip"
       zIndex={5}
-      placement={window.innerHeight < 667 ? "left" : "top"}
+      placement={window.innerHeight < 667 && window.innerHeight < 1024 ? "left" : "top"}
+      interactive={true}
       content={
         <div>
           <span>The predicted sentiment is</span>
           <span
-            className={`font-bold underline underline-offset-4 decoration-dotted mx-1.5 uppercase ${
+            className={`font-bold underline underline-offset-4 decoration-dotted mx-1 uppercase ${
               sentiment === "pos"
                 ? "text-green-500"
                 : sentiment === "neu"
