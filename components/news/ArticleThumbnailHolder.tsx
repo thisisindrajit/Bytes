@@ -68,32 +68,19 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       )}
       {/* Check out AI summary text block */}
       <div className="text-base/loose mt-4 lg:mt-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span className="mr-2">Swipe right or click on</span>
-        <div className="inline-block">
-          <span className="text-sm uppercase text-[#ecd9cb]">
-            Summary by AI
-          </span>
-          <div className="inline-block align-middle ml-2">
-            <ImageHolder
-              heightAndWidthClasses="h-4 w-4"
-              src="/images/svg/right-arrow-cream.svg"
-              alt="right arrow cream icon"
-              priority={true}
-              showLoading
-            />
-          </div>
-        </div>
-        <span className="ml-2">
-          to read the AI generated summary for the article.
+        <span>Swipe right or click on</span>
+        <span className="inline mx-1.5 text-sm uppercase text-[#ecd9cb] underline decoration-dotted underline-offset-4">
+          Summary by AI
         </span>
+        <span>to read the AI generated summary for the article.</span>
       </div>
       {/* How to read full article text block */}
       <div className="text-base/loose mb-4 lg:mb-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span className="mr-2">Click on</span>
-        <div className="inline-block">
+        <span>Click on</span>
+        <div className="inline mx-1.5">
           <div className="inline-block align-middle">
             <ImageHolder
-              heightAndWidthClasses=" h-4 w-4"
+              heightAndWidthClasses="h-4 w-4"
               src="/images/svg/link-cream.svg"
               alt="link cream icon"
               priority={true}
@@ -101,9 +88,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
             />
           </div>
         </div>
-        <span className="ml-2">
-          in the bottom navigation bar to read the full article!
-        </span>
+        <span>in the bottom navigation bar to read the full article!</span>
       </div>
     </div>
   );

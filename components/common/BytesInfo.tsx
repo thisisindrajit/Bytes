@@ -16,14 +16,14 @@ const BytesInfo: FC = () => {
       {/* About */}
       <div className="text-base/loose text-justify mt-4">
         <span>Bytes is a</span>
-        <span className="font-bold mx-2">
+        <span className="font-bold mx-1.5">
           AI powered progressive web app (PWA)
         </span>
         <span>
           that delivers news to users in an innovative and user-friendly way.
           With its infinite scroll format and
         </span>
-        <span className="font-bold mx-2">
+        <span className="font-bold mx-1.5">
           AI generated short summaries of articles,
         </span>
         <span>
@@ -38,7 +38,7 @@ const BytesInfo: FC = () => {
           <span>Created with ❤️ by</span>
           <a
             href="https://thisisindrajit.github.io/portfolio/"
-            className="underline mx-2"
+            className="underline mx-1.5"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -54,10 +54,10 @@ const BytesInfo: FC = () => {
           All predictions and summarizations in Bytes are made possible by the
           innovative technology of MindsDB. As the creator of Bytes, I wanted to
           take a moment to express my deep appreciation and gratitude to the
-          MindsDB team. Thanks to their cutting-edge AI models, we have been
-          able to provide users with fast and accurate predictions and
-          summarizations, allowing them to stay ahead of the game and informed
-          on the latest news and events.
+          MindsDB team. Thanks to their cutting-edge technology like AI tables
+          and models, Bytes has been able to provide users with accurate
+          predictions and concise summarizations, allowing them to stay ahead of
+          the game and informed on the latest news and events.
         </div>
       </div>
     </div>

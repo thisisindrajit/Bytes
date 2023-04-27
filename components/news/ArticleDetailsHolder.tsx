@@ -75,7 +75,7 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             <a
               href="https://newsdata.io/"
               tabIndex={-1}
-              className="text-[#ecd9cb] mx-1 no-underline hover:underline"
+              className="text-[#ecd9cb] inline mx-1.5 no-underline hover:underline"
               target="_blank"
               rel="noopener noreferrer"
             >

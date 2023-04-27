@@ -55,11 +55,13 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
   return (
     <Tippy
       theme="light"
-      className="p-2 md:hidden"
+      className="p-2 md:hidden tippy-tooltip"
+      zIndex={5}
+      placement={window.innerHeight < 667 ? "left" : "top"}
       content={
         <div>
           <span>The predicted emotion is</span>
-          <span className="font-bold underline decoration-dotted mx-1 uppercase">
+          <span className="font-bold underline underline-offset-4 mx-1.5 uppercase">
             {returnEmotionValue(emotion)}
           </span>
         </div>
@@ -86,7 +88,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
             <div
               className={`${
                 isImageLoaded ? "block" : "hidden"
-              } relative h-16 w-16 lg:h-24 lg:w-24 xl:h-32 xl:w-32 3xl:h-48 3xl:w-48 emoji-holder`}
+              } relative h-16 w-16 lg:h-24 lg:w-24 xl:h-28 xl:w-28 3xl:h-48 3xl:w-48 emoji-holder`}
             >
               <Image
                 src={showEmotion(emotion)}
@@ -100,7 +102,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
               />
             </div>
             {isImageLoaded && (
-              <div className="hidden md:flex my-2 text-center text-white text-sm xl:text-base items-center justify-center gap-2 value-holder">
+              <div className="hidden md:flex text-center text-white text-sm xl:text-base items-center justify-center gap-2 value-holder">
                 <span className="text-[#ecd9cb]">•</span>
                 <span>{returnEmotionValue(emotion)}</span>
                 <span className="text-[#ecd9cb]">•</span>
