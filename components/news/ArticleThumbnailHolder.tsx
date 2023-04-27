@@ -98,15 +98,15 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       </div>
       {/* Country */}
       {country && formatCountry(JSON.parse(country).country) && (
-        <div className="text-sm/relaxed my-2">
-          <span className="flex gap-2">
+        <div className="text-sm/relaxed my-3">
+          <span className="flex gap-2 text-[#ecd9cb]">
             {formatCountry(JSON.parse(country).country)}
           </span>
         </div>
       )}
       {/* Pub date */}
       {pubDate && (
-        <div className="text-xs/relaxed my-4 flex items-center w-fit gap-2">
+        <div className="text-xs/relaxed mt-4 mb-6 lg:my-4 flex items-center w-fit gap-2">
           <ImageHolder
             heightAndWidthClasses="h-3 w-3"
             src="/images/svg/clock.svg"
