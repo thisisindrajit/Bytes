@@ -144,7 +144,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                         src="/images/svg/left-arrow.svg"
                         alt="left arrow icon"
                         priority={true}
-                        color="black"
+                        loadingIconColor="black"
                         showLoading
                       />
                       <span className="text-sm uppercase">Summary by AI</span>
@@ -163,7 +163,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                           src="/images/svg/left-arrow.svg"
                           alt="left arrow icon"
                           priority={true}
-                          color="black"
+                          loadingIconColor="black"
                           showLoading
                         />
                         <span className="text-sm uppercase">Thumbnail</span>
@@ -180,7 +180,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                           src="/images/svg/right-arrow.svg"
                           alt="right arrow icon"
                           priority={true}
-                          color="black"
+                          loadingIconColor="black"
                           showLoading
                         />
                       </div>
@@ -199,7 +199,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                         src="/images/svg/right-arrow.svg"
                         alt="right arrow icon"
                         priority={true}
-                        color="black"
+                        loadingIconColor="black"
                         showLoading
                       />
                     </div>

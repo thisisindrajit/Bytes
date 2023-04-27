@@ -52,11 +52,11 @@ const InfoModal: FC<InfoModalProps> = ({
                 </Dialog.Title>
                 {/* Close button */}
                 <div onClick={onClose} className="text-red-500 cursor-pointer">
-                  Close
+                  | X |
                 </div>
               </div>
               {/* Modal content goes here */}
-              <div className="my-6">{children}</div>
+              <div>{children}</div>
             </Dialog.Panel>
             </Transition.Child>
           </div>

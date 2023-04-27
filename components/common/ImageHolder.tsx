@@ -8,7 +8,7 @@ interface ImageHolderProps {
   alt: string;
   priority?: boolean;
   showLoading?: boolean;
-  color?: "black" | "white" | "grey";
+  loadingIconColor?: "black" | "white" | "grey";
   heightAndWidthClassesForLoadingIcon?: string;
 }
 const ImageHolder: FC<ImageHolderProps> = ({
@@ -17,7 +17,7 @@ const ImageHolder: FC<ImageHolderProps> = ({
   alt,
   priority,
   showLoading = false,
-  color,
+  loadingIconColor,
   heightAndWidthClassesForLoadingIcon,
 }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -31,7 +31,7 @@ const ImageHolder: FC<ImageHolderProps> = ({
               ? heightAndWidthClassesForLoadingIcon
               : heightAndWidthClasses
           }
-          color={color}
+          color={loadingIconColor}
           noText
         />
       )}

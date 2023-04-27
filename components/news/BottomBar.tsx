@@ -48,7 +48,7 @@ const BottomBar: FC<BottomBarProps> = ({
               : "/images/svg/up-arrow-greyed.svg"
           }
           alt="up arrow icon"
-          color={hasPrevious ? "black" : "grey"}
+          loadingIconColor={hasPrevious ? "black" : "grey"}
           priority={true}
           showLoading
         />
@@ -70,7 +70,7 @@ const BottomBar: FC<BottomBarProps> = ({
                   : "/images/svg/down-arrow-greyed.svg"
               }
               alt="down arrow icon"
-              color={hasNext ? "black" : "grey"}
+              loadingIconColor={hasNext ? "black" : "grey"}
               priority={true}
               showLoading
             />
@@ -103,7 +103,7 @@ const BottomBar: FC<BottomBarProps> = ({
           heightAndWidthClasses="h-5 w-5"
           src="/images/svg/link.svg"
           alt="link icon"
-          color="black"
+          loadingIconColor="black"
           priority={true}
           showLoading
         />

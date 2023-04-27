@@ -11,6 +11,7 @@ import { decode } from "html-entities";
 import iconVLite from "iconv-lite";
 import InfoModal from "@/components/common/InfoModal";
 import { useRouter } from "next/router";
+import BytesInfo from "@/components/common/BytesInfo";
 // import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Home = () => {
@@ -142,7 +143,7 @@ const Home = () => {
           onClose={closeModal}
           title="About Bytes"
         >
-          <div>Bytes info goes here.</div>
+          <BytesInfo />
         </InfoModal>
       )}
       {/* Top bar */}

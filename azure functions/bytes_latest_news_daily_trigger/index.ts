@@ -145,7 +145,7 @@ const timerTrigger: AzureFunction = async function (
 
   for (let i = 0; i < noOfIterations; i++) {
     // Getting n random countries and categories
-    const randomCountries = getRandomValuesFromArray(countries, 2);
+    const randomCountries = getRandomValuesFromArray(countries, 1);
     const randomCategories = getRandomValuesFromArray(categories, 5);
 
     // Constructing the API url

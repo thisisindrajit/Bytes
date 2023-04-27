@@ -71,7 +71,7 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
               src="/images/svg/right-arrow-cream.svg"
               alt="right arrow cream icon"
               priority={true}
-              color="white"
+              loadingIconColor="white"
               showLoading
             />
           </div>

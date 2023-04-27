@@ -54,7 +54,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
             src="/images/svg/clock.svg"
             alt="clock icon"
             priority={true}
-            color="white"
+            loadingIconColor="white"
             showLoading
           />
           <span>{formatDateAndTime(pubDate)}</span>
