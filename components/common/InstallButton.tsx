@@ -1,4 +1,5 @@
 import { useState, useEffect, ReactNode, FC } from "react";
+import Loading from "./Loading";
 
 interface InstallButtonProps {
   page?: string;
@@ -11,6 +12,7 @@ const InstallButton: FC<InstallButtonProps> = ({
   page,
   errorElement,
 }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [supportsPWA, setSupportsPWA] = useState<boolean>(false);
   const [promptInstall, setPromptInstall] = useState<any>(null);
 
@@ -24,6 +26,7 @@ const InstallButton: FC<InstallButtonProps> = ({
     // beforeinstallprompt will only be fired when the below condition is true:
     // - The PWA must not already be installed
     window.addEventListener("beforeinstallprompt", handler);
+    setIsLoading(false);
 
     return () => window.removeEventListener("transitionend", handler);
   }, []);
@@ -36,10 +39,19 @@ const InstallButton: FC<InstallButtonProps> = ({
     promptInstall.prompt();
   };
 
-  return supportsPWA ? (
+  return page === "install" ? (
+    isLoading ? (
+      <Loading
+        heightAndWidthClassesForLoadingIcon="h-7 w-7"
+        className="m-auto text-white mb-8"
+      />
+    ) : supportsPWA ? (
+      <div onClick={onClick}>{children}</div>
+    ) : (
+      <>{errorElement}</>
+    )
+  ) : supportsPWA ? (
     <div onClick={onClick}>{children}</div>
-  ) : page === "install" ? (
-    <>{errorElement}</>
   ) : null;
 };
 

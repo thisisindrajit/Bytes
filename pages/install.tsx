@@ -22,7 +22,7 @@ const Install: FC = () => {
         <div className="my-8 md:my-12 max-w-[90vw] lg:max-w-[75vw]">
           {/* Install button */}
           <InstallButton page="install" errorElement={errorElement}>
-            <button className="mb-4 p-4 bg-[#ecd9cb] cursor-pointer rounded w-full">
+            <button className="mb-4 p-4 bg-[#ecd9cb] cursor-pointer rounded w-full text-black">
               Install Bytes
             </button>
           </InstallButton>
