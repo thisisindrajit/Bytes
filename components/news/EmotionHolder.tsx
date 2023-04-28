@@ -25,9 +25,9 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
       case "surprise":
         return "/images/emojis/surprise.png";
       case "neutral":
-        return "/images/emojis/neu.png";
+        return "/images/emojis/neutral.png";
       default:
-        return "/images/emojis/neu.png";
+        return "/images/emojis/neutral.png";
     }
   };
 

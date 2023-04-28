@@ -17,9 +17,9 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
       case "neg":
         return "/images/emojis/neg.png";
       case "neu":
-        return "/images/emojis/neu.png";
+        return "/images/emojis/neutral.png";
       default:
-        return "/images/emojis/neu.png";
+        return "/images/emojis/neutral.png";
     }
   };
 
