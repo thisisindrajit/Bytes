@@ -9,6 +9,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 // import 'react-tooltip/dist/react-tooltip.css';
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
+import "react-responsive-modal/styles.css";
 
 export const queryClient = new QueryClient();
 

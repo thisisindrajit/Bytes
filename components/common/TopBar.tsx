@@ -10,10 +10,7 @@ interface TopBarProps {
   onClickIcon?: () => void;
 }
 
-const TopBar: FC<TopBarProps> = ({
-  className = "",
-  onClickIcon
-}) => {
+const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

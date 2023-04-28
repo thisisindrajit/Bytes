@@ -14,7 +14,7 @@ const CountryFlagHolder: FC<CountryFlagHolderProps> = ({ url, alt }) => {
   };
 
   return !isError ? (
-    <div className="relative h-4 w-4">
+    <div className="relative min-h-[1rem] min-w-[1rem] h-4 w-4">
       <Image src={url} alt={alt} onError={handleError} fill={true} />
     </div>
   ) : null;

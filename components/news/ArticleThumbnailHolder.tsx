@@ -53,7 +53,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
             url="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg"
             alt="Globe emoji"
           />
-          <span>{inputCountries.join(", ")}</span>
+          <div>{inputCountries.join(", ")}</div>
         </>
       );
     }
@@ -85,7 +85,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
         return (
           <>
             <CountryFlagHolder
-              url="https://twemoji.maxcdn.com/v/latest/svg/1f1fa-1f1f8.svg"
+              url="https://twemoji.maxcdn.com/v/latest/svg/1f1e6-1f1fa.svg"
               alt="Australian flag"
             />
             <span>Australia</span>
