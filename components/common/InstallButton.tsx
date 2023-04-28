@@ -21,12 +21,12 @@ const InstallButton: FC<InstallButtonProps> = ({
       e.preventDefault();
       setSupportsPWA(true);
       setPromptInstall(e);
+      setIsLoading(false);
     };
 
     // beforeinstallprompt will only be fired when the below condition is true:
     // - The PWA must not already be installed
     window.addEventListener("beforeinstallprompt", handler);
-    setIsLoading(false);
 
     return () => window.removeEventListener("transitionend", handler);
   }, []);
