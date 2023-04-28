@@ -25,9 +25,53 @@ body {
   outline: none !important;
 }
 
-/* If height is less than 540px, then everything will be hidden except for "use a bigger screen" message */
+/* If width is less than 320px, then everything will be hidden except for "use a bigger screen" message */
+@media screen and (max-width: 320px) {
+  #small-screen-holder {
+    @apply flex items-center justify-center;
+  }
 
-/* If the height is less than 667px (height of IPhone SE) then the emoji sizes are decreased and values are hidden */
+  #all-articles-holder {
+    display: none;
+  }
+}
+
+/* If width is more than 320px, show the UI */
+@media screen and (min-width: 320px) {
+  #small-screen-holder {
+    @apply hidden;
+  }
+
+  #all-articles-holder {
+    display: block;
+  }
+}
+
+
+/* If width is more than 320px and height is less than 540px, then everything will be hidden except for "use a bigger screen" message */
+@media screen and (min-width: 320px) and (max-height: 540px) {
+  #small-screen-holder {
+    @apply flex items-center justify-center;
+  }
+
+  #all-articles-holder {
+    display: none;
+  }
+}
+
+/* If width is more than 320px and height is more than 540px, show the UI */
+@media screen and (min-width: 320px) and (min-height: 540px) {
+  #small-screen-holder {
+    @apply hidden;
+  }
+
+  #all-articles-holder {
+    display: block;
+  }
+}
+
+
+/* If the height is less than 667px, then the emoji sizes are decreased and values are hidden */
 @media screen and (max-height: 667px) and (min-width: 1024px) {
   .tippy-tooltip {
     display: block !important;

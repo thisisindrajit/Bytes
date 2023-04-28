@@ -105,135 +105,148 @@ const Home = () => {
   }, []);
 
   return (
-    <div
-      tabIndex={1} // This makes sure this is the first element to be focused
-      id="all-articles-holder"
-      className="max-h-screen w-full relative overflow-y-auto outline-none"
-    >
-      {/* Top bar */}
-      <TopBar onClickIcon={scrollToTop} />
-      {/* Article holder */}
-      <Holder
-        className={`${
-          (isError || isLoading || isRefetchError) &&
-          "h-screen w-full flex items-center justify-center"
-        }`}
+    <>
+      {/* In case of very small screens, don't show the UI and show custom message */}
+      <div
+        id="small-screen-holder"
+        className="min-h-screen overflow-y-auto"
       >
-        {isError || isRefetchError ? (
-          <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500 m-6">
-            Error fetching articles! Please try again by refreshing the page!
-          </span>
-        ) : !isLoading && articlesData ? (
-          <>
-            {articlesData.map((article: Article, index: number) => {
-              if (index > 0) {
-                curTabIndexStartValue += 5;
-              }
+        <div className="text-red-500 text-sm/relaxed p-4 text-justify">
+          🥺 We apologize, but this device is not supported due to its smaller
+          screen dimensions. For an optimal experience, we recommend using a
+          device with a larger screen.
+        </div>
+      </div>
+      {/* Main UI */}
+      <div
+        tabIndex={1} // This makes sure this is the first element to be focused
+        id="all-articles-holder"
+        className="max-h-screen w-full relative overflow-y-auto outline-none"
+      >
+        {/* Top bar */}
+        <TopBar onClickIcon={scrollToTop} />
+        {/* Article holder */}
+        <Holder
+          className={`${
+            (isError || isLoading || isRefetchError) &&
+            "h-screen w-full flex items-center justify-center"
+          }`}
+        >
+          {isError || isRefetchError ? (
+            <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500 m-6">
+              Error fetching articles! Please try again by refreshing the page!
+            </span>
+          ) : !isLoading && articlesData ? (
+            <>
+              {articlesData.map((article: Article, index: number) => {
+                if (index > 0) {
+                  curTabIndexStartValue += 5;
+                }
 
-              return (
-                <CarouselProvider
-                  key={article.id}
-                  naturalSlideWidth={0}
-                  naturalSlideHeight={0}
-                  isIntrinsicHeight={false}
-                  totalSlides={3}
-                  touchEnabled={true}
-                  dragEnabled={false}
-                >
-                  <ArticleHolder
-                    id={article.id}
-                    className="min-h-screen snap-center p-4"
-                    hasPrevious={index === 0 ? false : true}
-                    hasNext={index === articlesData.length - 1 ? false : true}
-                    prevId={articlesData[index - 1]?.id}
-                    nextId={articlesData[index + 1]?.id}
-                    title={
-                      article.source === "moneycontrol"
-                        ? cleanIfSourceIsMoneycontrol(article.title)
-                        : decode(article.title)
-                    }
-                    description={
-                      article.description
-                        ? article.source === "moneycontrol"
-                          ? cleanIfSourceIsMoneycontrol(article.description)
-                          : decode(article.description)
-                        : null
-                    }
-                    pubDate={
-                      article.pub_date
-                        ? new Date(article.pub_date).toUTCString()
-                        : null
-                    }
-                    imgUrl={article.image_url}
-                    articleUrl={article.link}
-                    summary={
-                      article.summarized_text
-                        ? article.summarized_text
-                        : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
-                    }
-                    generatedByAi={article.summarized_text ? true : false}
-                    category={article.category}
-                    creator={article.creator}
-                    source={article.source}
-                    country={article.country}
-                    keywords={article.keywords}
-                    sentiment={
-                      article.predicted_sentiment
-                        ? article.predicted_sentiment
-                        : "neu"
-                    }
-                    emotion={
-                      article.predicted_emotion
-                        ? article.predicted_emotion
-                        : "neutral"
-                    }
-                    tabIndexStart={curTabIndexStartValue}
-                    isFetchingNewArticles={isFetchingNextPage}
-                  />
-                </CarouselProvider>
-              );
-            })}
-            {/* If there are no more pages (data) to be shown */}
-            {!hasNextPage ? (
-              // If there are no articles in DB
-              articlesData.length === 0 ? (
-                <div className="h-screen w-full flex items-center justify-center text-white">
-                  No articles available! 🥺
-                </div>
+                return (
+                  <CarouselProvider
+                    key={article.id}
+                    naturalSlideWidth={0}
+                    naturalSlideHeight={0}
+                    isIntrinsicHeight={false}
+                    totalSlides={3}
+                    touchEnabled={true}
+                    dragEnabled={false}
+                  >
+                    <ArticleHolder
+                      id={article.id}
+                      className="min-h-screen snap-center p-4"
+                      hasPrevious={index === 0 ? false : true}
+                      hasNext={index === articlesData.length - 1 ? false : true}
+                      prevId={articlesData[index - 1]?.id}
+                      nextId={articlesData[index + 1]?.id}
+                      title={
+                        article.source === "moneycontrol"
+                          ? cleanIfSourceIsMoneycontrol(article.title)
+                          : decode(article.title)
+                      }
+                      description={
+                        article.description
+                          ? article.source === "moneycontrol"
+                            ? cleanIfSourceIsMoneycontrol(article.description)
+                            : decode(article.description)
+                          : null
+                      }
+                      pubDate={
+                        article.pub_date
+                          ? new Date(article.pub_date).toUTCString()
+                          : null
+                      }
+                      imgUrl={article.image_url}
+                      articleUrl={article.link}
+                      summary={
+                        article.summarized_text
+                          ? article.summarized_text
+                          : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
+                      }
+                      generatedByAi={article.summarized_text ? true : false}
+                      category={article.category}
+                      creator={article.creator}
+                      source={article.source}
+                      country={article.country}
+                      keywords={article.keywords}
+                      sentiment={
+                        article.predicted_sentiment
+                          ? article.predicted_sentiment
+                          : "neu"
+                      }
+                      emotion={
+                        article.predicted_emotion
+                          ? article.predicted_emotion
+                          : "neutral"
+                      }
+                      tabIndexStart={curTabIndexStartValue}
+                      isFetchingNewArticles={isFetchingNextPage}
+                    />
+                  </CarouselProvider>
+                );
+              })}
+              {/* If there are no more pages (data) to be shown */}
+              {!hasNextPage ? (
+                // If there are no articles in DB
+                articlesData.length === 0 ? (
+                  <div className="h-screen w-full flex items-center justify-center text-white">
+                    No articles available! 🥺
+                  </div>
+                ) : (
+                  // If user has viewed all articles
+                  <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
+                    You have viewed all articles! 🎉
+                  </div>
+                )
               ) : (
-                // If user has viewed all articles
-                <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
-                  You have viewed all articles! 🎉
-                </div>
-              )
-            ) : (
-              <>
-                {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes to the last fetched article */}
-                <div ref={loadMoreRef}></div>
-                <div>
-                  {articlesData.length > 0 && (
-                    <div className="bg-white flex items-center justify-center">
-                      <Loading
-                        heightAndWidthClassesForLoadingIcon="h-8 w-8"
-                        loadingText="Fetching more articles..."
-                        className="text-sm lg:text-base m-6"
-                        color="black"
-                      />
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
-          <Loading
-            heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
-            loadingText="Fetching articles..."
-            className="text-white text-sm lg:text-base m-6"
-          />
-        )}
-        {/* Tooltips */}
-        {/* <ReactTooltip
+                <>
+                  {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes to the last fetched article */}
+                  <div ref={loadMoreRef}></div>
+                  <div>
+                    {articlesData.length > 0 && (
+                      <div className="bg-white flex items-center justify-center">
+                        <Loading
+                          heightAndWidthClassesForLoadingIcon="h-8 w-8"
+                          loadingText="Fetching more articles..."
+                          className="text-sm lg:text-base m-6"
+                          color="black"
+                        />
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </>
+          ) : (
+            <Loading
+              heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
+              loadingText="Fetching articles..."
+              className="text-white text-sm lg:text-base m-6"
+            />
+          )}
+          {/* Tooltips */}
+          {/* <ReactTooltip
           id="pred-sentiment"
           place="top"
           className="block md:hidden"
@@ -245,20 +258,21 @@ const Home = () => {
           className="block md:hidden"
           variant="light"
         /> */}
-      </Holder>
-      <style jsx>
-        {`
-          #all-articles-holder {
-            scroll-snap-type: y mandatory;
-            scroll-snap-stop: always;
-            scrollbar-width: none; /* Firefox */
-          }
-          #all-articles-holder::-webkit-scrollbar {
-            display: none; /* Safari and Chrome */
-          }
-        `}
-      </style>
-    </div>
+        </Holder>
+        <style jsx>
+          {`
+            #all-articles-holder {
+              scroll-snap-type: y mandatory;
+              scroll-snap-stop: always;
+              scrollbar-width: none; /* Firefox */
+            }
+            #all-articles-holder::-webkit-scrollbar {
+              display: none; /* Safari and Chrome */
+            }
+          `}
+        </style>
+      </div>
+    </>
   );
 };
 
