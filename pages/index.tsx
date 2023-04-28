@@ -9,30 +9,15 @@ import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { decode } from "html-entities";
 import iconVLite from "iconv-lite";
-import InfoModal from "@/components/common/InfoModal";
-import { useRouter } from "next/router";
-import BytesInfo from "@/components/common/BytesInfo";
 // import { Tooltip as ReactTooltip } from "react-tooltip";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
 
   const loadMoreRef: any = useRef(null);
-  const router = useRouter();
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const openModal = () => {
-    router.push("/?type=modal", undefined, { shallow: true });
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    router.back();
-    setIsModalOpen(false);
-  };
 
   const getArticles = async (curLastKey: string) => {
     const options = {
@@ -115,17 +100,6 @@ const Home = () => {
   }, [isFetchingNextPage, results]);
 
   useEffect(() => {
-    router.beforePopState(({ url, as, options }) => {
-      if (url === "/") {
-        // Close modal when navigating back to home page
-        setIsModalOpen(false);
-      }
-
-      return true;
-    });
-  }, [router]);
-
-  useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
     document.getElementById("all-articles-holder")?.focus();
   }, []);
@@ -136,18 +110,8 @@ const Home = () => {
       id="all-articles-holder"
       className="max-h-screen w-full relative overflow-y-auto outline-none"
     >
-      {/* Modal */}
-      {isModalOpen && (
-        <InfoModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          title="About Bytes"
-        >
-          <BytesInfo />
-        </InfoModal>
-      )}
       {/* Top bar */}
-      <TopBar onClickIcon={scrollToTop} openModal={openModal} />
+      <TopBar onClickIcon={scrollToTop} />
       {/* Article holder */}
       <Holder
         className={`${

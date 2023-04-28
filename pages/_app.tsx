@@ -7,8 +7,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Analytics } from "@vercel/analytics/react";
 import "pure-react-carousel/dist/react-carousel.es.css";
 // import 'react-tooltip/dist/react-tooltip.css';
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/themes/light.css';
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
 
 export const queryClient = new QueryClient();
 

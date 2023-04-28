@@ -1,5 +1,6 @@
 import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
+import CountryFlagHolder from "./CountryFlagHolder";
 
 interface ArticleThumbnailHolderProps {
   title: string;
@@ -48,7 +49,10 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
     if (inputCountries.length > 1) {
       return (
         <>
-          <span>🌏</span>
+          <CountryFlagHolder
+            url="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg"
+            alt="Globe emoji"
+          />
           <span>{inputCountries.join(", ")}</span>
         </>
       );
@@ -60,28 +64,40 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       case "india":
         return (
           <>
-            <span>🇮🇳</span>
+            <CountryFlagHolder
+              url="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f3.svg"
+              alt="Indian flag"
+            />
             <span>India</span>
           </>
         );
       case "united states of america":
         return (
           <>
-            <span>🇺🇸</span>
+            <CountryFlagHolder
+              url="https://twemoji.maxcdn.com/v/latest/svg/1f1fa-1f1f8.svg"
+              alt="USA flag"
+            />
             <span>United States of America</span>
           </>
         );
       case "australia":
         return (
           <>
-            <span>🇦🇺</span>
+            <CountryFlagHolder
+              url="https://twemoji.maxcdn.com/v/latest/svg/1f1fa-1f1f8.svg"
+              alt="Australian flag"
+            />
             <span>Australia</span>
           </>
         );
       case "united kingdom":
         return (
           <>
-            <span>🇬🇧</span>
+            <CountryFlagHolder
+              url="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg"
+              alt="UK flag"
+            />
             <span>United Kingdom</span>
           </>
         );
@@ -99,7 +115,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
       {/* Country */}
       {country && formatCountry(JSON.parse(country).country) && (
         <div className="text-sm/relaxed my-3">
-          <span className="flex gap-2 text-[#ecd9cb]">
+          <span className="flex items-center gap-2 text-[#ecd9cb]">
             {formatCountry(JSON.parse(country).country)}
           </span>
         </div>
