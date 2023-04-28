@@ -25,13 +25,25 @@ body {
   outline: none !important;
 }
 
+/* Article holder styling */
+#all-articles-holder {
+  scroll-snap-type: y mandatory;
+  scroll-snap-stop: always;
+  scrollbar-width: none; /* Firefox */
+}
+#all-articles-holder::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* MEDIA QUERIES */
+
 /* If width is less than 320px, then everything will be hidden except for "use a bigger screen" message */
 @media screen and (max-width: 320px) {
   #small-screen-holder {
     @apply flex items-center justify-center;
   }
 
-  #all-articles-holder {
+  #main-ui-holder {
     display: none;
   }
 }
@@ -42,7 +54,7 @@ body {
     @apply hidden;
   }
 
-  #all-articles-holder {
+  #main-ui-holder {
     display: block;
   }
 }
@@ -54,7 +66,7 @@ body {
     @apply flex items-center justify-center;
   }
 
-  #all-articles-holder {
+  #main-ui-holder {
     display: none;
   }
 }
@@ -65,13 +77,12 @@ body {
     @apply hidden;
   }
 
-  #all-articles-holder {
+  #main-ui-holder {
     display: block;
   }
 }
 
-
-/* If the height is less than 667px, then the emoji sizes are decreased and values are hidden */
+/* If the height is less than 667px and width is greater than 1024px, then the emoji sizes are decreased and values are hidden */
 @media screen and (max-height: 667px) and (min-width: 1024px) {
   .tippy-tooltip {
     display: block !important;

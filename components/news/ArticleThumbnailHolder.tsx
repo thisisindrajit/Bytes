@@ -43,6 +43,24 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
     return `${fullDate} AT ${hours}:${minutes}:${seconds} ${amOrPm} (GMT)`;
   };
 
+  const capitalizeCountryName = (country: string) => {
+    switch (country) {
+      case "india":
+        return "India";
+      case "united states of america":
+        return "United States of America";
+      case "australia":
+        return "Australia";
+      case "united kingdom":
+        return "United Kingdom";
+      default:
+        return country
+          .split(" ")
+          .map((c) => c.charAt(0).toUpperCase() + c.slice(1))
+          .join(" ");
+    }
+  };
+
   const formatCountry = (inputCountries: string[]) => {
     if (inputCountries.length === 0) return null;
 
@@ -53,7 +71,9 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
             url="https://twemoji.maxcdn.com/v/latest/svg/1f30f.svg"
             alt="Globe emoji"
           />
-          <div>{inputCountries.join(", ")}</div>
+          <div>
+            {inputCountries.map((c) => capitalizeCountryName(c)).join(", ")}
+          </div>
         </>
       );
     }
@@ -68,7 +88,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
               url="https://twemoji.maxcdn.com/v/latest/svg/1f1ee-1f1f3.svg"
               alt="Indian flag"
             />
-            <span>India</span>
+            <span>{capitalizeCountryName(country)}</span>
           </>
         );
       case "united states of america":
@@ -78,7 +98,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
               url="https://twemoji.maxcdn.com/v/latest/svg/1f1fa-1f1f8.svg"
               alt="USA flag"
             />
-            <span>United States of America</span>
+            <span>{capitalizeCountryName(country)}</span>
           </>
         );
       case "australia":
@@ -88,7 +108,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
               url="https://twemoji.maxcdn.com/v/latest/svg/1f1e6-1f1fa.svg"
               alt="Australian flag"
             />
-            <span>Australia</span>
+            <span>{capitalizeCountryName(country)}</span>
           </>
         );
       case "united kingdom":
@@ -98,7 +118,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
               url="https://twemoji.maxcdn.com/v/latest/svg/1f1ec-1f1e7.svg"
               alt="UK flag"
             />
-            <span>United Kingdom</span>
+            <span>{capitalizeCountryName(country)}</span>
           </>
         );
       default:

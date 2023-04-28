@@ -81,7 +81,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         {/* Horizontal separator */}
         <div className="h-[1px] w-full bg-[#ecd9cb]"></div>
       </div>
-      {/* <div className="flex-1 grid grid-cols-1 xl:grid-cols-[3fr_1fr] gap-3 place-content-stretch max-h-[calc(100vh-10rem)]"> */}
+      {/* Article holder */}
       <div className="flex-1 max-h-[calc(100vh-10rem)]">
         {/* Content holder */}
         <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100vh-10rem)]">

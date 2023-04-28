@@ -6,11 +6,12 @@ import InfoModal from "@/components/common/InfoModal";
 import BytesInfo from "@/components/common/BytesInfo";
 
 interface TopBarProps {
+  page?: string;
   className?: string;
   onClickIcon?: () => void;
 }
 
-const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
+const TopBar: FC<TopBarProps> = ({ page, className = "", onClickIcon }) => {
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -66,37 +67,40 @@ const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
           />
           <span className="tracking-[0.1em]">Bytes</span>
         </div>
-        <div className="flex">
-          {/* Info button */}
-          <div
-            className="bg-white backdrop-blur-md p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer"
-            onClick={openModal}
-          >
-            <ImageHolder
-              heightAndWidthClasses="h-4 w-4"
-              src="/images/svg/info.svg"
-              alt="info icon"
-              priority={true}
-              loadingIconColor="black"
-              showLoading
-            />
-            <span className="hidden sm:block">Info</span>
-          </div>
-          {/* Install button */}
-          <InstallButton>
-            <div className="bg-[#ecd9cb] p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer">
+        {/* Info and install button */}
+        {page !== "install" && (
+          <div className="flex">
+            {/* Info button */}
+            <div
+              className="bg-white backdrop-blur-md p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer"
+              onClick={openModal}
+            >
               <ImageHolder
                 heightAndWidthClasses="h-4 w-4"
-                src="/images/svg/download.svg"
-                alt="download icon"
+                src="/images/svg/info.svg"
+                alt="info icon"
                 priority={true}
                 loadingIconColor="black"
                 showLoading
               />
-              <span className="hidden sm:block">Install</span>
+              <span className="hidden sm:block">Info</span>
             </div>
-          </InstallButton>
-        </div>
+            {/* Install button */}
+            <InstallButton>
+              <div className="bg-[#ecd9cb] p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer">
+                <ImageHolder
+                  heightAndWidthClasses="h-4 w-4"
+                  src="/images/svg/download.svg"
+                  alt="download icon"
+                  priority={true}
+                  loadingIconColor="black"
+                  showLoading
+                />
+                <span className="hidden sm:block">Install</span>
+              </div>
+            </InstallButton>
+          </div>
+        )}
       </div>
     </>
   );

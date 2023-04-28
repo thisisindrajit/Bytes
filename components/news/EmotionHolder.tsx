@@ -57,7 +57,9 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
       theme="light"
       className="p-2 md:hidden tippy-tooltip"
       zIndex={5}
-      placement={window.innerHeight < 667 && window.innerHeight < 1024 ? "left" : "top"}
+      placement={
+        window.innerHeight <= 667 && window.innerWidth >= 1024 ? "left" : "top"
+      }
       interactive={true}
       content={
         <div>
@@ -68,13 +70,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
         </div>
       }
     >
-      <div
-        // data-tooltip-id="pred-emotion"
-        // data-tooltip-content={`The predicted emotion is ${returnEmotionValue(
-        //   emotion
-        // ).toUpperCase()}.`}
-        className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white"
-      >
+      <div className="bg-[#303030] rounded p-2 lg:p-4 h-32 lg:h-full overflow-y-auto text-white">
         <div className="flex flex-col min-h-full h-fit gap-2">
           <div className="text-xs lg:text-sm text-[#ecd9cb] uppercase">
             Emotion

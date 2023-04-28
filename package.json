@@ -10,7 +10,6 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.14",
     "@prisma/client": "^4.13.0",
     "@tippyjs/react": "^4.2.6",
     "@types/node": "18.15.11",

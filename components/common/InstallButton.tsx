@@ -1,10 +1,16 @@
 import { useState, useEffect, ReactNode, FC } from "react";
 
 interface InstallButtonProps {
+  page?: string;
   children: ReactNode;
+  errorElement?: ReactNode;
 }
 
-const InstallButton: FC<InstallButtonProps> = ({ children }) => {
+const InstallButton: FC<InstallButtonProps> = ({
+  children,
+  page,
+  errorElement,
+}) => {
   const [supportsPWA, setSupportsPWA] = useState<boolean>(false);
   const [promptInstall, setPromptInstall] = useState<any>(null);
 
@@ -30,7 +36,11 @@ const InstallButton: FC<InstallButtonProps> = ({ children }) => {
     promptInstall.prompt();
   };
 
-  return supportsPWA ? <div onClick={onClick}>{children}</div> : null;
+  return supportsPWA ? (
+    <div onClick={onClick}>{children}</div>
+  ) : page === "install" ? (
+    <>{errorElement}</>
+  ) : null;
 };
 
 export default InstallButton;
