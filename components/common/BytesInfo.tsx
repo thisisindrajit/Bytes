@@ -15,16 +15,16 @@ const BytesInfo: FC = () => {
       </div>
       {/* About */}
       <div className="text-base/loose text-justify mt-4">
-        <span>Bytes is a</span>
+        <span>Bytes is an</span>
         <span className="font-bold mx-1.5">
-          AI powered progressive web app (PWA)
+          AI-powered progressive web app (PWA)
         </span>
         <span>
           that delivers news to users in an innovative and user-friendly way.
           With its infinite scroll format and
         </span>
         <span className="font-bold mx-1.5">
-          AI generated short summaries of articles,
+          AI-generated short summaries of articles,
         </span>
         <span>
           Bytes provides users with a fast and easy way to stay up-to-date on
