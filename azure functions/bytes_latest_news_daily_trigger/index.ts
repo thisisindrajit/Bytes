@@ -194,7 +194,7 @@ const timerTrigger: AzureFunction = async function (
       const content = newsArticles[i].content.slice(0, 2048);
 
       const query_1 = `SELECT summarized_article
-                        FROM mindsdb.text_summarization_openai_custom_sep_2
+                        FROM mindsdb.text_summarization_openai
                         WHERE content="${content.replace(/"/g, "'")}";`;
 
       const queryResult_1 = await MindsDB.default.SQL.runQuery(query_1);
