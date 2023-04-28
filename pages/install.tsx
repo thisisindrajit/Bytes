@@ -19,7 +19,7 @@ const Install: FC = () => {
       {/* Top bar */}
       <TopBar page="install" onClickIcon={() => router.push("/")} />
       <Holder className="flex flex-col items-center justify-center">
-        <div className="mt-20 mb-8 md:mt-24 md:mb-12 max-w-[90vw] lg:max-w-[75vw]">
+        <div className="my-8 md:my-12 max-w-[90vw] lg:max-w-[75vw]">
           {/* Install button */}
           <InstallButton page="install" errorElement={errorElement}>
             <button className="mb-4 p-4 bg-[#ecd9cb] cursor-pointer rounded w-full">
