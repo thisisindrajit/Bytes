@@ -1,71 +1,36 @@
-import { useState, ReactNode, FC, useMemo } from "react";
-import Loading from "./Loading";
+import { useState, useEffect, ReactNode, FC } from "react";
 
 interface InstallButtonProps {
-  page?: string;
   children: ReactNode;
-  errorElement?: ReactNode;
 }
 
-const InstallButton: FC<InstallButtonProps> = ({
-  children,
-  page,
-  errorElement,
-}) => {
-  const [supportsPWA, setSupportsPWA] = useState(false);
-  const [promptEvent, setPromptEvent] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+const InstallButton: FC<InstallButtonProps> = ({ children }) => {
+  const [supportsPWA, setSupportsPWA] = useState<boolean>(false);
+  const [promptInstall, setPromptInstall] = useState<any>(null);
 
-  const promptInstall = () => {
-    if (promptEvent) {
-      promptEvent.prompt();
-    }
-  };
-
-  const handleBeforeInstallPrompt = (e: any) => {
-    e.preventDefault();
-    setPromptEvent(e);
-    setIsLoading(false);
-  };
-
-  useMemo(() => {
-    let supportsPWA = false;
-
-    try {
-      supportsPWA = 'serviceWorker' in navigator && 'PushManager' in window;
-    } catch (error) {
-      console.log('Error checking for PWA support: ', error);
-    }
-
-    setSupportsPWA(supportsPWA);
-
-    if (typeof window !== 'undefined') {
-      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    }
-
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      }
+  useEffect(() => {
+    const handler = (e) => {
+      e.preventDefault();
+      setSupportsPWA(true);
+      setPromptInstall(e);
     };
+
+    // beforeinstallprompt will only be fired when the below condition is true:
+    // - The PWA must not already be installed
+    window.addEventListener("beforeinstallprompt", handler);
+
+    return () => window.removeEventListener("transitionend", handler);
   }, []);
 
-  return page === "install" ? (
-    isLoading ? (
-      <Loading
-        heightAndWidthClassesForLoadingIcon="h-7 w-7"
-        className="m-auto text-white mb-8"
-      />
-    ) : supportsPWA ? (
-      <div onClick={promptInstall}>{children}</div>
-    ) : (
-      <>{errorElement}</>
-    )
-  ) : supportsPWA ? (
-    <div onClick={promptInstall}>{children}</div>
-  ) : (
-    <div>Test</div>
-  );
+  const onClick = (evt) => {
+    evt.preventDefault();
+    if (!promptInstall) {
+      return;
+    }
+    promptInstall.prompt();
+  };
+
+  return supportsPWA ? <div onClick={onClick}>{children}</div> : null;
 };
 
 export default InstallButton;
