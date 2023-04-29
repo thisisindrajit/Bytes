@@ -49,8 +49,12 @@ const TopBar: FC<TopBarProps> = ({ page, className = "", onClickIcon }) => {
           <BytesInfo />
         </InfoModal>
       )}
-      <div
+      {/* Uncomment this after refresh is implemented */}
+      {/* <div
         className={`bg-[#ecd9cb]/80 backdrop-blur-xl w-full flex items-center justify-between text-sm sticky top-0 drop-shadow-[0_25px_25px_rgba(0,0,0,0.25)] z-20 ${className}`}
+      > */}
+      <div
+        className={`bg-[#ecd9cb]/80 backdrop-blur-xl w-full flex items-center justify-between text-sm fixed drop-shadow-[0_25px_25px_rgba(0,0,0,0.25)] z-20 ${className}`}
       >
         {/* Logo and title */}
         <div

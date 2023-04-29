@@ -2,12 +2,14 @@ import Image from "next/image";
 import { FC, useState } from "react";
 import Loading from "../common/Loading";
 import Tippy from "@tippyjs/react";
+import useResize from "@/hooks/useResize";
 
 interface SentimentHolderProps {
   sentiment: string;
 }
 
 const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
+  const { isTopPlacement } = useResize();
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const showSentiment = (sentiment: string) => {
@@ -41,9 +43,7 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
       theme="light"
       className="p-2 md:hidden tippy-tooltip"
       zIndex={5}
-      placement={
-        window.innerHeight <= 667 && window.innerWidth >= 1024 ? "left" : "top"
-      }
+      placement={isTopPlacement ? "left" : "top"}
       interactive={true}
       content={
         <div>
