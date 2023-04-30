@@ -11,7 +11,7 @@ export default function Document() {
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#ecd9cb" />
         <meta name="description" content="Bytes - News, redefined." />
-        <meta name="keywords" content="news, artificial intelligence, open source" />
+        <meta name="keywords" content="news, artificial intelligence, open source, real time news, summarized news" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
