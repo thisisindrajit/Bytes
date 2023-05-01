@@ -1,6 +1,4 @@
-import { FC, useContext, useEffect, useState } from "react";
-import { Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
-import { CarouselContext } from "pure-react-carousel";
+import { FC, useState } from "react";
 import BottomBar from "./BottomBar";
 import ArticleThumbnailHolder from "./ArticleThumbnailHolder";
 import ArticleSummaryHolder from "./ArticleSummaryHolder";
@@ -8,6 +6,7 @@ import ArticleDetailsHolder from "./ArticleDetailsHolder";
 import SentimentHolder from "./SentimentHolder";
 import EmotionHolder from "./EmotionHolder";
 import ImageHolder from "../common/ImageHolder";
+import Carousel from "nuka-carousel";
 
 interface ArticleHolderProps {
   id?: string;
@@ -32,8 +31,6 @@ interface ArticleHolderProps {
   emotion: string;
   tabIndexStart: number;
   isFetchingNewArticles: boolean;
-  // All other props
-  [x: string]: any;
 }
 
 const ArticleHolder: FC<ArticleHolderProps> = ({
@@ -59,24 +56,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   emotion,
   tabIndexStart,
   isFetchingNewArticles,
-  ...props
 }) => {
-  const carouselContext = useContext(CarouselContext);
-
-  const [currentSlide, setCurrentSlide] = useState<number>(
-    carouselContext.state.currentSlide
-  );
-
-  useEffect(() => {
-    function onChange() {
-      setCurrentSlide(carouselContext.state.currentSlide);
-    }
-    carouselContext.subscribe(onChange);
-    return () => carouselContext.unsubscribe(onChange);
-  }, [carouselContext]);
+  const [slideIndex, setSlideIndex] = useState<number>(0);
 
   return (
-    <div id={id} className={`flex flex-col ${className}`} {...props}>
+    <div id={id} className={`flex flex-col ${className}`}>
       {/* Top padding to ensure article holder does not overlap with top bar */}
       <div className="py-6">
         {/* Horizontal separator */}
@@ -88,126 +72,128 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100vh-10rem)]">
           {/* Carousel holder */}
           <div className="bg-[#303030] rounded flex flex-col overflow-y-auto max-h-[calc(100vh-10rem)]">
-            <div className="flex-1 flex flex-col justify-between max-h-[calc(100vh-10rem)] rounded">
-              <Slider tabIndex={-1}>
-                {/* Two urls are added in background image so that even if the first link is broken, the default background image is used */}
-                <Slide
-                  index={0}
-                  tabIndex={-1}
-                  className="min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center text-white"
-                  style={{
-                    backgroundImage: imgUrl
-                      ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
-                      : "none",
-                  }}
-                >
-                  <ArticleThumbnailHolder
-                    title={title}
-                    description={description}
-                    country={country}
-                    pubDate={pubDate}
-                  />
-                </Slide>
-                <Slide
-                  index={1}
-                  tabIndex={-1}
-                  className="p-4 min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto text-white"
-                >
-                  <ArticleSummaryHolder
-                    source={source}
-                    summary={summary}
-                    generatedByAi={generatedByAi}
-                    articleUrl={articleUrl}
-                  />
-                </Slide>
-                <Slide
-                  index={2}
-                  tabIndex={-1}
-                  className="p-4 min-h-[calc(100vh-22rem)] lg:min-h-[calc(100vh-13rem)] overflow-y-auto text-white"
-                >
-                  <ArticleDetailsHolder
-                    category={category}
-                    creator={creator}
-                    source={source}
-                    country={country}
-                    keywords={keywords}
-                  />
-                </Slide>
-              </Slider>
-              <div className="bg-[#ecd9cb] flex items-center py-[1.6rem] px-4 lg:py-6 h-8">
-                {currentSlide === 2 && (
-                  <ButtonBack
-                    tabIndex={tabIndexStart + 3}
-                    className="animate-slide-right"
-                  >
-                    <div className="flex gap-2 items-center">
-                      <ImageHolder
-                        heightAndWidthClasses="h-4 w-4"
-                        src="/images/svg/left-arrow.svg"
-                        alt="left arrow icon"
-                        priority={true}
-                        loadingIconColor="black"
-                        showLoading
-                      />
-                      <span className="text-sm uppercase">Summary by AI</span>
-                    </div>
-                  </ButtonBack>
-                )}
-                {currentSlide === 1 && (
-                  <div className="flex items-center justify-between w-full">
-                    <ButtonBack
-                      tabIndex={tabIndexStart + 1}
-                      className="animate-slide-right"
-                    >
-                      <div className="flex gap-2 items-center">
-                        <ImageHolder
-                          heightAndWidthClasses="h-4 w-4"
-                          src="/images/svg/left-arrow.svg"
-                          alt="left arrow icon"
-                          priority={true}
-                          loadingIconColor="black"
-                          showLoading
-                        />
-                        <span className="text-sm uppercase">Thumbnail</span>
-                      </div>
-                    </ButtonBack>
-                    <ButtonNext
-                      tabIndex={tabIndexStart + 2}
-                      className="animate-slide-left"
-                    >
-                      <div className="flex gap-2 items-center">
-                        <span className="text-sm uppercase">Details</span>
-                        <ImageHolder
-                          heightAndWidthClasses="h-4 w-4"
-                          src="/images/svg/right-arrow.svg"
-                          alt="right arrow icon"
-                          priority={true}
-                          loadingIconColor="black"
-                          showLoading
-                        />
-                      </div>
-                    </ButtonNext>
-                  </div>
-                )}
-                {currentSlide === 0 && (
-                  <ButtonNext
-                    tabIndex={tabIndexStart}
-                    className="mx-auto mr-0 animate-slide-left"
-                  >
-                    <div className="flex gap-2 items-center">
-                      <span className="text-sm uppercase">Summary by AI</span>
-                      <ImageHolder
-                        heightAndWidthClasses="h-4 w-4"
-                        src="/images/svg/right-arrow.svg"
-                        alt="right arrow icon"
-                        priority={true}
-                        loadingIconColor="black"
-                        showLoading
-                      />
-                    </div>
-                  </ButtonNext>
-                )}
+            {/* Carousel */}
+            <Carousel
+              withoutControls={true}
+              speed={50}
+              dragThreshold={0.25}
+              slideIndex={slideIndex}
+              afterSlide={(currentSlideIndex) =>
+                setSlideIndex(currentSlideIndex)
+              }
+              // dragging={false}
+            >
+              <div
+                tabIndex={-1}
+                className="h-[calc(100vh-22rem)] max-h-[calc(100vh-22rem)] lg:h-[calc(100vh-13rem)] lg:max-h-[calc(100vh-13rem)] overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center text-white"
+                style={{
+                  backgroundImage: imgUrl
+                    ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
+                    : "none",
+                }}
+              >
+                <ArticleThumbnailHolder
+                  title={title}
+                  description={description}
+                  country={country}
+                  pubDate={pubDate}
+                />
               </div>
+              <div
+                tabIndex={-1}
+                className="h-[calc(100vh-22rem)] max-h-[calc(100vh-22rem)] lg:h-[calc(100vh-13rem)] lg:max-h-[calc(100vh-13rem)] overflow-y-auto text-white"
+              >
+                <ArticleSummaryHolder
+                  source={source}
+                  summary={summary}
+                  generatedByAi={generatedByAi}
+                  articleUrl={articleUrl}
+                />
+              </div>
+              <div
+                tabIndex={-1}
+                className="h-[calc(100vh-22rem)] max-h-[calc(100vh-22rem)] lg:h-[calc(100vh-13rem)] lg:max-h-[calc(100vh-13rem)] overflow-y-auto text-white"
+              >
+                <ArticleDetailsHolder
+                  category={category}
+                  creator={creator}
+                  source={source}
+                  country={country}
+                  keywords={keywords}
+                />
+              </div>
+            </Carousel>
+            <div className="bg-[#ecd9cb] flex items-center py-[1.6rem] px-4 lg:py-6 h-8">
+              {slideIndex === 2 && (
+                <button
+                  onClick={() => setSlideIndex(1)}
+                  tabIndex={tabIndexStart + 3}
+                  className="animate-slide-right flex gap-2 items-center cursor-pointer"
+                >
+                  <ImageHolder
+                    heightAndWidthClasses="h-4 w-4"
+                    src="/images/svg/left-arrow.svg"
+                    alt="left arrow icon"
+                    priority={true}
+                    loadingIconColor="black"
+                    showLoading
+                  />
+                  <span className="text-sm uppercase">Summary by AI</span>
+                </button>
+              )}
+              {slideIndex === 1 && (
+                <div className="flex items-center justify-between w-full">
+                  {/* Previous button */}
+                  <button
+                    tabIndex={tabIndexStart + 1}
+                    onClick={() => setSlideIndex(0)}
+                    className="animate-slide-right flex gap-2 items-center cursor-pointer"
+                  >
+                    <ImageHolder
+                      heightAndWidthClasses="h-4 w-4"
+                      src="/images/svg/left-arrow.svg"
+                      alt="left arrow icon"
+                      priority={true}
+                      loadingIconColor="black"
+                      showLoading
+                    />
+                    <span className="text-sm uppercase">Thumbnail</span>
+                  </button>
+                  {/* Next button */}
+                  <button
+                    tabIndex={tabIndexStart + 2}
+                    onClick={() => setSlideIndex(2)}
+                    className="animate-slide-left flex gap-2 items-center cursor-pointer"
+                  >
+                    <span className="text-sm uppercase">Details</span>
+                    <ImageHolder
+                      heightAndWidthClasses="h-4 w-4"
+                      src="/images/svg/right-arrow.svg"
+                      alt="right arrow icon"
+                      priority={true}
+                      loadingIconColor="black"
+                      showLoading
+                    />
+                  </button>
+                </div>
+              )}
+              {slideIndex === 0 && (
+                <button
+                  tabIndex={tabIndexStart}
+                  onClick={() => setSlideIndex(1)}
+                  className="animate-slide-left mx-auto mr-0 flex gap-2 items-center cursor-pointer"
+                >
+                  <span className="text-sm uppercase">Summary by AI</span>
+                  <ImageHolder
+                    heightAndWidthClasses="h-4 w-4"
+                    src="/images/svg/right-arrow.svg"
+                    alt="right arrow icon"
+                    priority={true}
+                    loadingIconColor="black"
+                    showLoading
+                  />
+                </button>
+              )}
             </div>
           </div>
           {/* Emotion and sentiment predictions holder */}

@@ -4,14 +4,13 @@ import TopBar from "@/components/common/TopBar";
 import ArticleHolder from "@/components/news/ArticleHolder";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { Article } from "@/interfaces/Article";
-import { CarouselProvider } from "pure-react-carousel";
 import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
   scrollToTop,
-} from "@/utilities/ArticleUtilites";
+} from "@/utilities/articleUtilites";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
@@ -80,7 +79,7 @@ const Home = () => {
         setPagesFetched(curPageFetched);
       }
     }
-  }, [isFetchingNextPage, results]);
+  }, [isFetchingNextPage, results, articlesData, pagesFetched]);
 
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
@@ -114,66 +113,57 @@ const Home = () => {
               }
 
               return (
-                <CarouselProvider
+                <ArticleHolder
                   key={article.id}
-                  naturalSlideWidth={0}
-                  naturalSlideHeight={0}
-                  isIntrinsicHeight={false}
-                  totalSlides={3}
-                  touchEnabled={true}
-                  dragEnabled={false}
-                >
-                  <ArticleHolder
-                    id={article.id}
-                    className="min-h-screen snap-center p-4"
-                    hasPrevious={index === 0 ? false : true}
-                    hasNext={index === articlesData.length - 1 ? false : true}
-                    prevId={articlesData[index - 1]?.id}
-                    nextId={articlesData[index + 1]?.id}
-                    title={
-                      article.source === "moneycontrol"
-                        ? cleanIfSourceIsMoneycontrol(article.title)
-                        : decode(article.title)
-                    }
-                    description={
-                      article.description
-                        ? article.source === "moneycontrol"
-                          ? cleanIfSourceIsMoneycontrol(article.description)
-                          : decode(article.description)
-                        : null
-                    }
-                    pubDate={
-                      article.pub_date
-                        ? new Date(article.pub_date).toUTCString()
-                        : null
-                    }
-                    imgUrl={article.image_url}
-                    articleUrl={article.link}
-                    summary={
-                      article.summarized_text
-                        ? article.summarized_text
-                        : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
-                    }
-                    generatedByAi={article.summarized_text ? true : false}
-                    category={article.category}
-                    creator={article.creator}
-                    source={article.source}
-                    country={article.country}
-                    keywords={article.keywords}
-                    sentiment={
-                      article.predicted_sentiment
-                        ? article.predicted_sentiment
-                        : "neu"
-                    }
-                    emotion={
-                      article.predicted_emotion
-                        ? article.predicted_emotion
-                        : "neutral"
-                    }
-                    tabIndexStart={curTabIndexStartValue}
-                    isFetchingNewArticles={isFetchingNextPage}
-                  />
-                </CarouselProvider>
+                  id={article.id}
+                  className="min-h-screen snap-center p-4"
+                  hasPrevious={index === 0 ? false : true}
+                  hasNext={index === articlesData.length - 1 ? false : true}
+                  prevId={articlesData[index - 1]?.id}
+                  nextId={articlesData[index + 1]?.id}
+                  title={
+                    article.source === "moneycontrol"
+                      ? cleanIfSourceIsMoneycontrol(article.title)
+                      : decode(article.title)
+                  }
+                  description={
+                    article.description
+                      ? article.source === "moneycontrol"
+                        ? cleanIfSourceIsMoneycontrol(article.description)
+                        : decode(article.description)
+                      : null
+                  }
+                  pubDate={
+                    article.pub_date
+                      ? new Date(article.pub_date).toUTCString()
+                      : null
+                  }
+                  imgUrl={article.image_url}
+                  articleUrl={article.link}
+                  summary={
+                    article.summarized_text
+                      ? article.summarized_text
+                      : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
+                  }
+                  generatedByAi={article.summarized_text ? true : false}
+                  category={article.category}
+                  creator={article.creator}
+                  source={article.source}
+                  country={article.country}
+                  keywords={article.keywords}
+                  sentiment={
+                    article.predicted_sentiment
+                      ? article.predicted_sentiment
+                      : "neu"
+                  }
+                  emotion={
+                    article.predicted_emotion
+                      ? article.predicted_emotion
+                      : "neutral"
+                  }
+                  tabIndexStart={curTabIndexStartValue}
+                  isFetchingNewArticles={isFetchingNextPage}
+                />
               );
             })}
             {/* If there are no more pages (data) to be shown */}
