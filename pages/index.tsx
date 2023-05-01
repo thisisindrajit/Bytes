@@ -8,16 +8,20 @@ import { CarouselProvider } from "pure-react-carousel";
 import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { decode } from "html-entities";
-import iconVLite from "iconv-lite";
+import {
+  cleanIfSourceIsMoneycontrol,
+  scrollToTop,
+} from "@/utilities/ArticleUtilites";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
 
-  const loadMoreRef: any = useRef(null);
-
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
 
+  const loadMoreRef: any = useRef(null);
+
+  // GET method to fetch articles
   const getArticles = async (curLastKey: string) => {
     const options = {
       method: "GET",
@@ -35,21 +39,6 @@ const Home = () => {
     const allArticles = await response.json();
 
     return allArticles;
-  };
-
-  const scrollToTop = () => {
-    document.getElementById("all-articles-holder")?.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
-
-  const cleanIfSourceIsMoneycontrol = (input: string) => {
-    // This is done to correct text from moneycontrol because it uses a different encoding
-    let modifiedInput = input.replaceAll("#39;", "&#39;");
-    let encodedInput = iconVLite.encode(modifiedInput, "windows-1252");
-
-    return decode(iconVLite.decode(encodedInput, "utf-8").toString());
   };
 
   const {
