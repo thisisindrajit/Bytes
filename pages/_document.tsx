@@ -9,11 +9,11 @@ export default function Document() {
           rel="stylesheet"
         />
         <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.ico" />
         <meta name="theme-color" content="#ecd9cb" />
         <meta name="description" content="Bytes - News, redefined." />
         <meta name="keywords" content="news, artificial intelligence, open source, real time news, summarized news" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
         <Main />

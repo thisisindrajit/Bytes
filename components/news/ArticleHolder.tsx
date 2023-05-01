@@ -62,7 +62,8 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   ...props
 }) => {
   const carouselContext = useContext(CarouselContext);
-  const [currentSlide, setCurrentSlide] = useState(
+
+  const [currentSlide, setCurrentSlide] = useState<number>(
     carouselContext.state.currentSlide
   );
 

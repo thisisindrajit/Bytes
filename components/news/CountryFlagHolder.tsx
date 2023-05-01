@@ -7,7 +7,7 @@ interface CountryFlagHolderProps {
 }
 
 const CountryFlagHolder: FC<CountryFlagHolderProps> = ({ url, alt }) => {
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handleError = () => {
     setIsError(true);

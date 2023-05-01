@@ -20,7 +20,7 @@ const ImageHolder: FC<ImageHolderProps> = ({
   loadingIconColor,
   heightAndWidthClassesForLoadingIcon,
 }) => {
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   return showLoading ? (
     <div>

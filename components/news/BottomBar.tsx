@@ -1,6 +1,7 @@
 import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
-import Loading from "../common/Loading";
+import Loading from "../common/Loading"
+import { showInView } from "@/utilities/articleUtilites";
 
 interface BottomBarProps {
   className?: string;
@@ -23,13 +24,6 @@ const BottomBar: FC<BottomBarProps> = ({
   tabIndex,
   isFetchingNewArticles,
 }) => {
-  const showInView = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-    });
-    document.getElementById(id)?.focus();
-  };
-
   return (
     <div
       className={`grid grid-cols-3 place-content-stretch w-full md:w-[32rem] m-auto rounded overflow-hidden ${className}`}

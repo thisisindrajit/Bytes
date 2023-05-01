@@ -22,22 +22,23 @@ const getArticles = async (
   }
 
   if (!req.query?.curLastKey) {
-    res.status(400).json({ message: 'Missing curLastKey query parameter!' });
+    res.status(400).json({ message: "Missing curLastKey query parameter!" });
     return;
   }
 
   const limit = 10;
 
-  const curLastKey = req.query.curLastKey !== "1"
-    ? new Date(req.query.curLastKey as string)
-    : null;
+  const curLastKey =
+    req.query.curLastKey !== "1"
+      ? new Date(req.query.curLastKey as string)
+      : null;
 
   let where: Prisma.articlesWhereInput = {};
 
   if (curLastKey) {
     where = {
       ...where,
-      addedToTableAt: { lt: curLastKey }
+      addedToTableAt: { lt: curLastKey },
     };
   }
 
@@ -64,6 +65,7 @@ const getArticles = async (
     },
   });
 
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.status(200).json({
     data: articles,
     lastKey:

@@ -2,41 +2,20 @@ import Image from "next/image";
 import { FC, useState } from "react";
 import Loading from "../common/Loading";
 import Tippy from "@tippyjs/react";
-import useResize from "@/hooks/useResize";
+import useResize from "@/hooks/useOnResize";
+import {
+  returnSentimentValue,
+  showSentiment,
+} from "@/utilities/sentimentHolderUtilities";
 
 interface SentimentHolderProps {
   sentiment: string;
 }
 
 const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
+
   const { isTopPlacement } = useResize();
-  const [isImageLoaded, setIsImageLoaded] = useState(false);
-
-  const showSentiment = (sentiment: string) => {
-    switch (sentiment) {
-      case "pos":
-        return "/images/emojis/pos.png";
-      case "neg":
-        return "/images/emojis/neg.png";
-      case "neu":
-        return "/images/emojis/neutral.png";
-      default:
-        return "/images/emojis/neutral.png";
-    }
-  };
-
-  const returnSentimentValue = (sentiment: string) => {
-    switch (sentiment) {
-      case "pos":
-        return "Positive";
-      case "neg":
-        return "Negative";
-      case "neu":
-        return "Neutral";
-      default:
-        return "Neutral";
-    }
-  };
 
   return (
     <Tippy
