@@ -2,9 +2,11 @@
 
 ## 🤔 What is Bytes?
 
-Bytes is an AI-powered progressive web app (PWA) that delivers news to users in an innovative and user-friendly way. With its infinite scroll format and AI-generated short summaries of articles, Bytes provides users with a fast and easy way to stay up-to-date on the latest news and events.
+[Bytes](https://bytesnews.vercel.app) is an AI-powered progressive web app (PWA) that delivers news to users in an innovative and user-friendly way. With its infinite scroll format and AI-generated short summaries of articles, Bytes provides users with a fast and easy way to stay up-to-date on the latest news and events.
 
 Whether you're on the go or simply looking for a more efficient way to consume news, Bytes is the perfect solution. The app is designed to be intuitive and easy to use, with a clean and modern interface that puts the focus squarely on the news.
+
+Check out Bytes by clicking [here](https://bytesnews.vercel.app)!
 
 ![Bytes desktop and mobile versions](https://user-images.githubusercontent.com/43838718/235523530-f6b21de0-db70-413d-a30b-2c53847cd439.png)
 
@@ -53,4 +55,4 @@ To know more about the creation and working of Bytes, do check out this [article
 >
 > All predictions and summarizations in Bytes are made possible by the innovative technology of MindsDB. As the creator of Bytes, I wanted to take a moment to express my deep appreciation and gratitude to the MindsDB team. Thanks to their cutting-edge technology like AI tables and models, Bytes has been able to provide users with accurate predictions and concise summarizations, allowing them to stay ahead of the game and informed on the latest news and events.
 
-Created with ❤️ by Indrajit for the [MindsDB](https://cloud.mindsdb.com) x [Hashnode](https://hashnode.com) hackathon!
+Created with ❤️ by [Indrajit](https://thisisindrajit.github.io/portfolio/) for the [MindsDB](https://cloud.mindsdb.com) x [Hashnode](https://hashnode.com) hackathon!
