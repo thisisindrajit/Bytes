@@ -75,12 +75,13 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
             {/* Carousel */}
             <Carousel
               withoutControls={true}
-              speed={5}
-              dragThreshold={0.1}
+              speed={1}
+              dragThreshold={0.05}
               slideIndex={slideIndex}
               afterSlide={(currentSlideIndex) =>
                 setSlideIndex(currentSlideIndex)
               }
+              disableEdgeSwiping={true}
               // dragging={false}
             >
               <div
