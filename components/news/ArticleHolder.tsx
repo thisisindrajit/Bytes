@@ -81,7 +81,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
               afterSlide={(currentSlideIndex) =>
                 setSlideIndex(currentSlideIndex)
               }
-              // dragging={false}
+              dragging={false}
             >
               <div
                 tabIndex={-1}
