@@ -27,30 +27,32 @@ const BytesInfo: FC = () => {
           AI-generated short summaries of articles,
         </span>
         <span>
-          Bytes provides users with a fast and easy way to stay up-to-date on
+          {`Bytes provides users with a fast and easy way to stay up-to-date on
           the latest news and events. Whether you're on the go or simply looking
           for a more efficient way to consume news, Bytes is the perfect
           solution. The app is designed to be intuitive and easy to use, with a
           clean and modern interface that puts the focus squarely on the news.
-          Try Bytes today and experience a new way to stay informed!
+          Try Bytes today and experience a new way to stay informed!`}
         </span>
         {/* App installation guide */}
         <div className="mt-6 border bg-gray-100 border-gray-300 rounded p-4">
-          <span className="font-bold underline block">App installation guide</span>
+          <span className="font-bold underline block">
+            App installation guide
+          </span>
           <span className="font-bold block my-4">
             It is recommended to use Bytes app for the best experience!
           </span>
           <span>
-            You can install Bytes as an app directly on your desktop or mobile
+            {`You can install Bytes as an app directly on your desktop or mobile
             by clicking on the install button in the top bar in the homepage of
             Bytes. If you don't see the install button, it means that you have
             either already installed the app 🥳 or your device doesn't support
-            PWA 🥺.
+            PWA 🥺.`}
           </span>
           <div className="bg-orange-100 mt-4 p-4 rounded border border-orange-300">
-            If you are using iOS, you can install Bytes as an app by clicking
+            {`If you are using iOS, you can install Bytes as an app by clicking
             the share button in the bottom bar and then clicking on the "Add to
-            Home Screen" option, since iOS doesn't support PWA yet.
+            Home Screen" option, since iOS doesn't support PWA yet.`}
           </div>
         </div>
         {/* Created by */}
@@ -71,13 +73,13 @@ const BytesInfo: FC = () => {
       <div className="text-base/loose text-justify bg-green-500/20 rounded p-4 text-green-700">
         <div className="mb-2 font-bold underline">A note from the creator</div>
         <div>
-          All predictions and summarizations in Bytes are made possible by the
+          {`All predictions and summarizations in Bytes are made possible by the
           innovative technology of MindsDB. As the creator of Bytes, I wanted to
           take a moment to express my deep appreciation and gratitude to the
           MindsDB team. Thanks to their cutting-edge technology like AI tables
           and models, Bytes has been able to provide users with accurate
           predictions and concise summarizations, allowing them to stay ahead of
-          the game and informed on the latest news and events.
+          the game and informed on the latest news and events.`}
         </div>
       </div>
     </div>

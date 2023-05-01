@@ -32,8 +32,6 @@ interface ArticleHolderProps {
   emotion: string;
   tabIndexStart: number;
   isFetchingNewArticles: boolean;
-  // All other props
-  [x: string]: any;
 }
 
 const ArticleHolder: FC<ArticleHolderProps> = ({
@@ -59,7 +57,6 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   emotion,
   tabIndexStart,
   isFetchingNewArticles,
-  ...props
 }) => {
   const carouselContext = useContext(CarouselContext);
 
@@ -68,15 +65,15 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   );
 
   useEffect(() => {
-    function onChange() {
+    const onChange = () => {
       setCurrentSlide(carouselContext.state.currentSlide);
-    }
+    };
     carouselContext.subscribe(onChange);
     return () => carouselContext.unsubscribe(onChange);
   }, [carouselContext]);
 
   return (
-    <div id={id} className={`flex flex-col ${className}`} {...props}>
+    <div id={id} className={`flex flex-col ${className}`}>
       {/* Top padding to ensure article holder does not overlap with top bar */}
       <div className="py-6">
         {/* Horizontal separator */}

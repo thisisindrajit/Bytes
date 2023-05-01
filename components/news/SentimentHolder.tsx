@@ -2,7 +2,7 @@ import Image from "next/image";
 import { FC, useState } from "react";
 import Loading from "../common/Loading";
 import Tippy from "@tippyjs/react";
-import useResize from "@/hooks/useOnResize";
+import useOnResize from "@/hooks/useOnResize";
 import {
   returnSentimentValue,
   showSentiment,
@@ -15,7 +15,7 @@ interface SentimentHolderProps {
 const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
-  const { isTopPlacement } = useResize();
+  const { isTopPlacement } = useOnResize();
 
   return (
     <Tippy

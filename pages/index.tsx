@@ -11,7 +11,7 @@ import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
   scrollToTop,
-} from "@/utilities/ArticleUtilites";
+} from "@/utilities/articleUtilites";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
@@ -80,7 +80,7 @@ const Home = () => {
         setPagesFetched(curPageFetched);
       }
     }
-  }, [isFetchingNextPage, results]);
+  }, [isFetchingNextPage, results, articlesData, pagesFetched]);
 
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
@@ -120,7 +120,7 @@ const Home = () => {
                   naturalSlideHeight={0}
                   isIntrinsicHeight={false}
                   totalSlides={3}
-                  touchEnabled={true}
+                  touchEnabled={false}
                   dragEnabled={false}
                 >
                   <ArticleHolder
