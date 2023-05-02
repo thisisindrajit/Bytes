@@ -47,6 +47,12 @@ This is when I thought building a good app that provides summarized article cont
 - Database - Azure Database for MySQL (Cloud-hosted MySQL DB)
 - Vercel (for cloud deployment)
 
+## ❤️ Impact
+
+- In today's fast-paced world, many young people find it hard to keep up with the ever-changing global affairs due to their busy schedules. They often struggle to find the time and motivation to read lengthy news articles. This is where Bytes can come in handy.
+
+- Bytes can allow youth to stay informed about what's happening around the world without consuming much of their time. Using Bytes, they can broaden their understanding of global events, cultures, and politics, ultimately helping them to become more informed and engaged citizens.
+
 To know more about the creation and working of Bytes, do check out this [article](https://blogsbyindrajit.hashnode.dev/introducing-bytes-news-redefined)!
 
 <hr />
@@ -54,5 +60,13 @@ To know more about the creation and working of Bytes, do check out this [article
 > **A note from me to the MindsDB team**
 >
 > All predictions and summarizations in Bytes are made possible by the innovative technology of MindsDB. As the creator of Bytes, I wanted to take a moment to express my deep appreciation and gratitude to the MindsDB team. Thanks to their cutting-edge technology like AI tables and models, Bytes has been able to provide users with accurate predictions and concise summarizations, allowing them to stay ahead of the game and informed on the latest news and events.
+
+<hr />
+
+## Issues, feature requests and contribution
+
+- Find an issue with Bytes? Please report it [here](https://github.com/thisisindrajit/Bytes/issues) so that it can be fixed at the earliest. 
+- Want a new feature in Bytes? Suggest it [here](https://github.com/thisisindrajit/Bytes/issues)!
+- This is an open-source app and everyone is free to contribute 😎!
 
 Created with ❤️ by [Indrajit](https://thisisindrajit.github.io/portfolio/) for the [MindsDB](https://cloud.mindsdb.com) x [Hashnode](https://hashnode.com) hackathon!
