@@ -75,12 +75,12 @@ body {
   outline: none !important;
 }
 
-/* Article holder styling */
+/* All articles holder styling */
 #all-articles-holder {
   scroll-snap-type: y mandatory;
-  scroll-snap-stop: always;
   scrollbar-width: none; /* Firefox */
 }
+
 #all-articles-holder::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
