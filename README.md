@@ -1,6 +1,6 @@
 # Bytes
 
-![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=bytesnews-dev) ![License](https://img.shields.io/badge/license-MIT-blue)
+![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=bytesnews) ![License](https://img.shields.io/badge/license-MIT-blue)
 
 ## 🤔 What is Bytes?
 
