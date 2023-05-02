@@ -55,8 +55,6 @@ This is when I thought building a good app that provides summarized article cont
 
 To know more about the creation and working of Bytes, do check out this [article](https://blogsbyindrajit.hashnode.dev/introducing-bytes-news-redefined)!
 
-<hr />
-
 > **A note from me to the MindsDB team**
 >
 > All predictions and summarizations in Bytes are made possible by the innovative technology of MindsDB. As the creator of Bytes, I wanted to take a moment to express my deep appreciation and gratitude to the MindsDB team. Thanks to their cutting-edge technology like AI tables and models, Bytes has been able to provide users with accurate predictions and concise summarizations, allowing them to stay ahead of the game and informed on the latest news and events.
