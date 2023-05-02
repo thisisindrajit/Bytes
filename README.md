@@ -1,5 +1,7 @@
 # Bytes
 
+![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=bytesnews-dev) ![License](https://img.shields.io/badge/license-MIT-blue)
+
 ## 🤔 What is Bytes?
 
 [Bytes](https://bytesnews.vercel.app) is an AI-powered progressive web app (PWA) that delivers news to users in an innovative and user-friendly way. With its infinite scroll format and AI-generated short summaries of articles, Bytes provides users with a fast and easy way to stay up-to-date on the latest news and events.
