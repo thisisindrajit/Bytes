@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <AnimatedBackground>
         {/* In case of very small screens, don't show the UI and show custom message */}
-        <div id="small-screen-holder" className="min-h-screen overflow-y-auto">
+        <div id="small-screen-holder" className="min-h-[100dvh] overflow-y-auto">
           <div className="text-red-500 text-sm/relaxed p-4 text-justify">
             🥺 We apologize, but this device is not supported due to its smaller
             screen dimensions. For an optimal experience, we recommend using a
