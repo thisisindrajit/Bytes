@@ -67,6 +67,18 @@ const BytesInfo: FC = () => {
             Indrajit
           </a>
         </div>
+        {/* Source code */}
+        <div className="mt-2 font-bold">
+          <span>Find the source code here: </span>
+          <a
+            href="https://github.com/thisisindrajit/Bytes"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            GitHub
+          </a>
+        </div>
       </div>
       {/* Horizontal separator */}
       <div className="my-2 h-[1px] w-full bg-green-500"></div>

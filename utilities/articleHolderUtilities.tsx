@@ -110,3 +110,13 @@ export const formatCountry = (inputCountries: string[]) => {
       return null;
   }
 };
+
+export const checkIfArrayIsNotEmpty = (inputArray: string[]) => {
+  if (inputArray.length === 0) return false;
+
+  for (let i = 0; i < inputArray.length; i++) {
+    if (inputArray[i].trim() !== "") return true;
+  }
+
+  return false;
+};
