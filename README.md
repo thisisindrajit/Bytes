@@ -1,5 +1,7 @@
 # Bytes
 
+![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=bytesnews-dev) ![License](https://img.shields.io/badge/license-MIT-blue)
+
 ## 🤔 What is Bytes?
 
 [Bytes](https://bytesnews.vercel.app) is an AI-powered progressive web app (PWA) that delivers news to users in an innovative and user-friendly way. With its infinite scroll format and AI-generated short summaries of articles, Bytes provides users with a fast and easy way to stay up-to-date on the latest news and events.
@@ -54,8 +56,6 @@ This is when I thought building a good app that provides summarized article cont
 - Bytes can allow youth to stay informed about what's happening around the world without consuming much of their time. Using Bytes, they can broaden their understanding of global events, cultures, and politics, ultimately helping them to become more informed and engaged citizens.
 
 To know more about the creation and working of Bytes, do check out this [article](https://blogsbyindrajit.hashnode.dev/introducing-bytes-news-redefined)!
-
-<hr />
 
 > **A note from me to the MindsDB team**
 >

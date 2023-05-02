@@ -1,3 +1,4 @@
+import { checkIfArrayIsNotEmpty } from "@/utilities/articleHolderUtilities";
 import { FC } from "react";
 
 interface ArticleDetailsHolderProps {
@@ -27,16 +28,17 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
       ) : (
         <>
           {/* Category */}
-          {category && (
-            <div className="mt-6 mb-8 flex flex-col gap-2">
-              <div className="text-sm uppercase">Category</div>
-              <div className="text-base/relaxed capitalize text-[#ecd9cb]">
-                {JSON.parse(category).category.join(", ")}
+          {category &&
+            checkIfArrayIsNotEmpty(JSON.parse(category).category) && (
+              <div className="mt-6 mb-8 flex flex-col gap-2">
+                <div className="text-sm uppercase">Category</div>
+                <div className="text-base/relaxed capitalize text-[#ecd9cb]">
+                  {JSON.parse(category).category.join(", ")}
+                </div>
               </div>
-            </div>
-          )}
+            )}
           {/* Creator */}
-          {creator && (
+          {creator && checkIfArrayIsNotEmpty(JSON.parse(creator).creator) && (
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Creator</div>
               <div className="text-base/relaxed capitalize text-[#ecd9cb]">
@@ -45,14 +47,14 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             </div>
           )}
           {/* Source */}
-          {source && (
+          {source && source.trim().length > 0 && (
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Source</div>
               <div className="text-base/relaxed text-[#ecd9cb]">{source}</div>
             </div>
           )}
           {/* Country */}
-          {country && (
+          {country && checkIfArrayIsNotEmpty(JSON.parse(country).country) && (
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Country</div>
               <div className="text-base/relaxed text-[#ecd9cb]">
@@ -61,14 +63,15 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             </div>
           )}
           {/* Keywords */}
-          {keywords && (
-            <div className="my-8 flex flex-col gap-2">
-              <div className="text-sm uppercase">Keywords</div>
-              <div className="text-base/relaxed text-[#ecd9cb]">
-                {JSON.parse(keywords).keywords.join(", ")}
+          {keywords &&
+            checkIfArrayIsNotEmpty(JSON.parse(keywords).keywords) && (
+              <div className="my-8 flex flex-col gap-2">
+                <div className="text-sm uppercase">Keywords</div>
+                <div className="text-base/relaxed text-[#ecd9cb]">
+                  {JSON.parse(keywords).keywords.join(", ")}
+                </div>
               </div>
-            </div>
-          )}
+            )}
           {/* Details provided by text block */}
           <div className="text-base/loose my-4 lg:my-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
             <span>Details provided by</span>
