@@ -22,9 +22,9 @@ Check out Bytes by clicking [here](https://bytesnews.vercel.app)!
 
 ## 👀 Why did I want to create Bytes?
 
-Staying informed about current affairs is important to many people, including me, as it allows one to keep up with the latest developments in the world around them. However, with so much information available from a variety of sources, it can be overwhelming to try to read and digest all of it. Many people may not have the time or inclination to read through lengthy articles regularly, yet still want to stay informed.
+- Staying informed about current affairs is important to many people, including me, as it allows one to keep up with the latest developments in the world around them. However, with so much information available from a variety of sources, it can be overwhelming to try to read and digest all of it. Many people may not have the time or inclination to read through lengthy articles regularly, yet still want to stay informed.
 
-This is when I thought building a good app that provides summarized article content can be incredibly valuable. By providing concise and easily digestible summaries of news articles, such an app can enable people to stay informed about current affairs without having to spend hours reading through multiple articles. This can help people to stay up-to-date with the latest developments in the world, even when they are short on time.
+- This is when I thought building a good app that provides summarized article content can be incredibly valuable. By providing concise and easily digestible summaries of news articles, such an app can enable people to stay informed about current affairs without having to spend hours reading through multiple articles. This can help people to stay up-to-date with the latest developments in the world, even when they are short on time.
 
 ## ⭐️ Features
 
