@@ -33,42 +33,45 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
           </div>
         )}
       </div>
-      {/* Link to read full article */}
-      <div className="text-base/loose mt-4 lg:mt-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span>
-          {generatedByAi
-            ? "Want to know more?"
-            : "But don't worry! We got you!"}
-        </span>
-        {/* In large screens, style like a button */}
-        <a
-          href={articleUrl}
-          tabIndex={-1}
-          className="hidden lg:inline mx-1.5 text-[#ecd9cb] border border-[#ecd9cb] p-2 rounded hover:bg-[#ecd9cb] hover:text-black"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Click here
-        </a>
-        {/* In small screens, style like a normal link */}
-        <a
-          href={articleUrl}
-          tabIndex={-1}
-          className="lg:hidden inline mx-1.5 text-[#ecd9cb] no-underline hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Click here
-        </a>
-        <span>to read the full article!</span>
-      </div>
-      {/* Check out article details text block */}
-      <div className="text-base/loose mb-4 lg:mb-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        <span>Click on</span>
-        <span className="inline mx-1.5 text-sm uppercase text-[#ecd9cb] underline decoration-dotted underline-offset-4">
-          Details
-        </span>
-        <span>to view details of the article.</span>
+      {/* Info block */}
+      <div className="flex flex-col gap-2 text-base/loose my-4 lg:my-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
+        {/* Link to read full article */}
+        <div>
+          <span>
+            {generatedByAi
+              ? "Want to know more?"
+              : "But don't worry! We got you!"}
+          </span>
+          {/* In large screens, style like a button */}
+          <a
+            href={articleUrl}
+            tabIndex={-1}
+            className="hidden lg:inline mx-1.5 text-[#ecd9cb] border border-[#ecd9cb] p-2 rounded hover:bg-[#ecd9cb] hover:text-black"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Click here
+          </a>
+          {/* In small screens, style like a normal link */}
+          <a
+            href={articleUrl}
+            tabIndex={-1}
+            className="lg:hidden inline mx-1.5 text-[#ecd9cb] no-underline hover:underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Click here
+          </a>
+          <span>to read the full article!</span>
+        </div>
+        {/* Check out article details text block */}
+        <div>
+          <span>Click on</span>
+          <span className="inline mx-1.5 text-sm uppercase text-[#ecd9cb] underline decoration-dotted underline-offset-4">
+            Details
+          </span>
+          <span>to view details of the article.</span>
+        </div>
       </div>
     </div>
   );
