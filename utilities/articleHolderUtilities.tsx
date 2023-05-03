@@ -4,7 +4,7 @@ export const formatDateAndTime = (inputDate: string) => {
   const publishedObj = new Date(inputDate);
 
   const date = publishedObj.getDate();
-  const month = publishedObj.getMonth() + 1;
+  const month = publishedObj.toLocaleString('default', { month: 'long' });
   const year = publishedObj.getFullYear();
 
   const hours =
@@ -23,7 +23,7 @@ export const formatDateAndTime = (inputDate: string) => {
       : publishedObj.getSeconds();
   const amOrPm = publishedObj.getHours() >= 12 ? "PM" : "AM";
 
-  let fullDate = `${date}/${month}/${year}`;
+  let fullDate = `${month} ${date}, ${year}`;
 
   return `${fullDate} AT ${hours}:${minutes}:${seconds} ${amOrPm} (GMT)`;
 };
