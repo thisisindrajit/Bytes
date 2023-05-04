@@ -5,7 +5,7 @@ import ArticleHolder from "@/components/news/ArticleHolder";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { decode } from "html-entities";
 import {
@@ -19,10 +19,10 @@ const Home = () => {
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
 
-  const loadMoreRef: any = useRef(null);
+  const loadMoreRef: any = useRef<any>(null);
 
   // GET method to fetch articles
-  const getArticles = async (curLastKey: string) => {
+  const getArticles = useCallback(async (curLastKey: string) => {
     const options = {
       method: "GET",
     };
@@ -36,10 +36,10 @@ const Home = () => {
       throw "Error fetching articles!";
     }
 
-    const allArticles = await response.json();
+    const fetchedArticles = await response.json();
 
-    return allArticles;
-  };
+    return fetchedArticles;
+  }, []);
 
   const {
     data: results,
@@ -70,17 +70,14 @@ const Home = () => {
   });
 
   useEffect(() => {
-    if (!isFetchingNextPage && results) {
-      const curPageFetched = pagesFetched + 1;
-      if (results.pages[curPageFetched - 1]?.data) {
-        setArticlesData([
-          ...articlesData,
-          ...results.pages[curPageFetched - 1].data,
-        ]);
-        setPagesFetched(curPageFetched);
-      }
+    if (!isFetchingNextPage && results?.pages[pagesFetched]?.data) {
+      setArticlesData((prevArticles) => [
+        ...prevArticles,
+        ...results.pages[pagesFetched].data,
+      ]);
+      setPagesFetched((pagesFetched) => pagesFetched + 1);
     }
-  }, [isFetchingNextPage, results, articlesData, pagesFetched]);
+  }, [isFetchingNextPage, results, pagesFetched]);
 
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
