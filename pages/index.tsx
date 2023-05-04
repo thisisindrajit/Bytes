@@ -19,7 +19,6 @@ const Home = () => {
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
 
-  const allArticlesHolderRef: any = useRef<any>(null);
   const loadMoreRef: any = useRef<any>(null);
 
   // GET method to fetch articles
@@ -65,11 +64,9 @@ const Home = () => {
 
   // intersection observer
   useIntersectionObserver({
-    root: allArticlesHolderRef,
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
-    rootMargin: "0px 0px 100% 0px",
   });
 
   useEffect(() => {
@@ -91,7 +88,6 @@ const Home = () => {
     <div
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
-      ref={allArticlesHolderRef}
       className="max-h-[100dvh] w-full relative overflow-y-auto outline-none"
     >
       {/* Top bar */}
