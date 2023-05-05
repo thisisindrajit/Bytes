@@ -12,11 +12,14 @@ import {
   cleanIfSourceIsMoneycontrol,
   scrollToTop,
 } from "@/utilities/articleUtilites";
+import useScrollStopListener from "@/hooks/useScrollStopListener";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
+  const [waitingForNewSetOfArticlesToBeSetInState, setWaitingForNewSetOfArticlesToBeSetInState] =
+    useState<boolean>(false);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
 
   const loadMoreRef: any = useRef<any>(null);
@@ -62,22 +65,43 @@ const Home = () => {
     }
   );
 
-  // intersection observer
-  useIntersectionObserver({
-    target: loadMoreRef,
-    onIntersect: fetchNextPage,
-    enabled: !!hasNextPage
-  });
-
-  useEffect(() => {
-    if (!isFetchingNextPage && results?.pages[pagesFetched]?.data) {
+  const allArticlesHolderRef = useScrollStopListener(() => {
+    // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling
+    if (results && waitingForNewSetOfArticlesToBeSetInState) {
       setArticlesData((prevArticles) => [
         ...prevArticles,
         ...results.pages[pagesFetched].data,
       ]);
       setPagesFetched((pagesFetched) => pagesFetched + 1);
+      setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
-  }, [isFetchingNextPage, results, pagesFetched]);
+  });
+
+  // intersection observer
+  useIntersectionObserver({
+    root: allArticlesHolderRef,
+    target: loadMoreRef,
+    onIntersect: fetchNextPage,
+    enabled: !!hasNextPage,
+    rootMargin: "0px 0px 300% 0px",
+  });
+
+  useEffect(() => {
+    if (!isFetchingNextPage && results?.pages[pagesFetched]?.data) {
+      // The if condition runs when the next set of articles are fetched and are waiting to be set in state, excluding the initial fetch
+      if (articlesData.length > 0) {
+        setWaitingForNewSetOfArticlesToBeSetInState(true);
+      } 
+      // After the initial fetch of articles, we directly store them in state and update "pages fetched" state variable
+      else {
+        setArticlesData((prevArticles) => [
+          ...prevArticles,
+          ...results.pages[pagesFetched].data,
+        ]);
+        setPagesFetched((pagesFetched) => pagesFetched + 1);
+      }
+    }
+  }, [isFetchingNextPage, results, articlesData.length, pagesFetched]);
 
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
@@ -88,6 +112,7 @@ const Home = () => {
     <div
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
+      ref={allArticlesHolderRef}
       className="max-h-[100dvh] w-full relative overflow-y-auto outline-none"
     >
       {/* Top bar */}
@@ -168,7 +193,7 @@ const Home = () => {
                         : "neutral"
                     }
                     tabIndexStart={curTabIndexStartValue}
-                    isFetchingNewArticles={isFetchingNextPage}
+                    isFetchingNewArticles={isFetchingNextPage || waitingForNewSetOfArticlesToBeSetInState}
                   />
                 </CarouselProvider>
               );
