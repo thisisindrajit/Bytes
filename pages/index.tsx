@@ -5,7 +5,7 @@ import ArticleHolder from "@/components/news/ArticleHolder";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { decode } from "html-entities";
 import {
@@ -18,11 +18,13 @@ const Home = () => {
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
+  const [scrollPos, setScrollPos] = useState(0); // current scroll position of all articles holder
 
+  const allArticlesHolderRef = useRef<any>(null);
   const loadMoreRef: any = useRef<any>(null);
 
   // GET method to fetch articles
-  const getArticles = useCallback(async (curLastKey: string) => {
+  const getArticles = async (curLastKey: string) => {
     const options = {
       method: "GET",
     };
@@ -39,7 +41,7 @@ const Home = () => {
     const fetchedArticles = await response.json();
 
     return fetchedArticles;
-  }, []);
+  };
 
   const {
     data: results,
@@ -64,9 +66,11 @@ const Home = () => {
 
   // intersection observer
   useIntersectionObserver({
+    root: allArticlesHolderRef,
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
+    rootMargin: "0px 0px 300% 0px",
   });
 
   useEffect(() => {
@@ -80,6 +84,26 @@ const Home = () => {
   }, [isFetchingNextPage, results, pagesFetched]);
 
   useEffect(() => {
+    const handleScroll = () => {
+      const allArticlesHolder = allArticlesHolderRef.current;
+      if (allArticlesHolder) {
+        const scrollTop = allArticlesHolder.scrollTop;
+        requestAnimationFrame(() => {
+          if (Math.abs(scrollTop - scrollPos) >= 10) {
+            setScrollPos(scrollTop);
+          }
+        });
+      }
+    };
+
+    allArticlesHolderRef.current.addEventListener("scroll", handleScroll);
+
+    return () => {
+      allArticlesHolderRef.current.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollPos]);
+
+  useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
     document.getElementById("all-articles-holder")?.focus();
   }, []);
@@ -88,15 +112,16 @@ const Home = () => {
     <div
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
+      ref={allArticlesHolderRef}
       className="max-h-[100dvh] w-full relative overflow-y-auto outline-none"
     >
       {/* Top bar */}
       <TopBar onClickIcon={scrollToTop} />
-      {/* Article holder */}
+      {/* Articles holder */}
       <Holder
         className={`${
           (isError || isLoading || isRefetchError) &&
-          "h-[100dvh] w-full flex items-center justify-center"
+          "h-[100dvh] w-full flex items-center justify-center overflow-hidden"
         }`}
       >
         {isError || isRefetchError ? (
@@ -122,7 +147,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-[100dvh] snap-always snap-center p-4"
+                    className="min-h-[100dvh] snap-always snap-center p-4 overflow-hidden"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
@@ -182,7 +207,7 @@ const Home = () => {
                 </div>
               ) : (
                 // If user has viewed all articles
-                <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
+                <div className="bg-[#ecd9cb] flex items-center justify-center p-10">
                   You have viewed all articles! 🎉
                 </div>
               )
@@ -192,13 +217,8 @@ const Home = () => {
                 <div ref={loadMoreRef}></div>
                 <div>
                   {articlesData.length > 0 && (
-                    <div className="bg-white flex items-center justify-center">
-                      <Loading
-                        heightAndWidthClassesForLoadingIcon="h-8 w-8"
-                        loadingText="Fetching more articles..."
-                        className="text-sm lg:text-base m-6"
-                        color="black"
-                      />
+                    <div className="bg-white flex items-center justify-center text-sm lg:text-base p-10">
+                      Fetching more articles...
                     </div>
                   )}
                 </div>
