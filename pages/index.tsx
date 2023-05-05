@@ -18,9 +18,7 @@ const Home = () => {
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
-  const [scrollPos, setScrollPos] = useState(0); // current scroll position of all articles holder
 
-  const allArticlesHolderRef = useRef<any>(null);
   const loadMoreRef: any = useRef<any>(null);
 
   // GET method to fetch articles
@@ -66,11 +64,9 @@ const Home = () => {
 
   // intersection observer
   useIntersectionObserver({
-    root: allArticlesHolderRef,
     target: loadMoreRef,
     onIntersect: fetchNextPage,
-    enabled: !!hasNextPage,
-    rootMargin: "0px 0px 300% 0px",
+    enabled: !!hasNextPage
   });
 
   useEffect(() => {
@@ -84,26 +80,6 @@ const Home = () => {
   }, [isFetchingNextPage, results, pagesFetched]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const allArticlesHolder = allArticlesHolderRef.current;
-      if (allArticlesHolder) {
-        const scrollTop = allArticlesHolder.scrollTop;
-        requestAnimationFrame(() => {
-          if (Math.abs(scrollTop - scrollPos) >= 10) {
-            setScrollPos(scrollTop);
-          }
-        });
-      }
-    };
-
-    allArticlesHolderRef.current.addEventListener("scroll", handleScroll);
-
-    return () => {
-      allArticlesHolderRef.current.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollPos]);
-
-  useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
     document.getElementById("all-articles-holder")?.focus();
   }, []);
@@ -112,7 +88,6 @@ const Home = () => {
     <div
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
-      ref={allArticlesHolderRef}
       className="max-h-[100dvh] w-full relative overflow-y-auto outline-none"
     >
       {/* Top bar */}
