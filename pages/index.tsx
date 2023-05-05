@@ -18,7 +18,7 @@ const Home = () => {
   let curTabIndexStartValue = 2;
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
-  const [hasFetchedNewSetOfArticles, setHasFetchedNewSetOfArticles] =
+  const [waitingForNewSetOfArticlesToBeSetInState, setWaitingForNewSetOfArticlesToBeSetInState] =
     useState<boolean>(false);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
 
@@ -67,13 +67,13 @@ const Home = () => {
 
   const allArticlesHolderRef = useScrollStopListener(() => {
     // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling
-    if (results && hasFetchedNewSetOfArticles) {
+    if (results && waitingForNewSetOfArticlesToBeSetInState) {
       setArticlesData((prevArticles) => [
         ...prevArticles,
         ...results.pages[pagesFetched].data,
       ]);
       setPagesFetched((pagesFetched) => pagesFetched + 1);
-      setHasFetchedNewSetOfArticles(false);
+      setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
   });
 
@@ -88,9 +88,9 @@ const Home = () => {
 
   useEffect(() => {
     if (!isFetchingNextPage && results?.pages[pagesFetched]?.data) {
-      // The if condition runs when the next set of articles are fetched, excluding the initial fetch
+      // The if condition runs when the next set of articles are fetched and are waiting to be set in state, excluding the initial fetch
       if (articlesData.length > 0) {
-        setHasFetchedNewSetOfArticles(true);
+        setWaitingForNewSetOfArticlesToBeSetInState(true);
       } 
       // After the initial fetch of articles, we directly store them in state and update "pages fetched" state variable
       else {
@@ -101,7 +101,7 @@ const Home = () => {
         setPagesFetched((pagesFetched) => pagesFetched + 1);
       }
     }
-  }, [isFetchingNextPage, results]);
+  }, [isFetchingNextPage, results, articlesData.length, pagesFetched]);
 
   useEffect(() => {
     // This is to focus the particular element in the page when the page is loaded
@@ -193,7 +193,7 @@ const Home = () => {
                         : "neutral"
                     }
                     tabIndexStart={curTabIndexStartValue}
-                    isFetchingNewArticles={isFetchingNextPage}
+                    isFetchingNewArticles={isFetchingNextPage || waitingForNewSetOfArticlesToBeSetInState}
                   />
                 </CarouselProvider>
               );
