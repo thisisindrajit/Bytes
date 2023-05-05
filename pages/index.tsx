@@ -18,8 +18,10 @@ const Home = () => {
   let curTabIndexStartValue = 2;
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
-  const [waitingForNewSetOfArticlesToBeSetInState, setWaitingForNewSetOfArticlesToBeSetInState] =
-    useState<boolean>(false);
+  const [
+    waitingForNewSetOfArticlesToBeSetInState,
+    setWaitingForNewSetOfArticlesToBeSetInState,
+  ] = useState<boolean>(false);
   const [articlesData, setArticlesData] = useState<Article[]>([]);
 
   const loadMoreRef: any = useRef<any>(null);
@@ -83,7 +85,7 @@ const Home = () => {
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
-    rootMargin: "0px 0px 500% 0px",
+    rootMargin: "0px 0px 300% 0px",
   });
 
   useEffect(() => {
@@ -91,7 +93,7 @@ const Home = () => {
       // The if condition runs when the next set of articles are fetched and are waiting to be set in state, excluding the initial fetch
       if (articlesData.length > 0) {
         setWaitingForNewSetOfArticlesToBeSetInState(true);
-      } 
+      }
       // After the initial fetch of articles, we directly store them in state and update "pages fetched" state variable
       else {
         setArticlesData((prevArticles) => [
@@ -193,7 +195,10 @@ const Home = () => {
                         : "neutral"
                     }
                     tabIndexStart={curTabIndexStartValue}
-                    isFetchingNewArticles={isFetchingNextPage || waitingForNewSetOfArticlesToBeSetInState}
+                    isFetchingNewArticles={
+                      isFetchingNextPage ||
+                      waitingForNewSetOfArticlesToBeSetInState
+                    }
                   />
                 </CarouselProvider>
               );
