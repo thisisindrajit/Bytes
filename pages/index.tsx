@@ -5,7 +5,7 @@ import ArticleHolder from "@/components/news/ArticleHolder";
 import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "react-query";
 import { decode } from "html-entities";
 import {
@@ -22,7 +22,7 @@ const Home = () => {
   const loadMoreRef: any = useRef<any>(null);
 
   // GET method to fetch articles
-  const getArticles = useCallback(async (curLastKey: string) => {
+  const getArticles = async (curLastKey: string) => {
     const options = {
       method: "GET",
     };
@@ -39,7 +39,7 @@ const Home = () => {
     const fetchedArticles = await response.json();
 
     return fetchedArticles;
-  }, []);
+  };
 
   const {
     data: results,
@@ -66,7 +66,7 @@ const Home = () => {
   useIntersectionObserver({
     target: loadMoreRef,
     onIntersect: fetchNextPage,
-    enabled: !!hasNextPage,
+    enabled: !!hasNextPage
   });
 
   useEffect(() => {
@@ -92,11 +92,11 @@ const Home = () => {
     >
       {/* Top bar */}
       <TopBar onClickIcon={scrollToTop} />
-      {/* Article holder */}
+      {/* Articles holder */}
       <Holder
         className={`${
           (isError || isLoading || isRefetchError) &&
-          "h-[100dvh] w-full flex items-center justify-center"
+          "h-[100dvh] w-full flex items-center justify-center overflow-hidden"
         }`}
       >
         {isError || isRefetchError ? (
@@ -122,7 +122,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-[100dvh] snap-always snap-center p-4"
+                    className="min-h-[100dvh] snap-always snap-center p-4 overflow-hidden"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
@@ -192,13 +192,8 @@ const Home = () => {
                 <div ref={loadMoreRef}></div>
                 <div>
                   {articlesData.length > 0 && (
-                    <div className="bg-white flex items-center justify-center">
-                      <Loading
-                        heightAndWidthClassesForLoadingIcon="h-8 w-8"
-                        loadingText="Fetching more articles..."
-                        className="text-sm lg:text-base m-6"
-                        color="black"
-                      />
+                    <div className="bg-white flex items-center justify-center text-sm lg:text-base p-6">
+                      Fetching more articles...
                     </div>
                   )}
                 </div>
