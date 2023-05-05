@@ -83,7 +83,7 @@ const Home = () => {
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
-    rootMargin: "0px 0px 300% 0px",
+    rootMargin: "0px 0px 500% 0px",
   });
 
   useEffect(() => {
