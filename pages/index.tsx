@@ -182,7 +182,7 @@ const Home = () => {
                 </div>
               ) : (
                 // If user has viewed all articles
-                <div className="bg-[#ecd9cb] flex items-center justify-center p-10">
+                <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
                   You have viewed all articles! 🎉
                 </div>
               )
@@ -192,7 +192,7 @@ const Home = () => {
                 <div ref={loadMoreRef}></div>
                 <div>
                   {articlesData.length > 0 && (
-                    <div className="bg-white flex items-center justify-center text-sm lg:text-base p-10">
+                    <div className="bg-white flex items-center justify-center text-sm lg:text-base p-6">
                       Fetching more articles...
                     </div>
                   )}
