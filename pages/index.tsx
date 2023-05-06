@@ -85,7 +85,7 @@ const Home = () => {
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
-    rootMargin: "0px 0px 300% 0px",
+    rootMargin: "0px 0px 400% 0px",
   });
 
   useEffect(() => {
@@ -123,7 +123,7 @@ const Home = () => {
       <Holder
         className={`${
           (isError || isLoading || isRefetchError) &&
-          "h-[100dvh] w-full flex items-center justify-center overflow-hidden"
+          "h-[100dvh] w-full flex items-center justify-center"
         }`}
       >
         {isError || isRefetchError ? (
@@ -149,7 +149,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-[100dvh] snap-always snap-center p-4 overflow-hidden"
+                    className="min-h-[100dvh] snap-always snap-center p-4"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}

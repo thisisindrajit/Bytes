@@ -12,7 +12,6 @@ export const showInView = (id: string) => {
   document.getElementById(id)?.scrollIntoView({
     behavior: "smooth",
   });
-  document.getElementById(id)?.focus();
 };
 
 export const cleanIfSourceIsMoneycontrol = (input: string) => {
