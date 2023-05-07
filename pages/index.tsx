@@ -203,7 +203,7 @@ const Home = () => {
                 </CarouselProvider>
               );
             })}
-            {/* If there are no more pages (data) to be shown */}
+
             {!hasNextPage ? (
               // If there are no articles in DB
               articlesData.length === 0 ? (
@@ -218,7 +218,7 @@ const Home = () => {
               )
             ) : (
               <>
-                {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes to the last fetched article */}
+                {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes closer to the last fetched article */}
                 <div ref={loadMoreRef}></div>
                 <div>
                   {articlesData.length > 0 && (
