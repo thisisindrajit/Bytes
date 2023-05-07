@@ -187,14 +187,10 @@ const timerTrigger: AzureFunction = async function (
 
     // Summarize text, predict sentiment and emotion
     try {
-      // const content =
-      //   newsArticles[i]?.description?.length > 512
-      //     ? newsArticles[i].description
-      //     : newsArticles[i].content.slice(0, 2048);
-      const content = newsArticles[i].content.slice(0, 2048);
+      const content = newsArticles[i].content.slice(0, 4096);
 
       const query_1 = `SELECT summarized_article
-                        FROM mindsdb.text_summarization_openai
+                        FROM mindsdb.text_summarization_openai_max_tokens
                         WHERE content="${content.replace(/"/g, "'")}";`;
 
       const queryResult_1 = await MindsDB.default.SQL.runQuery(query_1);
