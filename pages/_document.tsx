@@ -26,7 +26,10 @@ export default function Document() {
         {/* Meta tags */}
         <meta charSet="UTF-8" />
         <meta name="theme-color" content="#ecd9cb" />
-        <meta name="description" content="Bytes - News, redefined." />
+        <meta
+          name="description"
+          content="Bytes is an AI-powered progressive web app (PWA) that delivers news to users in an innovative and user-friendly way. With its infinite scroll format and AI-generated short summaries of articles, Bytes provides users with a fast and easy way to stay up-to-date on the latest news and events."
+        />
         <meta
           name="keywords"
           content="news, artificial intelligence, open source, real time news, summarized news"
