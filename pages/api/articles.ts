@@ -33,7 +33,12 @@ const getArticles = async (
       ? new Date(req.query.curLastKey as string)
       : null;
 
-  let where: Prisma.articlesWhereInput = {};
+  let where: Prisma.articlesWhereInput = {
+    NOT: {
+      // remove articles that are not from opindia because their content is not relevant to the title and so incorrect summary is generated
+      source: { equals: "opindia" },
+    },
+  };
 
   if (curLastKey) {
     where = {
