@@ -146,14 +146,15 @@ const timerTrigger: AzureFunction = async function (
   for (let i = 0; i < noOfIterations; i++) {
     // Getting n random countries and categories
     const randomCountries = getRandomValuesFromArray(countries, 1);
-    const randomCategories = getRandomValuesFromArray(categories, 5);
+    // "top" value is always present in the category array to make sure we always get the top news
+    const randomCategories = ["top", ...getRandomValuesFromArray(categories, 3)];
 
     // Constructing the API url
     let apiUrl = `https://newsdata.io/api/1/news?apikey=${
       process.env["NEWSDATA_APIKEY"]
     }&language=en&country=${randomCountries.join(
       ","
-    )}&category=${randomCategories.join(",")}`;
+    )}&category=${randomCategories.join(",")}&language=en`;
 
     const response = await axios.get(apiUrl);
 
