@@ -6,7 +6,7 @@ import useIntersectionObserver from "@/hooks/useIntersectionObserver";
 import { Article } from "@/interfaces/Article";
 import { CarouselProvider } from "pure-react-carousel";
 import { useEffect, useRef, useState } from "react";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
