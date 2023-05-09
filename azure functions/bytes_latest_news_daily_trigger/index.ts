@@ -76,6 +76,7 @@ const mapStringToHash = (input) => {
   return hexValue;
 };
 
+// Main function
 const timerTrigger: AzureFunction = async function (
   context: Context,
   myTimer: any
@@ -117,9 +118,9 @@ const timerTrigger: AzureFunction = async function (
       password: process.env["MINDSDB_PASSWORD"],
     });
     context.log("Connected to MindsDB!");
-  } catch (error) {
+  } catch (err) {
     // Failed to authenticate.
-    context.log("Could not authenticate user to MindsDB: ", error);
+    context.log("Could not authenticate user to MindsDB: ", err);
   }
 
   // ------------------------------
@@ -127,7 +128,6 @@ const timerTrigger: AzureFunction = async function (
   const noOfIterations = 1;
 
   const categories = [
-    "top",
     "politics",
     "technology",
     "sports",
@@ -147,14 +147,17 @@ const timerTrigger: AzureFunction = async function (
     // Getting n random countries and categories
     const randomCountries = getRandomValuesFromArray(countries, 1);
     // "top" value is always present in the category array to make sure we always get the top news
-    const randomCategories = ["top", ...getRandomValuesFromArray(categories, 3)];
+    const randomCategories = [
+      "top",
+      ...getRandomValuesFromArray(categories, 3),
+    ];
 
     // Constructing the API url
     let apiUrl = `https://newsdata.io/api/1/news?apikey=${
       process.env["NEWSDATA_APIKEY"]
     }&language=en&country=${randomCountries.join(
       ","
-    )}&category=${randomCategories.join(",")}&language=en`;
+    )}&category=${randomCategories.join(",")}`;
 
     const response = await axios.get(apiUrl);
 
@@ -168,7 +171,7 @@ const timerTrigger: AzureFunction = async function (
 
     const api_data: any = response.data;
 
-    // Adding the data to the totalResponse array
+    // Adding the data to the newsArticles array
     newsArticles = [...newsArticles, ...api_data.results];
   }
 
@@ -191,8 +194,8 @@ const timerTrigger: AzureFunction = async function (
       const content = newsArticles[i].content.slice(0, 4096);
 
       const query_1 = `SELECT summarized_article
-                        FROM mindsdb.text_summarization_openai_max_tokens
-                        WHERE content="${content.replace(/"/g, "'")}";`;
+                      FROM mindsdb.text_summarization_openai_max_tokens
+                      WHERE content="${content.replace(/"/g, "'")}";`;
 
       const queryResult_1 = await MindsDB.default.SQL.runQuery(query_1);
       const summarized_full = await queryResult_1.rows[0].summarized_article;
@@ -201,16 +204,12 @@ const timerTrigger: AzureFunction = async function (
         "'"
       );
 
-      const query_2 = `SELECT sentiment
-    FROM mindsdb.hf_sentiment
-    WHERE text="${summarized}";`;
+      const query_2 = `SELECT sentiment FROM mindsdb.hf_sentiment WHERE text="${summarized}";`;
 
       const queryResult_2 = await MindsDB.default.SQL.runQuery(query_2);
       const sentiment = await queryResult_2.rows[0].sentiment;
 
-      const query_3 = `SELECT emotion
-    FROM mindsdb.hf_emotions_6
-    WHERE text="${summarized}";`;
+      const query_3 = `SELECT emotion FROM mindsdb.hf_emotions_6 WHERE text="${summarized}";`;
 
       const queryResult_3 = await MindsDB.default.SQL.runQuery(query_3);
       const emotion = await queryResult_3.rows[0].emotion;
