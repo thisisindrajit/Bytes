@@ -146,6 +146,7 @@ const Home = () => {
                   totalSlides={3}
                   touchEnabled={false}
                   dragEnabled={false}
+                  lockOnWindowScroll={true}
                 >
                   <ArticleHolder
                     id={article.id}

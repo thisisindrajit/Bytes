@@ -34,10 +34,10 @@ const BytesInfo: FC = () => {
           clean and modern interface that puts the focus squarely on the news.
           Try Bytes today and experience a new way to stay informed!`}
         </span>
-        {/* App installation guide */}
+        {/* PWA installation guide */}
         <div className="mt-6 border bg-gray-100 border-gray-300 rounded p-4">
           <span className="font-bold underline block">
-            App installation guide
+            PWA installation guide
           </span>
           <span className="font-bold block my-4">
             It is recommended to use Bytes app for the best experience!
