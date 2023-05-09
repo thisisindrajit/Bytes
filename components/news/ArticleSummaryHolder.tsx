@@ -1,5 +1,4 @@
 import { FC } from "react";
-import ImageHolder from "../common/ImageHolder";
 
 interface ArticleSummaryHolderProps {
   source: string | null;

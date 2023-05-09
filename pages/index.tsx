@@ -68,6 +68,15 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
+    // This is to make sure that only after the user has stopped scrolling the parent element, the child elements are allowed to scroll
+    (
+      document.querySelectorAll(
+        ".article-content-holder"
+      ) as NodeListOf<HTMLElement>
+    ).forEach((articleContentHolder) => {
+      articleContentHolder.style.overflowY = "auto";
+    });
+
     // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling
     if (results && waitingForNewSetOfArticlesToBeSetInState) {
       setArticlesData((prevArticles) => [
@@ -106,8 +115,20 @@ const Home = () => {
   }, [isFetchingNextPage, results, articlesData.length, pagesFetched]);
 
   useEffect(() => {
+    const allArticlesHolder = document.getElementById("all-articles-holder");
     // This is to focus the particular element in the page when the page is loaded
-    document.getElementById("all-articles-holder")?.focus();
+    allArticlesHolder?.focus();
+
+    // This is to remove the scroll bar of child when parent is scrolled, because when the child is scrolled simultaneously when the parent is scrolling, it leads to some weird behaviour where the scroll snap doesn't work properly
+    allArticlesHolder?.addEventListener("scroll", () => {
+      (
+        document.querySelectorAll(
+          ".article-content-holder"
+        ) as NodeListOf<HTMLElement>
+      ).forEach((articleContentHolder) => {
+        articleContentHolder.style.overflowY = "hidden";
+      });
+    });
   }, []);
 
   return (
@@ -146,11 +167,10 @@ const Home = () => {
                   totalSlides={3}
                   touchEnabled={false}
                   dragEnabled={false}
-                  lockOnWindowScroll={true}
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-[100dvh] snap-always snap-center p-4"
+                    className="min-h-[100dvh] snap-always snap-center p-4 over"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
