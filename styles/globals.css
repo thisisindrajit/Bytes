@@ -80,6 +80,21 @@ body {
   display: none; /* Safari and Chrome */
 }
 
+/* Article content holder styling */
+.article-content-holder::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+.article-content-holder::-webkit-scrollbar-track {
+  background: transparent;
+  width: 0.25rem;
+}
+
+.article-content-holder::-webkit-scrollbar-thumb {
+  background: #212121;
+  border-radius: 0.25rem;
+}
+
 /* MEDIA QUERIES */
 
 /* If width is less than 320px, then everything will be hidden except for "use a bigger screen" message */
