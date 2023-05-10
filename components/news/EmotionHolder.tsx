@@ -36,7 +36,12 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
               </span>
             </>
           ) : (
-            <span>Emotion prediction is not available!</span>
+            <>
+              <span>Emotion prediction is</span>
+              <span className="font-bold underline underline-offset-4 decoration-dotted mx-1 uppercase text-red-500">
+                not available
+              </span>
+            </>
           )}
         </div>
       }

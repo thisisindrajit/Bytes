@@ -44,7 +44,12 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
               </span>
             </>
           ) : (
-            <span>Sentiment prediction is not available!</span>
+            <>
+              <span>Sentiment prediction is</span>
+              <span className="font-bold underline underline-offset-4 decoration-dotted mx-1 uppercase text-red-500">
+                not available
+              </span>
+            </>
           )}
         </div>
       }
