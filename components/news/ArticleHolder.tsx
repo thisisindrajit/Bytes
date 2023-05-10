@@ -84,14 +84,14 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         {/* Content holder */}
         <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100dvh-10rem)]">
           {/* Carousel holder */}
-          <div className="bg-[#303030] rounded flex flex-col overflow-y-auto max-h-[calc(100dvh-10rem)]">
+          <div className="bg-[#303030] rounded flex flex-col overflow-hidden max-h-[calc(100dvh-10rem)]">
             <div className="flex-1 flex flex-col justify-between max-h-[calc(100dvh-10rem)] rounded">
               <Slider tabIndex={-1}>
                 {/* Two urls are added in background image so that even if the first link is broken, the default background image is used */}
                 <Slide
                   index={0}
                   tabIndex={-1}
-                  className="min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center text-white"
+                  className="article-content-holder min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center text-white"
                   style={{
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
@@ -108,7 +108,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={1}
                   tabIndex={-1}
-                  className="p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto text-white"
+                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto text-white"
                 >
                   <ArticleSummaryHolder
                     source={source}
@@ -120,7 +120,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={2}
                   tabIndex={-1}
-                  className="p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto text-white"
+                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto text-white"
                 >
                   <ArticleDetailsHolder
                     category={category}

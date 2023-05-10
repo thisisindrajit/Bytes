@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-const createScrollStopListener = (element, callback, timeout = 350) => {
+const createScrollStopListener = (element, callback, timeout = 200) => {
   let removed: boolean = false;
   let handle: NodeJS.Timeout | null = null;
 
@@ -9,7 +9,7 @@ const createScrollStopListener = (element, callback, timeout = 350) => {
       clearTimeout(handle);
     }
 
-    handle = setTimeout(callback, timeout); // default timeout is 350 ms, which means the callback function will be fired after 350 ms of no scrolling
+    handle = setTimeout(callback, timeout); // default timeout is 200 ms, which means the callback function will be fired after 200 ms of no scrolling
   };
 
   element.addEventListener("scroll", onScroll);
