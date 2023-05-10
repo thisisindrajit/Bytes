@@ -191,28 +191,50 @@ const timerTrigger: AzureFunction = async function (
 
     // Summarize text, predict sentiment and emotion
     try {
+      let summarized = null;
+      let sentiment = null;
+      let emotion = null;
+
       const content = newsArticles[i].content.slice(0, 4096);
 
+      // Text summarization
       const query_1 = `SELECT summarized_article
                       FROM mindsdb.text_summarization_openai
                       WHERE text="${content.replace(/"/g, "'")}";`;
 
-      const queryResult_1 = await MindsDB.default.SQL.runQuery(query_1);
-      const summarized_full = await queryResult_1.rows[0].summarized_article;
-      const summarized = removeLastIncompleteSentence(summarized_full).replace(
-        /"/g,
-        "'"
-      );
+      try {
+        const queryResult_1 = await MindsDB.default.SQL.runQuery(query_1);
+        const summarized_full = await queryResult_1.rows[0].summarized_article;
+        summarized = removeLastIncompleteSentence(summarized_full).replace(
+          /"/g,
+          "'"
+        );
+      } catch (err) {
+        context.log("Error in text summarization model: ", err);
+      }
 
-      const query_2 = `SELECT sentiment FROM mindsdb.hf_sentiment_classifier WHERE text="${summarized}";`;
+      // If summarization fails, use null values for sentiment and emotion
+      if (summarized) {
+        // Sentiment classification
+        const query_2 = `SELECT sentiment FROM mindsdb.hf_sentiment_classifier WHERE text="${summarized}";`;
 
-      const queryResult_2 = await MindsDB.default.SQL.runQuery(query_2);
-      const sentiment = await queryResult_2.rows[0].sentiment;
+        try {
+          const queryResult_2 = await MindsDB.default.SQL.runQuery(query_2);
+          sentiment = await queryResult_2.rows[0].sentiment;
+        } catch (err) {
+          context.log("Error in sentiment classifier model: ", err);
+        }
 
-      const query_3 = `SELECT emotion FROM mindsdb.hf_emotions_classifier WHERE text="${summarized}";`;
+        // Emotion classification
+        const query_3 = `SELECT emotion FROM mindsdb.hf_emotions_classifier WHERE text="${summarized}";`;
 
-      const queryResult_3 = await MindsDB.default.SQL.runQuery(query_3);
-      const emotion = await queryResult_3.rows[0].emotion;
+        try {
+          const queryResult_3 = await MindsDB.default.SQL.runQuery(query_3);
+          emotion = await queryResult_3.rows[0].emotion;
+        } catch (err) {
+          context.log("Error in emotion classifier model: ", err);
+        }
+      }
 
       client.query(
         "CALL usp_insert_articles(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",

@@ -15,7 +15,7 @@ export const showEmotion = (emotion: string) => {
     case "neutral":
       return "/images/emojis/neutral.png";
     default:
-      return "/images/emojis/neutral.png";
+      return "/images/emojis/not-available.png";
   }
 };
 
@@ -36,6 +36,6 @@ export const returnEmotionValue = (emotion: string) => {
     case "neutral":
       return "Neutral";
     default:
-      return "Neutral";
+      return "Not available";
   }
 };

@@ -13,6 +13,8 @@ interface SentimentHolderProps {
 }
 
 const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
+  const sentimentValue = returnSentimentValue(sentiment);
+
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   const { isTopPlacement } = useOnResize();
@@ -26,18 +28,24 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
       interactive={true}
       content={
         <div>
-          <span>The predicted sentiment is</span>
-          <span
-            className={`font-bold underline underline-offset-4 decoration-dotted mx-1 uppercase ${
-              sentiment === "pos"
-                ? "text-green-500"
-                : sentiment === "neu"
-                ? "text-orange-500"
-                : "text-red-500"
-            }`}
-          >
-            {returnSentimentValue(sentiment)}
-          </span>
+          {sentimentValue !== "Not available" ? (
+            <>
+              <span>The predicted sentiment is</span>
+              <span
+                className={`font-bold underline underline-offset-4 decoration-dotted mx-1 uppercase ${
+                  sentiment === "pos"
+                    ? "text-green-500"
+                    : sentiment === "neu"
+                    ? "text-orange-500"
+                    : "text-red-500"
+                }`}
+              >
+                {returnSentimentValue(sentiment)}
+              </span>
+            </>
+          ) : (
+            <span>Sentiment prediction is not available!</span>
+          )}
         </div>
       }
     >
@@ -60,7 +68,7 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
             >
               <Image
                 src={showSentiment(sentiment)}
-                alt={`${returnSentimentValue(sentiment)} icon`}
+                alt={`${sentimentValue} icon`}
                 fill={true}
                 className="self-center"
                 onLoadingComplete={() => {

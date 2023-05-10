@@ -208,12 +208,12 @@ const Home = () => {
                     sentiment={
                       article.predicted_sentiment
                         ? article.predicted_sentiment
-                        : "neu"
+                        : "na"
                     }
                     emotion={
                       article.predicted_emotion
                         ? article.predicted_emotion
-                        : "neutral"
+                        : "na"
                     }
                     tabIndexStart={curTabIndexStartValue}
                     isFetchingNewArticles={
