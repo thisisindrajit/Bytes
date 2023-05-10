@@ -194,8 +194,8 @@ const timerTrigger: AzureFunction = async function (
       const content = newsArticles[i].content.slice(0, 4096);
 
       const query_1 = `SELECT summarized_article
-                      FROM mindsdb.text_summarization_openai_max_tokens
-                      WHERE content="${content.replace(/"/g, "'")}";`;
+                      FROM mindsdb.text_summarization_openai
+                      WHERE text="${content.replace(/"/g, "'")}";`;
 
       const queryResult_1 = await MindsDB.default.SQL.runQuery(query_1);
       const summarized_full = await queryResult_1.rows[0].summarized_article;
@@ -204,12 +204,12 @@ const timerTrigger: AzureFunction = async function (
         "'"
       );
 
-      const query_2 = `SELECT sentiment FROM mindsdb.hf_sentiment WHERE text="${summarized}";`;
+      const query_2 = `SELECT sentiment FROM mindsdb.hf_sentiment_classifier WHERE text="${summarized}";`;
 
       const queryResult_2 = await MindsDB.default.SQL.runQuery(query_2);
       const sentiment = await queryResult_2.rows[0].sentiment;
 
-      const query_3 = `SELECT emotion FROM mindsdb.hf_emotions_6 WHERE text="${summarized}";`;
+      const query_3 = `SELECT emotion FROM mindsdb.hf_emotions_classifier WHERE text="${summarized}";`;
 
       const queryResult_3 = await MindsDB.default.SQL.runQuery(query_3);
       const emotion = await queryResult_3.rows[0].emotion;
