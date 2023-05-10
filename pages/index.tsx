@@ -197,7 +197,7 @@ const Home = () => {
                     summary={
                       article.summarized_text
                         ? article.summarized_text
-                        : "No summary has been generated for this article. Please click on the link icon in the bottom navigation bar to read the full article. We apologize for the inconvenience."
+                        : "It seems that no summary has been generated for this article. We apologize for the inconvenience."
                     }
                     generatedByAi={article.summarized_text ? true : false}
                     category={article.category}
