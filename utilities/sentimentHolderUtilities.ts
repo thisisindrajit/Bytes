@@ -7,7 +7,7 @@ export const showSentiment = (sentiment: string) => {
     case "neu":
       return "/images/emojis/neutral.png";
     default:
-      return "/images/emojis/neutral.png";
+      return "/images/emojis/not-available.png";
   }
 };
 
@@ -20,6 +20,6 @@ export const returnSentimentValue = (sentiment: string) => {
     case "neu":
       return "Neutral";
     default:
-      return "Neutral";
+      return "Not available";
   }
 };

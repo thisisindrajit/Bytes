@@ -3,15 +3,20 @@ import { FC, useState } from "react";
 import Loading from "../common/Loading";
 import Tippy from "@tippyjs/react";
 import useOnResize from "@/hooks/useOnResize";
-import { returnEmotionValue, showEmotion } from "@/utilities/emotionHolderUtilities";
+import {
+  returnEmotionValue,
+  showEmotion,
+} from "@/utilities/emotionHolderUtilities";
 
 interface EmotionHolderProps {
   emotion: string;
 }
 
 const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
+  const emotionValue = returnEmotionValue(emotion);
+
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
-  
+
   const { isTopPlacement } = useOnResize();
 
   return (
@@ -23,10 +28,16 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
       interactive={true}
       content={
         <div>
-          <span>The predicted emotion is</span>
-          <span className="font-bold underline decoration-dotted underline-offset-4 mx-1 uppercase">
-            {returnEmotionValue(emotion)}
-          </span>
+          {emotionValue !== "Not available" ? (
+            <>
+              <span>The predicted emotion is</span>
+              <span className="font-bold underline decoration-dotted underline-offset-4 mx-1 uppercase">
+                {emotionValue}
+              </span>
+            </>
+          ) : (
+            <span>Emotion prediction is not available!</span>
+          )}
         </div>
       }
     >
@@ -49,7 +60,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
             >
               <Image
                 src={showEmotion(emotion)}
-                alt={`${returnEmotionValue(emotion)} icon`}
+                alt={`${emotionValue} icon`}
                 fill={true}
                 className="self-center"
                 onLoadingComplete={() => {
