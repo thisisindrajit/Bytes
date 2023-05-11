@@ -91,7 +91,9 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={0}
                   tabIndex={-1}
-                  className="article-content-holder min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center text-white"
+                  className={`article-content-holder min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] bg-scroll bg-no-repeat bg-cover bg-center text-white ${
+                    prevId ? "overflow-y-hidden" : "overflow-y-auto"
+                  }`}
                   style={{
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
@@ -108,7 +110,9 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={1}
                   tabIndex={-1}
-                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto text-white"
+                  className={`article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] text-white ${
+                    prevId ? "overflow-y-hidden" : "overflow-y-auto"
+                  }`}
                 >
                   <ArticleSummaryHolder
                     source={source}
@@ -120,7 +124,9 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={2}
                   tabIndex={-1}
-                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] overflow-y-auto text-white"
+                  className={`article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] text-white ${
+                    prevId ? "overflow-y-hidden" : "overflow-y-auto"
+                  }`}
                 >
                   <ArticleDetailsHolder
                     category={category}

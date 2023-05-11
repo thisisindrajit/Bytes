@@ -31,3 +31,21 @@ export const cleanIfSourceIsMoneycontrol = (input: string) => {
 
   return decode(iconVLite.decode(encodedInput, "utf-8"));
 };
+
+export const showScrollbarOnlyIfArticleIsInViewport = () => {
+  (
+    document.querySelectorAll(".article-holder") as NodeListOf<HTMLElement>
+  ).forEach((articleHolder) => {
+    const articleContentHolders = articleHolder.querySelectorAll(
+      ".article-content-holder"
+    ) as NodeListOf<HTMLElement>;
+
+    if (isElementInViewport(articleHolder)) {
+      articleContentHolders.forEach((ach) => (ach.style.overflowY = "auto"));
+    } else {
+      articleContentHolders.forEach(
+        (ach) => (ach.style.overflowY = "hidden")
+      );
+    }
+  });
+}

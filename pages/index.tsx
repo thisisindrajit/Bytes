@@ -11,7 +11,7 @@ import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
   scrollToTop,
-  isElementInViewport,
+  showScrollbarOnlyIfArticleIsInViewport
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
 
@@ -69,18 +69,8 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
-    // This is to ensure that only after the user has stopped scrolling the parent and the child is in viewport, it is allowed to scroll
-    (
-      document.querySelectorAll(
-        ".article-content-holder"
-      ) as NodeListOf<HTMLElement>
-    ).forEach((articleContentHolder) => {
-      if (isElementInViewport(articleContentHolder)) {
-        articleContentHolder.style.overflowY = "auto";
-      } else {
-        articleContentHolder.style.overflowY = "hidden";
-      }
-    });
+    // This is to ensure that only if the article is in viewport, it's scrollbar is shown
+    showScrollbarOnlyIfArticleIsInViewport();
 
     // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling
     if (results && waitingForNewSetOfArticlesToBeSetInState) {
@@ -125,21 +115,10 @@ const Home = () => {
     allArticlesHolder?.focus();
 
     // This is to prevent multiple touches which leads to some weird behaviour where the scroll snap doesn't work properly (gets stuck in the middle)
-    allArticlesHolder?.addEventListener('touchstart', (event) => {
+    allArticlesHolder?.addEventListener("touchstart", (event) => {
       if (event.touches.length > 1) {
         event.preventDefault();
       }
-    });
-
-    // This is to remove the scroll bar of children when parent is scrolled, because if a child is scrolled simultaneously when the parent is also scrolling, it leads to some weird behaviour where the scroll snap doesn't work properly (gets stuck in the middle)
-    allArticlesHolder?.addEventListener("scroll", () => {
-      (
-        document.querySelectorAll(
-          ".article-content-holder"
-        ) as NodeListOf<HTMLElement>
-      ).forEach((articleContentHolder) => {
-        articleContentHolder.style.overflowY = "hidden";
-      });
     });
   }, []);
 
@@ -182,7 +161,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="min-h-[100dvh] snap-always snap-center p-4 over"
+                    className="article-holder min-h-[100dvh] snap-always snap-center p-4"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}

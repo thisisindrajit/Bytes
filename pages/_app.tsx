@@ -21,7 +21,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
         <title>Bytes</title>
       </Head>
       <AnimatedBackground>
