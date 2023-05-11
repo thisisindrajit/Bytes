@@ -124,7 +124,7 @@ const Home = () => {
     // This is to focus the particular element in the page when the page is loaded
     allArticlesHolder?.focus();
 
-    // This is to prevent multiple touches 
+    // This is to prevent multiple touches which leads to some weird behaviour where the scroll snap doesn't work properly (gets stuck in the middle)
     allArticlesHolder?.addEventListener('touchstart', (event) => {
       if (event.touches.length > 1) {
         event.preventDefault();
