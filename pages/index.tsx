@@ -11,7 +11,7 @@ import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
   scrollToTop,
-  isElementInViewport
+  isElementInViewport,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
 
@@ -69,15 +69,16 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
-    // This is to make sure that only after the user has stopped scrolling the parent, the children are allowed to scroll
+    // This is to ensure that only after the user has stopped scrolling the parent and the child is in viewport, it is allowed to scroll
     (
       document.querySelectorAll(
         ".article-content-holder"
       ) as NodeListOf<HTMLElement>
     ).forEach((articleContentHolder) => {
       if (isElementInViewport(articleContentHolder)) {
+        articleContentHolder.scrollIntoView({ behavior: "smooth" });
         articleContentHolder.style.overflowY = "auto";
-      } else{
+      } else {
         articleContentHolder.style.overflowY = "hidden";
       }
     });
@@ -131,11 +132,7 @@ const Home = () => {
           ".article-content-holder"
         ) as NodeListOf<HTMLElement>
       ).forEach((articleContentHolder) => {
-        if (isElementInViewport(articleContentHolder)) {
-          articleContentHolder.style.overflowY = "auto";
-        } else{
-          articleContentHolder.style.overflowY = "hidden";
-        }
+        articleContentHolder.style.overflowY = "hidden";
       });
     });
   }, []);
