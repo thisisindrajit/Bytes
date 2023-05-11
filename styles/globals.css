@@ -12,6 +12,7 @@
 * {
   @apply box-border p-0 m-0 transition-all duration-300;
   -webkit-tap-highlight-color: transparent;
+  -moz-tap-highlight-color: transparent;
 }
 
 html,
@@ -80,8 +81,20 @@ body {
   display: none; /* Safari and Chrome */
 }
 
+#all-articles-holder::-moz-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 /* Article content holder styling */
+.article-content-holder{
+  scrollbar-gutter: stable;
+}
+
 .article-content-holder::-webkit-scrollbar {
+  width: 0.25rem;
+}
+
+.article-content-holder::-moz-scrollbar {
   width: 0.25rem;
 }
 
@@ -90,8 +103,18 @@ body {
   width: 0.25rem;
 }
 
+.article-content-holder::-moz-scrollbar-track {
+  background: transparent;
+  width: 0.25rem;
+}
+
 .article-content-holder::-webkit-scrollbar-thumb {
-  background: #212121;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 0.25rem;
+}
+
+.article-content-holder::-moz-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
   border-radius: 0.25rem;
 }
 
