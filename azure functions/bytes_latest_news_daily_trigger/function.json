@@ -4,7 +4,7 @@
       "name": "myTimer",
       "type": "timerTrigger",
       "direction": "in",
-      "schedule": "0 */10 * * * *"
+      "schedule": "0 */20 * * * *"
     }
   ],
   "scriptFile": "../dist/bytes_latest_news_daily_trigger/index.js"
