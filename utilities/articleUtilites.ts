@@ -16,13 +16,8 @@ export const showInView = (id: string) => {
 
 export const isElementInViewport = (el: HTMLElement) => {
   const rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.left >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-  );
-}
+  return rect.top <= 10;
+};
 
 export const cleanIfSourceIsMoneycontrol = (input: string) => {
   // This is done to clean data if source is moneycontrol because it uses a different encoding (Windows 1252)
@@ -30,4 +25,20 @@ export const cleanIfSourceIsMoneycontrol = (input: string) => {
   let encodedInput = iconVLite.encode(modifiedInput, "windows-1252");
 
   return decode(iconVLite.decode(encodedInput, "utf-8"));
+};
+
+export const showScrollbarOnlyIfArticleIsInViewport = () => {
+  (
+    document.querySelectorAll(".article-holder") as NodeListOf<HTMLElement>
+  ).forEach((articleHolder) => {
+    const articleContentHolders = articleHolder.querySelectorAll(
+      ".article-content-holder"
+    ) as NodeListOf<HTMLElement>;
+
+    if (isElementInViewport(articleHolder)) {
+      articleContentHolders.forEach((ach) => (ach.style.overflowY = "auto"));
+    } else {
+      articleContentHolders.forEach((ach) => (ach.style.overflowY = "hidden"));
+    }
+  });
 };

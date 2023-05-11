@@ -25,7 +25,6 @@ export default function Document() {
         <link rel="icon" href="/favicon.ico" />
         {/* Meta tags */}
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
         <meta name="theme-color" content="#ecd9cb" />
         <meta
           name="description"
