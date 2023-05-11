@@ -16,7 +16,7 @@ export const showInView = (id: string) => {
 
 export const isElementInViewport = (el: HTMLElement) => {
   const rect = el.getBoundingClientRect();
-  return rect.top <= 15;
+  return rect.top <= 10;
 };
 
 export const cleanIfSourceIsMoneycontrol = (input: string) => {
