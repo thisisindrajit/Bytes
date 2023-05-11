@@ -32,7 +32,9 @@ export const cleanIfSourceIsMoneycontrol = (input: string) => {
 
 export const showScrollbarOnlyIfArticleIsInViewport = () => {
   (
-    document.querySelectorAll(".article-holder") as NodeListOf<HTMLElement>
+    document.querySelectorAll(
+      ".article-carousel-holder"
+    ) as NodeListOf<HTMLElement>
   ).forEach((articleHolder) => {
     const articleContentHolders = articleHolder.querySelectorAll(
       ".article-content-holder"

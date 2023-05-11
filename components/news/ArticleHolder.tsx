@@ -84,7 +84,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         {/* Content holder */}
         <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100dvh-10rem)]">
           {/* Carousel holder */}
-          <div className="bg-[#303030] rounded flex flex-col overflow-hidden max-h-[calc(100dvh-10rem)]">
+          <div className="article-carousel-holder bg-[#303030] rounded flex flex-col overflow-hidden max-h-[calc(100dvh-10rem)]">
             <div className="flex-1 flex flex-col justify-between max-h-[calc(100dvh-10rem)] rounded">
               <Slider tabIndex={-1}>
                 {/* Two urls are added in background image so that even if the first link is broken, the default background image is used */}
