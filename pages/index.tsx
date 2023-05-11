@@ -77,6 +77,8 @@ const Home = () => {
     ).forEach((articleContentHolder) => {
       if (isElementInViewport(articleContentHolder)) {
         articleContentHolder.style.overflowY = "auto";
+      } else{
+        articleContentHolder.style.overflowY = "hidden";
       }
     });
 
@@ -129,7 +131,11 @@ const Home = () => {
           ".article-content-holder"
         ) as NodeListOf<HTMLElement>
       ).forEach((articleContentHolder) => {
-        articleContentHolder.style.overflowY = "hidden";
+        if (isElementInViewport(articleContentHolder)) {
+          articleContentHolder.style.overflowY = "auto";
+        } else{
+          articleContentHolder.style.overflowY = "hidden";
+        }
       });
     });
   }, []);
