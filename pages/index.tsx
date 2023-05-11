@@ -10,8 +10,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
-  scrollToTop,
   showScrollbarOnlyIfArticleIsInViewport,
+  scrollToTop,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
 
@@ -118,8 +118,8 @@ const Home = () => {
       }
     });
 
+    // This is to remove the scroll bar of articles when all articles holder is scrolled, because if an article is scrolled simultaneously when all articles holder is also scrolling, it leads to some weird behaviour where the scroll snap doesn't work properly (gets stuck in the middle)
     allArticlesHolder?.addEventListener("scroll", () => {
-      // This is to ensure that only if the article is in viewport, the article's scrollbar is shown
       showScrollbarOnlyIfArticleIsInViewport();
     });
   }, []);
@@ -161,59 +161,59 @@ const Home = () => {
                   touchEnabled={false}
                   dragEnabled={false}
                 >
-                  <ArticleHolder
-                    id={article.id}
-                    className="article-holder min-h-[100dvh] snap-always snap-center p-4"
-                    hasPrevious={index === 0 ? false : true}
-                    hasNext={index === articlesData.length - 1 ? false : true}
-                    prevId={articlesData[index - 1]?.id}
-                    nextId={articlesData[index + 1]?.id}
-                    title={
-                      article.source === "moneycontrol"
-                        ? cleanIfSourceIsMoneycontrol(article.title)
-                        : decode(article.title)
-                    }
-                    description={
-                      article.description
-                        ? article.source === "moneycontrol"
-                          ? cleanIfSourceIsMoneycontrol(article.description)
-                          : decode(article.description)
-                        : null
-                    }
-                    pubDate={
-                      article.pub_date
-                        ? new Date(article.pub_date).toUTCString()
-                        : null
-                    }
-                    imgUrl={article.image_url}
-                    articleUrl={article.link}
-                    summary={
-                      article.summarized_text
-                        ? article.summarized_text
-                        : "It seems that no summary has been generated for this article. We apologize for the inconvenience."
-                    }
-                    generatedByAi={article.summarized_text ? true : false}
-                    category={article.category}
-                    creator={article.creator}
-                    source={article.source}
-                    country={article.country}
-                    keywords={article.keywords}
-                    sentiment={
-                      article.predicted_sentiment
-                        ? article.predicted_sentiment
-                        : "na"
-                    }
-                    emotion={
-                      article.predicted_emotion
-                        ? article.predicted_emotion
-                        : "na"
-                    }
-                    tabIndexStart={curTabIndexStartValue}
-                    isFetchingNewArticles={
-                      isFetchingNextPage ||
-                      waitingForNewSetOfArticlesToBeSetInState
-                    }
-                  />
+                    <ArticleHolder
+                      id={article.id}
+                      className="article-holder min-h-[100dvh] snap-always snap-center p-4"
+                      hasPrevious={index === 0 ? false : true}
+                      hasNext={index === articlesData.length - 1 ? false : true}
+                      prevId={articlesData[index - 1]?.id}
+                      nextId={articlesData[index + 1]?.id}
+                      title={
+                        article.source === "moneycontrol"
+                          ? cleanIfSourceIsMoneycontrol(article.title)
+                          : decode(article.title)
+                      }
+                      description={
+                        article.description
+                          ? article.source === "moneycontrol"
+                            ? cleanIfSourceIsMoneycontrol(article.description)
+                            : decode(article.description)
+                          : null
+                      }
+                      pubDate={
+                        article.pub_date
+                          ? new Date(article.pub_date).toUTCString()
+                          : null
+                      }
+                      imgUrl={article.image_url}
+                      articleUrl={article.link}
+                      summary={
+                        article.summarized_text
+                          ? article.summarized_text
+                          : "It seems that no summary has been generated for this article. We apologize for the inconvenience."
+                      }
+                      generatedByAi={article.summarized_text ? true : false}
+                      category={article.category}
+                      creator={article.creator}
+                      source={article.source}
+                      country={article.country}
+                      keywords={article.keywords}
+                      sentiment={
+                        article.predicted_sentiment
+                          ? article.predicted_sentiment
+                          : "na"
+                      }
+                      emotion={
+                        article.predicted_emotion
+                          ? article.predicted_emotion
+                          : "na"
+                      }
+                      tabIndexStart={curTabIndexStartValue}
+                      isFetchingNewArticles={
+                        isFetchingNextPage ||
+                        waitingForNewSetOfArticlesToBeSetInState
+                      }
+                    />
                 </CarouselProvider>
               );
             })}
