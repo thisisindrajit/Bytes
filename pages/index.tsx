@@ -11,6 +11,7 @@ import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
   scrollToTop,
+  isElementInViewport,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
 
@@ -68,13 +69,17 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
-    // This is to make sure that only after the user has stopped scrolling the parent element, the child elements are allowed to scroll
+    // This is to ensure that only after the user has stopped scrolling the parent and the child is in viewport, it is allowed to scroll
     (
       document.querySelectorAll(
         ".article-content-holder"
       ) as NodeListOf<HTMLElement>
     ).forEach((articleContentHolder) => {
-      articleContentHolder.style.overflowY = "auto";
+      if (isElementInViewport(articleContentHolder)) {
+        articleContentHolder.style.overflowY = "auto";
+      } else {
+        articleContentHolder.style.overflowY = "hidden";
+      }
     });
 
     // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling
@@ -119,7 +124,14 @@ const Home = () => {
     // This is to focus the particular element in the page when the page is loaded
     allArticlesHolder?.focus();
 
-    // This is to remove the scroll bar of child when parent is scrolled, because when the child is scrolled simultaneously when the parent is scrolling, it leads to some weird behaviour where the scroll snap doesn't work properly
+    // This is to prevent multiple touches which leads to some weird behaviour where the scroll snap doesn't work properly (gets stuck in the middle)
+    allArticlesHolder?.addEventListener('touchstart', (event) => {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    });
+
+    // This is to remove the scroll bar of children when parent is scrolled, because if a child is scrolled simultaneously when the parent is also scrolling, it leads to some weird behaviour where the scroll snap doesn't work properly (gets stuck in the middle)
     allArticlesHolder?.addEventListener("scroll", () => {
       (
         document.querySelectorAll(

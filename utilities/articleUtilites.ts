@@ -14,6 +14,16 @@ export const showInView = (id: string) => {
   });
 };
 
+export const isElementInViewport = (el: HTMLElement) => {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
 export const cleanIfSourceIsMoneycontrol = (input: string) => {
   // This is done to clean data if source is moneycontrol because it uses a different encoding (Windows 1252)
   let modifiedInput = input.replaceAll("#39;", "&#39;");
