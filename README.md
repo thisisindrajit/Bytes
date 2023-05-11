@@ -28,7 +28,7 @@ Check out Bytes by clicking [here](https://bytesnews.vercel.app)!
 
 ## ⭐️ Features
 
-- Bytes offers users access to real-time news updates from four different countries, namely India, the USA, Australia, and the UK. With updates being provided every 10 minutes, users can rest assured that they are receiving the most up-to-date and relevant news from these regions.
+- Bytes offers users access to real-time news updates from four different countries, namely India, the USA, Australia, and the UK. With updates being provided every 20 minutes, users can rest assured that they are receiving the most up-to-date and relevant news from these regions.
 
 - Bytes leverages the power of Artificial Intelligence to provide users with a summarized version of each news article. This feature allows users to quickly and easily get an overview of the key points and main ideas presented in the article. By utilizing state-of-the-art NLP-based MindsDB models, Bytes is able to generate highly accurate and relevant summaries that capture the essence of each article. This feature not only saves time for users but also provides them with the necessary information to make informed decisions about the news they are consuming.
 
