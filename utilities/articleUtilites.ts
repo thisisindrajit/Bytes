@@ -16,10 +16,7 @@ export const showInView = (id: string) => {
 
 export const isElementInViewport = (el: HTMLElement) => {
   const rect = el.getBoundingClientRect();
-  return (
-    rect.top >= 0 &&
-    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-  );
+  return rect.top === 0;
 };
 
 export const cleanIfSourceIsMoneycontrol = (input: string) => {
@@ -32,9 +29,7 @@ export const cleanIfSourceIsMoneycontrol = (input: string) => {
 
 export const showScrollbarOnlyIfArticleIsInViewport = () => {
   (
-    document.querySelectorAll(
-      ".article-carousel-holder"
-    ) as NodeListOf<HTMLElement>
+    document.querySelectorAll(".article-holder") as NodeListOf<HTMLElement>
   ).forEach((articleHolder) => {
     const articleContentHolders = articleHolder.querySelectorAll(
       ".article-content-holder"
