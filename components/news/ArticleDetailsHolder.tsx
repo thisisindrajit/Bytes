@@ -1,4 +1,7 @@
-import { checkIfArrayIsNotEmpty } from "@/utilities/articleHolderUtilities";
+import {
+  capitalizeCountryName,
+  checkIfArrayIsNotEmpty,
+} from "@/utilities/articleHolderUtilities";
 import { FC } from "react";
 
 interface ArticleDetailsHolderProps {
@@ -58,7 +61,9 @@ const ArticleDetailsHolder: FC<ArticleDetailsHolderProps> = ({
             <div className="my-8 flex flex-col gap-2">
               <div className="text-sm uppercase">Country</div>
               <div className="text-base/relaxed text-[#ecd9cb]">
-                {JSON.parse(country).country.join(", ")}
+                {JSON.parse(country)
+                  .country.map((c) => capitalizeCountryName(c))
+                  .join(", ")}
               </div>
             </div>
           )}
