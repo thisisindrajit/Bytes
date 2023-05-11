@@ -11,7 +11,7 @@ import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
   scrollToTop,
-  showScrollbarOnlyIfArticleIsInViewport
+  showScrollbarOnlyIfArticleIsInViewport,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
 
@@ -69,9 +69,6 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
-    // This is to ensure that only if the article is in viewport, it's scrollbar is shown
-    showScrollbarOnlyIfArticleIsInViewport();
-
     // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling
     if (results && waitingForNewSetOfArticlesToBeSetInState) {
       setArticlesData((prevArticles) => [
@@ -119,6 +116,11 @@ const Home = () => {
       if (event.touches.length > 1) {
         event.preventDefault();
       }
+    });
+
+    allArticlesHolder?.addEventListener("scroll", () => {
+      // This is to ensure that only if the article is in viewport, the article's scrollbar is shown
+      showScrollbarOnlyIfArticleIsInViewport();
     });
   }, []);
 

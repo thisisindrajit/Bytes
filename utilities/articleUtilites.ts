@@ -32,7 +32,7 @@ export const cleanIfSourceIsMoneycontrol = (input: string) => {
   return decode(iconVLite.decode(encodedInput, "utf-8"));
 };
 
-export const showScrollbarOnlyIfArticleIsInViewport = () => {
+export const showScrollbarOnlyIfArticleIsInViewport = () => { 
   (
     document.querySelectorAll(".article-holder") as NodeListOf<HTMLElement>
   ).forEach((articleHolder) => {
