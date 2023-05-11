@@ -76,7 +76,6 @@ const Home = () => {
       ) as NodeListOf<HTMLElement>
     ).forEach((articleContentHolder) => {
       if (isElementInViewport(articleContentHolder)) {
-        articleContentHolder.scrollIntoView({ behavior: "smooth" });
         articleContentHolder.style.overflowY = "auto";
       } else {
         articleContentHolder.style.overflowY = "hidden";
@@ -124,6 +123,13 @@ const Home = () => {
     const allArticlesHolder = document.getElementById("all-articles-holder");
     // This is to focus the particular element in the page when the page is loaded
     allArticlesHolder?.focus();
+
+    // This is to prevent multiple touches 
+    allArticlesHolder?.addEventListener('touchstart', (event) => {
+      if (event.touches.length > 1) {
+        event.preventDefault();
+      }
+    });
 
     // This is to remove the scroll bar of children when parent is scrolled, because if a child is scrolled simultaneously when the parent is also scrolling, it leads to some weird behaviour where the scroll snap doesn't work properly (gets stuck in the middle)
     allArticlesHolder?.addEventListener("scroll", () => {
