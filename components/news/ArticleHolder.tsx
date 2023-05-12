@@ -91,7 +91,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={0}
                   tabIndex={-1}
-                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] text-white overflow-y-auto"
+                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] text-white overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center"
                   style={{
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
