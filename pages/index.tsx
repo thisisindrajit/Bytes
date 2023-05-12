@@ -11,7 +11,7 @@ import { decode } from "html-entities";
 import {
   cleanIfSourceIsMoneycontrol,
   showScrollbarOnlyIfArticleIsInViewport,
-  scrollToTop,
+  scrollAllArticlesHolderToTop,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
 
@@ -132,7 +132,7 @@ const Home = () => {
       className="max-h-[100dvh] w-full relative overflow-y-auto outline-none"
     >
       {/* Top bar */}
-      <TopBar onClickIcon={scrollToTop} />
+      <TopBar onClickIcon={scrollAllArticlesHolderToTop} />
       {/* Articles holder */}
       <Holder
         className={`${

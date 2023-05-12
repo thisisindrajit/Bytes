@@ -19,7 +19,11 @@ const InfoModal: FC<InfoModalProps> = ({
       open={isOpen}
       onClose={onClose}
       focusTrapped={false}
-      classNames={{ modal: "rounded", closeIcon: "mt-[0.15rem]" }}
+      modalId="modal"
+      classNames={{ modal: "rounded outline-none", closeIcon: "mt-[0.15rem]" }}
+      onAnimationEnd={() => {
+        document.getElementById("modal")?.focus({ preventScroll: true });
+      }}
     >
       {/* Title */}
       <div className="w-fit font-bold">{title}</div>
