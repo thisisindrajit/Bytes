@@ -23,6 +23,7 @@ const TopBar: FC<TopBarProps> = ({ page, className = "", onClickIcon }) => {
 
   const closeModal = () => {
     router.back();
+    document.getElementById("all-articles-holder")?.focus();
     setIsModalOpen(false);
   };
 
