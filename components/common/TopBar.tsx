@@ -18,6 +18,7 @@ const TopBar: FC<TopBarProps> = ({ page, className = "", onClickIcon }) => {
 
   const openModal = () => {
     router.push("/?type=modal", undefined, { shallow: true });
+    document.getElementById("all-articles-holder")?.blur();
     setIsModalOpen(true);
   };
 
