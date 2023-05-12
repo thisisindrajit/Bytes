@@ -60,9 +60,9 @@ const BytesInfo: FC = () => {
           <span>Created with ❤️ by</span>
           <a
             href="https://thisisindrajit.github.io/portfolio/"
-            className="underline mx-1.5"
             target="_blank"
             rel="noopener noreferrer"
+            className="underline mx-1.5"
           >
             Indrajit
           </a>

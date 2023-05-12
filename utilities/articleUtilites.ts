@@ -1,7 +1,7 @@
 import { decode } from "html-entities";
 import iconVLite from "iconv-lite";
 
-export const scrollToTop = () => {
+export const scrollAllArticlesHolderToTop = () => {
   document.getElementById("all-articles-holder")?.scrollTo({
     top: 0,
     behavior: "smooth",
