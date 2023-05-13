@@ -88,7 +88,6 @@ const BottomBar: FC<BottomBarProps> = ({
         href={link}
         tabIndex={tabIndex}
         className="bg-[#ecd9cb] p-3 flex items-center justify-center"
-        target="_blank"
         rel="noopener noreferrer"
       >
         <ImageHolder
