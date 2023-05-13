@@ -8,21 +8,9 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Anuphan:wght@200;300;400;500;600&display=swap"
           rel="stylesheet"
         />
-        <link rel="manifest" href="/manifest.json" />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
         {/* Meta tags */}
         <meta charSet="UTF-8" />
         <meta name="theme-color" content="#ecd9cb" />
@@ -32,7 +20,7 @@ export default function Document() {
         />
         <meta
           name="keywords"
-          content="news, artificial intelligence, open source, real time news, summarized news"
+          content="news, artificial intelligence, open source, real time news, summarized news, news app, news aggregator, news reader, news reader app, news reader application, article summarization, emotion prediction, sentiment prediction, bytes, bytes news, bytes news app, bytes news reader, bytes news reader app, bytes news reader application"
         />
       </Head>
       <body>
