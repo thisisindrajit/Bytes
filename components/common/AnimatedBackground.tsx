@@ -12,7 +12,7 @@ const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
     <div
       className="animated-background w-full"
       style={{
-        minHeight: isInPwaMode ? "var(--100vh)" : "var(--100vh, 100dvh)",
+        minHeight: isInPwaMode ? "100vh" : "100dvh",
       }}
     >
       {children}

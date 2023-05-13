@@ -1,4 +1,3 @@
-import { setDocHeight } from "@/utilities/commonUtilities";
 import { useLayoutEffect, useState } from "react";
 
 const useOnResizeOrOnOrientationChange = () => {
@@ -7,7 +6,6 @@ const useOnResizeOrOnOrientationChange = () => {
 
   useLayoutEffect(() => {
     const handleOnResize = () => {
-      setDocHeight();
       setInnerHeight(window.innerHeight);
       setInnerWidth(window.innerWidth);
     };

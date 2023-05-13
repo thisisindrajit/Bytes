@@ -10,8 +10,6 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "react-responsive-modal/styles.css";
 import useIsInPwaMode from "@/hooks/useIsInPwaMode";
-import { useLayoutEffect } from "react";
-import { setDocHeight } from "@/utilities/commonUtilities";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,10 +20,6 @@ export const queryClient = new QueryClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   const { isInPwaMode } = useIsInPwaMode();
-
-  useLayoutEffect(() => {
-    setDocHeight();
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -42,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
           id="small-screen-holder"
           className="overflow-y-auto"
           style={{
-            minHeight: !isInPwaMode ? "var(--100vh)" : "var(--100vh, 100dvh)",
+            minHeight: isInPwaMode ? "100vh" : "100dvh",
           }}
         >
           <div className="text-red-500 text-sm/relaxed p-4 text-justify">
