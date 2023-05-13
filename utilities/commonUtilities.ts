@@ -14,7 +14,6 @@ export const getLoadingIconSrcBasedOnColor = (
 };
 
 export const setDocHeight = () => {
-  console.error("t");
   document.documentElement.style.setProperty("--vh", `${window.innerHeight}px`);
 };
 
