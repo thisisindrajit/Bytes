@@ -13,7 +13,11 @@ export const getLoadingIconSrcBasedOnColor = (
   }
 };
 
-export const setDocHeight = () => {
-  const doc = document.documentElement;
-  doc.style.setProperty("--vh", `${window.innerHeight}px`);
+export const isPwa = () => {
+  return (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator["standalone"] ||
+    document.referrer.includes("android-app://") ||
+    document.referrer.includes("ios-app://")
+  );
 };

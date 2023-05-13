@@ -21,7 +21,7 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
   const { innerHeight, innerWidth } = useOnResizeOrOnOrientationChange();
 
   useEffect(() => {
-    setIsTopPlacement(window.innerHeight <= 667 && window.innerWidth >= 1024);
+    setIsTopPlacement(innerHeight <= 667 && innerWidth >= 1024);
   }, [innerHeight, innerWidth]);
 
   return (

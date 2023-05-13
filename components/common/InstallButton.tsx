@@ -1,17 +1,15 @@
-import { useState, useEffect, ReactNode, FC } from "react";
+import { ReactNode, FC, useState, useEffect } from "react";
 
 interface InstallButtonProps {
   children: ReactNode;
 }
 
 const InstallButton: FC<InstallButtonProps> = ({ children }) => {
-  const [supportsPWA, setSupportsPWA] = useState<boolean>(false);
   const [promptInstall, setPromptInstall] = useState<any>(null);
 
   useEffect(() => {
     const handler = (e) => {
       e.preventDefault();
-      setSupportsPWA(true);
       setPromptInstall(e);
     };
 
@@ -30,7 +28,7 @@ const InstallButton: FC<InstallButtonProps> = ({ children }) => {
     promptInstall.prompt();
   };
 
-  return supportsPWA ? <div onClick={onClick}>{children}</div> : null;
+  return promptInstall ? <div onClick={onClick}>{children}</div> : null;
 };
 
 export default InstallButton;

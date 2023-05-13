@@ -2,6 +2,7 @@ import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
 import Loading from "../common/Loading";
 import { showInView } from "@/utilities/articleUtilites";
+import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
 
 interface BottomBarProps {
   className?: string;
@@ -24,6 +25,8 @@ const BottomBar: FC<BottomBarProps> = ({
   tabIndex,
   isFetchingNewArticles,
 }) => {
+  const { innerWidth } = useOnResizeOrOnOrientationChange();
+
   return (
     <div
       className={`grid grid-cols-3 place-content-stretch w-full md:w-[32rem] m-auto rounded overflow-hidden ${className}`}
@@ -87,8 +90,8 @@ const BottomBar: FC<BottomBarProps> = ({
       <a
         href={link}
         tabIndex={tabIndex}
+        target={innerWidth < 768 ? "_self" : "_blank"}
         className="bg-[#ecd9cb] p-3 flex items-center justify-center"
-        target="_blank"
         rel="noopener noreferrer"
       >
         <ImageHolder
