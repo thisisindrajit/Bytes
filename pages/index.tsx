@@ -14,12 +14,9 @@ import {
   scrollAllArticlesHolderToTop,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
-import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
-
-  const { isInPwaMode } = useIsInPwaMode();
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [
@@ -132,10 +129,7 @@ const Home = () => {
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
       ref={allArticlesHolderRef}
-      className="w-full relative overflow-y-auto outline-none"
-      style={{
-        maxHeight: isInPwaMode ? "100vh" : "100dvh",
-      }}
+      className="w-full relative overflow-y-auto outline-none max-h-[100dvh]"
     >
       {/* Top bar */}
       <TopBar onClickIcon={scrollAllArticlesHolderToTop} />
@@ -143,11 +137,8 @@ const Home = () => {
       <Holder
         className={`${
           (isError || isLoading || isRefetchError) &&
-          "w-full flex items-center justify-center"
+          "w-full flex items-center justify-center h-[100dvh]"
         }`}
-        otherStyles={{
-          height: isInPwaMode ? "100vh" : "100dvh",
-        }}
       >
         {isError || isRefetchError ? (
           <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500 m-6">
@@ -172,10 +163,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="article-holder snap-always snap-center p-4"
-                    otherStyles={{
-                      minHeight: isInPwaMode ? "100vh" : "100dvh",
-                    }}
+                    className="article-holder snap-always snap-center p-4 min-h-[100dvh]"
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
@@ -229,16 +217,10 @@ const Home = () => {
                 </CarouselProvider>
               );
             })}
-
             {!hasNextPage ? (
               // If there are no articles in DB
               articlesData.length === 0 ? (
-                <div
-                  className="w-full flex items-center justify-center text-white"
-                  style={{
-                    height: isInPwaMode ? "100vh" : "100dvh",
-                  }}
-                >
+                <div className="w-full flex items-center justify-center text-white h-[100dvh]">
                   No articles available! 🥺
                 </div>
               ) : (
