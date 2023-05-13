@@ -8,8 +8,6 @@ import ArticleDetailsHolder from "./ArticleDetailsHolder";
 import SentimentHolder from "./SentimentHolder";
 import EmotionHolder from "./EmotionHolder";
 import ImageHolder from "../common/ImageHolder";
-import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
-import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 
 interface ArticleHolderProps {
   id?: string;
@@ -62,15 +60,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   isFetchingNewArticles,
   otherStyles,
 }) => {
-  const { isInPwaMode } = useIsInPwaMode();
-
   const carouselContext = useContext(CarouselContext);
 
   const [currentSlide, setCurrentSlide] = useState<number>(
     carouselContext.state.currentSlide
   );
-
-  const { innerWidth } = useOnResizeOrOnOrientationChange();
 
   useEffect(() => {
     const onChange = () => {
@@ -88,55 +82,19 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         <div className="h-[1px] w-full bg-[#ecd9cb]"></div>
       </div>
       {/* Article holder */}
-      <div
-        className="flex-1"
-        style={{
-          maxHeight: isInPwaMode
-            ? "calc(100vh - 10rem)"
-            : "calc(100dvh - 10rem)",
-        }}
-      >
+      <div className="flex-1 max-h-[calc(100dvh-10rem)]">
         {/* Content holder */}
-        <div
-          className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3"
-          style={{
-            maxHeight: isInPwaMode
-              ? "calc(100vh - 10rem)"
-              : "calc(100dvh - 10rem)",
-          }}
-        >
+        <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100dvh-10rem)]">
           {/* Carousel holder */}
-          <div
-            className="bg-[#303030] rounded flex flex-col overflow-hidden"
-            style={{
-              maxHeight: isInPwaMode
-                ? "calc(100vh - 10rem)"
-                : "calc(100dvh - 10rem)",
-            }}
-          >
-            <div
-              className="flex-1 flex flex-col justify-between rounded"
-              style={{
-                maxHeight: isInPwaMode
-                  ? "calc(100vh - 10rem)"
-                  : "calc(100dvh - 10rem)",
-              }}
-            >
+          <div className="bg-[#303030] rounded flex flex-col overflow-hidden max-h-[calc(100dvh-10rem)]">
+            <div className="flex-1 flex flex-col justify-between rounded max-h-[calc(100dvh-10rem)]">
               <Slider tabIndex={-1}>
                 {/* Two urls are added in background image so that even if the first link is broken, the default background image is used */}
                 <Slide
                   index={0}
                   tabIndex={-1}
-                  className="article-content-holder p-4 text-white overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center"
+                  className="article-content-holder p-4 text-white overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)]"
                   style={{
-                    minHeight:
-                      innerWidth < 1024
-                        ? isInPwaMode
-                          ? "calc(100vh - 22rem)"
-                          : "calc(100dvh - 22rem)"
-                        : isInPwaMode
-                        ? "calc(100vh - 13rem)"
-                        : "calc(100dvh - 13rem)",
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
                       : "none",
@@ -153,17 +111,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   index={1}
                   tabIndex={-1}
                   className="article-content-holder p-4 text-white
-                    overflow-y-auto"
-                  style={{
-                    minHeight:
-                      innerWidth < 1024
-                        ? isInPwaMode
-                          ? "calc(100vh - 22rem)"
-                          : "calc(100dvh - 22rem)"
-                        : isInPwaMode
-                        ? "calc(100vh - 13rem)"
-                        : "calc(100dvh - 13rem)",
-                  }}
+                    overflow-y-auto min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)]"
                 >
                   <ArticleSummaryHolder
                     source={source}
@@ -175,17 +123,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={2}
                   tabIndex={-1}
-                  className="article-content-holder p-4 text-white overflow-y-auto"
-                  style={{
-                    minHeight:
-                      innerWidth < 1024
-                        ? isInPwaMode
-                          ? "calc(100vh - 22rem)"
-                          : "calc(100dvh - 22rem)"
-                        : isInPwaMode
-                        ? "calc(100vh - 13rem)"
-                        : "calc(100dvh - 13rem)",
-                  }}
+                  className="article-content-holder p-4 text-white overflow-y-auto min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)]"
                 >
                   <ArticleDetailsHolder
                     category={category}

@@ -1,4 +1,3 @@
-import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 import { FC, ReactNode } from "react";
 
 interface HolderProps {
@@ -8,15 +7,10 @@ interface HolderProps {
 }
 
 const Holder: FC<HolderProps> = ({ children, otherStyles, className = "" }) => {
-  const { isInPwaMode } = useIsInPwaMode();
-
   return (
     <div
-      className={`h-fit w-full xl:max-w-[1440px] 2xl:max-w-[1920px] m-auto ${className}`}
-      style={{
-        minHeight: isInPwaMode ? "100vh" : "100dvh",
-        ...otherStyles,
-      }}
+      className={`min-h-[100dvh] h-fit w-full xl:max-w-[1440px] 2xl:max-w-[1920px] m-auto ${className}`}
+      style={otherStyles}
     >
       {children}
     </div>

@@ -1,4 +1,3 @@
-import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 import { FC, ReactNode } from "react";
 
 interface AnimatedBackgroundProps {
@@ -6,14 +5,9 @@ interface AnimatedBackgroundProps {
 }
 
 const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
-  const { isInPwaMode } = useIsInPwaMode();
-
   return (
     <div
-      className="animated-background w-full"
-      style={{
-        minHeight: isInPwaMode ? "100vh" : "100dvh",
-      }}
+      className="animated-background w-full min-h-[100dvh]"
     >
       {children}
     </div>
