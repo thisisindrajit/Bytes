@@ -1,9 +1,9 @@
 {
   "theme_color": "#ecd9cb",
   "background_color": "#131313",
-  "display": "standalone",
+  "display": "minimal-ui",
   "orientation": "portrait",
-  "scope": "https://bytesnews.vercel.app/",
+  "scope": "/",
   "start_url": "/",
   "name": "Bytes",
   "short_name": "Bytes",
