@@ -3,7 +3,7 @@
   "background_color": "#131313",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "https://bytesnews.vercel.app/",
   "start_url": "/",
   "id": "/",
   "name": "Bytes",
