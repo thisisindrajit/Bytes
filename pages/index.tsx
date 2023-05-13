@@ -134,7 +134,7 @@ const Home = () => {
       ref={allArticlesHolderRef}
       className="w-full relative overflow-y-auto outline-none"
       style={{
-        maxHeight: isInPwaMode ? "var(--vh, 100vh)" : "var(--vh, 100dvh)",
+        maxHeight: isInPwaMode ? "100vh" : "var(--vh, 100dvh)",
       }}
     >
       {/* Top bar */}
@@ -146,7 +146,7 @@ const Home = () => {
           "w-full flex items-center justify-center"
         }`}
         otherStyles={{
-          height: isInPwaMode ? "var(--vh, 100vh)" : "var(--vh, 100dvh)",
+          height: isInPwaMode ? "100vh" : "var(--vh, 100dvh)",
         }}
       >
         {isError || isRefetchError ? (
@@ -174,9 +174,7 @@ const Home = () => {
                     id={article.id}
                     className="article-holder snap-always snap-center p-4"
                     otherStyles={{
-                      minHeight: isInPwaMode
-                        ? "var(--vh, 100vh)"
-                        : "var(--vh, 100dvh)",
+                      minHeight: isInPwaMode ? "100vh" : "var(--vh, 100dvh)",
                     }}
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
@@ -238,9 +236,7 @@ const Home = () => {
                 <div
                   className="w-full flex items-center justify-center text-white"
                   style={{
-                    height: isInPwaMode
-                      ? "var(--vh, 100vh)"
-                      : "var(--vh, 100dvh)",
+                    height: isInPwaMode ? "100vh" : "var(--vh, 100dvh)",
                   }}
                 >
                   No articles available! 🥺

@@ -36,7 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
           id="small-screen-holder"
           className="overflow-y-auto"
           style={{
-            minHeight: isInPwaMode ? "var(--vh, 100vh)" : "var(--vh, 100dvh)",
+            minHeight: isInPwaMode ? "100vh" : "var(--vh, 100dvh)",
           }}
         >
           <div className="text-red-500 text-sm/relaxed p-4 text-justify">
