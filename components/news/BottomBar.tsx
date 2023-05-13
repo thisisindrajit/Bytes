@@ -90,7 +90,7 @@ const BottomBar: FC<BottomBarProps> = ({
       <a
         href={link}
         tabIndex={tabIndex}
-        target={isInPwaMode ? "_self" : "_blank"}
+        target={isInPwaMode ? "_top" : "_blank"}
         className="bg-[#ecd9cb] p-3 flex items-center justify-center"
         rel="noopener noreferrer"
       >
