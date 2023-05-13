@@ -1,6 +1,6 @@
 import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
-import Loading from "../common/Loading"
+import Loading from "../common/Loading";
 import { showInView } from "@/utilities/articleUtilites";
 
 interface BottomBarProps {
@@ -70,9 +70,7 @@ const BottomBar: FC<BottomBarProps> = ({
             />
             <span
               className={`hidden sm:block ${
-                hasNext
-                  ? "text-black"
-                  : "text-gray-500"
+                hasNext ? "text-black" : "text-gray-500"
               }`}
             >
               Next
@@ -89,6 +87,10 @@ const BottomBar: FC<BottomBarProps> = ({
       <a
         href={link}
         tabIndex={tabIndex}
+        onClick={(event) => {
+          event.preventDefault();
+          window.open(link, "_blank");
+        }}
         className="bg-[#ecd9cb] p-3 flex items-center justify-center"
         target="_blank"
         rel="noopener noreferrer"
