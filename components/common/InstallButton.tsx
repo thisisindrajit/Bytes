@@ -16,8 +16,6 @@ const InstallButton: FC<InstallButtonProps> = ({ children }) => {
     // beforeinstallprompt will only be fired when the below condition is true:
     // - The PWA must not already be installed
     window.addEventListener("beforeinstallprompt", handler);
-
-    return () => window.removeEventListener("transitionend", handler);
   }, []);
 
   const onClick = (evt) => {
