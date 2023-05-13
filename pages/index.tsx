@@ -14,6 +14,7 @@ import {
   scrollAllArticlesHolderToTop,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
+import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
@@ -169,7 +170,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="article-holder snap-always snap-center p-4"
+                    className="article-holder snap-always h-[100dvh] snap-center p-4"
                     otherStyles={{
                       minHeight: "var(--vh, 100dvh)",
                     }}
