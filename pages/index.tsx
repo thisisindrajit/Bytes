@@ -130,9 +130,9 @@ const Home = () => {
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
       ref={allArticlesHolderRef}
-      className="w-full relative overflow-y-auto outline-none"
+      className="h-screen w-full relative overflow-y-auto outline-none"
       style={{
-        maxHeight: "var(--vh, 100dvh)",
+        maxHeight: "var(--vh, 100vh)",
       }}
     >
       {/* Top bar */}

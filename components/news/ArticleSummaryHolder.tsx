@@ -56,7 +56,6 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
             href={articleUrl}
             tabIndex={-1}
             className="hidden lg:inline mx-1.5 text-[#ecd9cb] border border-[#ecd9cb] p-2 rounded hover:bg-[#ecd9cb] hover:text-black"
-            target="_blank"
             rel="noopener noreferrer"
           >
             Click here
