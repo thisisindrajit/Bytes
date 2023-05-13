@@ -9,8 +9,6 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "react-responsive-modal/styles.css";
-import { useEffect } from "react";
-import { setDocHeight } from "@/utilities/commonUtilities";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,10 +18,6 @@ export const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
-    setDocHeight();
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
