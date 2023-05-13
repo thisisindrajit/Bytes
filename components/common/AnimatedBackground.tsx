@@ -7,9 +7,9 @@ interface AnimatedBackgroundProps {
 const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
   return (
     <div
-      className="h-screen animated-background w-full"
+      className="animated-background w-full"
       style={{
-        minHeight: "var(--vh, 100vh)",
+        minHeight: "var(--vh, 100dvh)",
       }}
     >
       {children}
