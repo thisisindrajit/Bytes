@@ -14,8 +14,8 @@ export const getLoadingIconSrcBasedOnColor = (
 };
 
 export const setDocHeight = () => {
-  const doc = document.documentElement;
-  doc.style.setProperty("--vh", `${window.innerHeight}px`);
+  console.error("t");
+  document.documentElement.style.setProperty("--vh", `${window.innerHeight}px`);
 };
 
 export const isPwa = () => {
