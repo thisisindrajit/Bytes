@@ -1,4 +1,5 @@
 import { FC } from "react";
+import ImageHolder from "../common/ImageHolder";
 
 interface ArticleSummaryHolderProps {
   source: string | null;
@@ -44,33 +45,25 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
       </div>
       {/* Info block */}
       <div className="flex flex-col gap-2 text-base/loose my-4 lg:my-6 border-l border-[#ecd9cb] w-fit px-4 py-1">
-        {/* Link to read full article */}
+        {/* Read full article text block */}
         <div>
           <span>
             {generatedByAi
-              ? "Want to know more?"
-              : "But don't worry, we got you!"}
+              ? "Want to know more? Click on"
+              : "But don't worry, we got you! Click on"}
           </span>
-          {/* In large screens, style like a button */}
-          <a
-            href={articleUrl}
-            tabIndex={-1}
-            className="hidden lg:inline mx-1.5 text-[#ecd9cb] border border-[#ecd9cb] p-2 rounded hover:bg-[#ecd9cb] hover:text-black"
-            rel="noopener noreferrer"
-          >
-            Click here
-          </a>
-          {/* In small screens, style like a normal link */}
-          <a
-            href={articleUrl}
-            tabIndex={-1}
-            className="lg:hidden inline mx-1.5 text-[#ecd9cb] no-underline hover:underline"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Click here
-          </a>
-          <span>to read the full article!</span>
+          <div className="inline mx-1.5">
+            <div className="inline-block align-middle">
+              <ImageHolder
+                heightAndWidthClasses="h-4 w-4"
+                src="/images/svg/link-cream.svg"
+                alt="link cream icon"
+                priority={true}
+                showLoading
+              />
+            </div>
+          </div>
+          <span>in the bottom navigation bar to read the full article!</span>
         </div>
         {/* Check out article details text block */}
         <div>

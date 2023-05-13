@@ -62,7 +62,7 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
           </span>
           <span>to read the AI generated summary for the article.</span>
         </div>
-        {/* How to read full article text block */}
+        {/* Read full article text block */}
         <div>
           <span>Click on</span>
           <div className="inline mx-1.5">
