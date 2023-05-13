@@ -9,6 +9,7 @@ import SentimentHolder from "./SentimentHolder";
 import EmotionHolder from "./EmotionHolder";
 import ImageHolder from "../common/ImageHolder";
 import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
+import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 
 interface ArticleHolderProps {
   id?: string;
@@ -61,6 +62,8 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   isFetchingNewArticles,
   otherStyles,
 }) => {
+  const { isInPwaMode } = useIsInPwaMode();
+
   const carouselContext = useContext(CarouselContext);
 
   const [currentSlide, setCurrentSlide] = useState<number>(
@@ -88,27 +91,35 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
       <div
         className="flex-1"
         style={{
-          maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+          maxHeight: isInPwaMode
+            ? "calc(var(--vh, 100vh) - 10rem)"
+            : "calc(var(--vh, 100dvh) - 10rem)",
         }}
       >
         {/* Content holder */}
         <div
           className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3"
           style={{
-            maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+            maxHeight: isInPwaMode
+              ? "calc(var(--vh, 100vh) - 10rem)"
+              : "calc(var(--vh, 100dvh) - 10rem)",
           }}
         >
           {/* Carousel holder */}
           <div
             className="bg-[#303030] rounded flex flex-col overflow-hidden"
             style={{
-              maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+              maxHeight: isInPwaMode
+                ? "calc(var(--vh, 100vh) - 10rem)"
+                : "calc(var(--vh, 100dvh) - 10rem)",
             }}
           >
             <div
               className="flex-1 flex flex-col justify-between rounded"
               style={{
-                maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+                maxHeight: isInPwaMode
+                  ? "calc(var(--vh, 100vh) - 10rem)"
+                  : "calc(var(--vh, 100dvh) - 10rem)",
               }}
             >
               <Slider tabIndex={-1}>
@@ -120,7 +131,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   style={{
                     minHeight:
                       innerWidth < 1024
-                        ? "calc(var(--vh, 100dvh) - 22rem)"
+                        ? isInPwaMode
+                          ? "calc(var(--vh, 100vh) - 22rem)"
+                          : "calc(var(--vh, 100dvh) - 22rem)"
+                        : isInPwaMode
+                        ? "calc(var(--vh, 100vh) - 13rem)"
                         : "calc(var(--vh, 100dvh) - 13rem)",
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
@@ -142,7 +157,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   style={{
                     minHeight:
                       innerWidth < 1024
-                        ? "calc(var(--vh, 100dvh) - 22rem)"
+                        ? isInPwaMode
+                          ? "calc(var(--vh, 100vh) - 22rem)"
+                          : "calc(var(--vh, 100dvh) - 22rem)"
+                        : isInPwaMode
+                        ? "calc(var(--vh, 100vh) - 13rem)"
                         : "calc(var(--vh, 100dvh) - 13rem)",
                   }}
                 >
@@ -160,7 +179,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   style={{
                     minHeight:
                       innerWidth < 1024
-                        ? "calc(var(--vh, 100dvh) - 22rem)"
+                        ? isInPwaMode
+                          ? "calc(var(--vh, 100vh) - 22rem)"
+                          : "calc(var(--vh, 100dvh) - 22rem)"
+                        : isInPwaMode
+                        ? "calc(var(--vh, 100vh) - 13rem)"
                         : "calc(var(--vh, 100dvh) - 13rem)",
                   }}
                 >

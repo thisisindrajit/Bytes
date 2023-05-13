@@ -14,10 +14,12 @@ import {
   scrollAllArticlesHolderToTop,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
-import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
+import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
+
+  const { isInPwaMode } = useIsInPwaMode();
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [
@@ -132,7 +134,7 @@ const Home = () => {
       ref={allArticlesHolderRef}
       className="w-full relative overflow-y-auto outline-none"
       style={{
-        maxHeight: "var(--vh, 100dvh)",
+        maxHeight: isInPwaMode ? "var(--vh, 100vh)" : "var(--vh, 100dvh)",
       }}
     >
       {/* Top bar */}
@@ -144,7 +146,7 @@ const Home = () => {
           "w-full flex items-center justify-center"
         }`}
         otherStyles={{
-          height: "var(--vh, 100dvh)",
+          height: isInPwaMode ? "var(--vh, 100vh)" : "var(--vh, 100dvh)",
         }}
       >
         {isError || isRefetchError ? (
@@ -170,9 +172,11 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className="article-holder snap-always h-[100dvh] snap-center p-4"
+                    className="article-holder snap-always snap-center p-4"
                     otherStyles={{
-                      minHeight: "var(--vh, 100dvh)",
+                      minHeight: isInPwaMode
+                        ? "var(--vh, 100vh)"
+                        : "var(--vh, 100dvh)",
                     }}
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
@@ -234,7 +238,9 @@ const Home = () => {
                 <div
                   className="w-full flex items-center justify-center text-white"
                   style={{
-                    height: "var(--vh, 100dvh)",
+                    height: isInPwaMode
+                      ? "var(--vh, 100vh)"
+                      : "var(--vh, 100dvh)",
                   }}
                 >
                   No articles available! 🥺
