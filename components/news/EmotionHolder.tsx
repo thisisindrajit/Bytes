@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Loading from "../common/Loading";
 import Tippy from "@tippyjs/react";
-import useOnResize from "@/hooks/useOnResize";
+import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
 import {
   returnEmotionValue,
   showEmotion,
@@ -16,8 +16,13 @@ const EmotionHolder: FC<EmotionHolderProps> = ({ emotion }) => {
   const emotionValue = returnEmotionValue(emotion);
 
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
+  const [isTopPlacement, setIsTopPlacement] = useState<boolean>(false);
 
-  const { isTopPlacement } = useOnResize();
+  const { innerHeight, innerWidth } = useOnResizeOrOnOrientationChange();
+
+  useEffect(() => {
+    setIsTopPlacement(window.innerHeight <= 667 && window.innerWidth >= 1024);
+  }, [innerHeight, innerWidth]);
 
   return (
     <Tippy

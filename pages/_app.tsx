@@ -31,7 +31,10 @@ export default function App({ Component, pageProps }: AppProps) {
         {/* In case of very small screens, don't show the UI and show custom message */}
         <div
           id="small-screen-holder"
-          className="min-h-[100dvh] overflow-y-auto"
+          className="overflow-y-auto"
+          style={{
+            minHeight: "var(--vh, 100dvh)",
+          }}
         >
           <div className="text-red-500 text-sm/relaxed p-4 text-justify">
             🥺 We apologize, but this device is not supported due to its smaller

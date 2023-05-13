@@ -1,6 +1,6 @@
 import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
-import Loading from "../common/Loading"
+import Loading from "../common/Loading";
 import { showInView } from "@/utilities/articleUtilites";
 
 interface BottomBarProps {
@@ -70,9 +70,7 @@ const BottomBar: FC<BottomBarProps> = ({
             />
             <span
               className={`hidden sm:block ${
-                hasNext
-                  ? "text-black"
-                  : "text-gray-500"
+                hasNext ? "text-black" : "text-gray-500"
               }`}
             >
               Next
