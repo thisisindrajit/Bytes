@@ -3,12 +3,11 @@
   "background_color": "#131313",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "https://bytesnews.vercel.app/",
   "start_url": "/",
-  "id": "/",
   "name": "Bytes",
   "short_name": "Bytes",
-  "description": "Bytes - News, redefined.",
+  "description": "Bytes is an AI-powered progressive web app (PWA) that delivers news to users in an innovative and user-friendly way. With its infinite scroll format and AI-generated short summaries of articles, Bytes provides users with a fast and easy way to stay up-to-date on the latest news and events.",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
