@@ -87,10 +87,6 @@ const BottomBar: FC<BottomBarProps> = ({
       <a
         href={link}
         tabIndex={tabIndex}
-        onClick={(event) => {
-          event.preventDefault();
-          window.open(link, "_blank");
-        }}
         className="bg-[#ecd9cb] p-3 flex items-center justify-center"
         target="_blank"
         rel="noopener noreferrer"

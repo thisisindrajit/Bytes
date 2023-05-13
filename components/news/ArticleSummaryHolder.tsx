@@ -55,10 +55,6 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
           <a
             href={articleUrl}
             tabIndex={-1}
-            onClick={(event) => {
-              event.preventDefault();
-              window.open(articleUrl, "_blank");
-            }}
             className="hidden lg:inline mx-1.5 text-[#ecd9cb] border border-[#ecd9cb] p-2 rounded hover:bg-[#ecd9cb] hover:text-black"
             target="_blank"
             rel="noopener noreferrer"
@@ -69,10 +65,6 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
           <a
             href={articleUrl}
             tabIndex={-1}
-            onClick={(event) => {
-              event.preventDefault();
-              window.open(articleUrl, "_blank");
-            }}
             className="lg:hidden inline mx-1.5 text-[#ecd9cb] no-underline hover:underline"
             target="_blank"
             rel="noopener noreferrer"

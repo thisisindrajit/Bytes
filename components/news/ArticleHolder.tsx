@@ -8,6 +8,7 @@ import ArticleDetailsHolder from "./ArticleDetailsHolder";
 import SentimentHolder from "./SentimentHolder";
 import EmotionHolder from "./EmotionHolder";
 import ImageHolder from "../common/ImageHolder";
+import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
 
 interface ArticleHolderProps {
   id?: string;
@@ -32,6 +33,7 @@ interface ArticleHolderProps {
   emotion: string;
   tabIndexStart: number;
   isFetchingNewArticles: boolean;
+  otherStyles?: { [key: string]: string };
 }
 
 const ArticleHolder: FC<ArticleHolderProps> = ({
@@ -57,12 +59,15 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   emotion,
   tabIndexStart,
   isFetchingNewArticles,
+  otherStyles,
 }) => {
   const carouselContext = useContext(CarouselContext);
 
   const [currentSlide, setCurrentSlide] = useState<number>(
     carouselContext.state.currentSlide
   );
+
+  const { innerWidth } = useOnResizeOrOnOrientationChange();
 
   useEffect(() => {
     const onChange = () => {
@@ -73,26 +78,50 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
   }, [carouselContext]);
 
   return (
-    <div id={id} className={`flex flex-col ${className}`}>
+    <div id={id} className={`flex flex-col ${className}`} style={otherStyles}>
       {/* Top padding to ensure article holder does not overlap with top bar */}
       <div className="py-6">
         {/* Horizontal separator */}
         <div className="h-[1px] w-full bg-[#ecd9cb]"></div>
       </div>
       {/* Article holder */}
-      <div className="flex-1 max-h-[calc(100dvh-10rem)]">
+      <div
+        className="flex-1"
+        style={{
+          maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+        }}
+      >
         {/* Content holder */}
-        <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100dvh-10rem)]">
+        <div
+          className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3"
+          style={{
+            maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+          }}
+        >
           {/* Carousel holder */}
-          <div className="bg-[#303030] rounded flex flex-col overflow-hidden max-h-[calc(100dvh-10rem)]">
-            <div className="flex-1 flex flex-col justify-between max-h-[calc(100dvh-10rem)] rounded">
+          <div
+            className="bg-[#303030] rounded flex flex-col overflow-hidden"
+            style={{
+              maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+            }}
+          >
+            <div
+              className="flex-1 flex flex-col justify-between rounded"
+              style={{
+                maxHeight: "calc(var(--vh, 100dvh) - 10rem)",
+              }}
+            >
               <Slider tabIndex={-1}>
                 {/* Two urls are added in background image so that even if the first link is broken, the default background image is used */}
                 <Slide
                   index={0}
                   tabIndex={-1}
-                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] text-white overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center"
+                  className="article-content-holder p-4 text-white overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center"
                   style={{
+                    minHeight:
+                      innerWidth < 1024
+                        ? "calc(var(--vh, 100dvh) - 22rem)"
+                        : "calc(var(--vh, 100dvh) - 13rem)",
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
                       : "none",
@@ -108,8 +137,14 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={1}
                   tabIndex={-1}
-                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] text-white
+                  className="article-content-holder p-4 text-white
                     overflow-y-auto"
+                  style={{
+                    minHeight:
+                      innerWidth < 1024
+                        ? "calc(var(--vh, 100dvh) - 22rem)"
+                        : "calc(var(--vh, 100dvh) - 13rem)",
+                  }}
                 >
                   <ArticleSummaryHolder
                     source={source}
@@ -121,7 +156,13 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={2}
                   tabIndex={-1}
-                  className="article-content-holder p-4 min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)] text-white overflow-y-auto"
+                  className="article-content-holder p-4 text-white overflow-y-auto"
+                  style={{
+                    minHeight:
+                      innerWidth < 1024
+                        ? "calc(var(--vh, 100dvh) - 22rem)"
+                        : "calc(var(--vh, 100dvh) - 13rem)",
+                  }}
                 >
                   <ArticleDetailsHolder
                     category={category}
