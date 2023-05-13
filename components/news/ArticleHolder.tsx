@@ -92,8 +92,8 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         className="flex-1"
         style={{
           maxHeight: isInPwaMode
-            ? "calc(var(--vh, 100vh) - 10rem)"
-            : "calc(var(--vh, 100dvh) - 10rem)",
+            ? "calc(var(--100vh) - 10rem)"
+            : "calc(var(--100vh, 100dvh) - 10rem)",
         }}
       >
         {/* Content holder */}
@@ -101,8 +101,8 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
           className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3"
           style={{
             maxHeight: isInPwaMode
-              ? "calc(var(--vh, 100vh) - 10rem)"
-              : "calc(var(--vh, 100dvh) - 10rem)",
+              ? "calc(var(--100vh) - 10rem)"
+              : "calc(var(--100vh, 100dvh) - 10rem)",
           }}
         >
           {/* Carousel holder */}
@@ -110,16 +110,16 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
             className="bg-[#303030] rounded flex flex-col overflow-hidden"
             style={{
               maxHeight: isInPwaMode
-                ? "calc(var(--vh, 100vh) - 10rem)"
-                : "calc(var(--vh, 100dvh) - 10rem)",
+                ? "calc(var(--100vh) - 10rem)"
+                : "calc(var(--100vh, 100dvh) - 10rem)",
             }}
           >
             <div
               className="flex-1 flex flex-col justify-between rounded"
               style={{
                 maxHeight: isInPwaMode
-                  ? "calc(var(--vh, 100vh) - 10rem)"
-                  : "calc(var(--vh, 100dvh) - 10rem)",
+                  ? "calc(var(--100vh) - 10rem)"
+                  : "calc(var(--100vh, 100dvh) - 10rem)",
               }}
             >
               <Slider tabIndex={-1}>
@@ -132,11 +132,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                     minHeight:
                       innerWidth < 1024
                         ? isInPwaMode
-                          ? "calc(var(--vh, 100vh) - 22rem)"
-                          : "calc(var(--vh, 100dvh) - 22rem)"
+                          ? "calc(var(--100vh) - 22rem)"
+                          : "calc(var(--100vh, 100dvh) - 22rem)"
                         : isInPwaMode
-                        ? "calc(var(--vh, 100vh) - 13rem)"
-                        : "calc(var(--vh, 100dvh) - 13rem)",
+                        ? "calc(var(--100vh) - 13rem)"
+                        : "calc(var(--100vh, 100dvh) - 13rem)",
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
                       : "none",
@@ -158,11 +158,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                     minHeight:
                       innerWidth < 1024
                         ? isInPwaMode
-                          ? "calc(var(--vh, 100vh) - 22rem)"
-                          : "calc(var(--vh, 100dvh) - 22rem)"
+                          ? "calc(var(--100vh) - 22rem)"
+                          : "calc(var(--100vh, 100dvh) - 22rem)"
                         : isInPwaMode
-                        ? "calc(var(--vh, 100vh) - 13rem)"
-                        : "calc(var(--vh, 100dvh) - 13rem)",
+                        ? "calc(var(--100vh) - 13rem)"
+                        : "calc(var(--100vh, 100dvh) - 13rem)",
                   }}
                 >
                   <ArticleSummaryHolder
@@ -180,11 +180,11 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                     minHeight:
                       innerWidth < 1024
                         ? isInPwaMode
-                          ? "calc(var(--vh, 100vh) - 22rem)"
-                          : "calc(var(--vh, 100dvh) - 22rem)"
+                          ? "calc(var(--100vh) - 22rem)"
+                          : "calc(var(--100vh, 100dvh) - 22rem)"
                         : isInPwaMode
-                        ? "calc(var(--vh, 100vh) - 13rem)"
-                        : "calc(var(--vh, 100dvh) - 13rem)",
+                        ? "calc(var(--100vh) - 13rem)"
+                        : "calc(var(--100vh, 100dvh) - 13rem)",
                   }}
                 >
                   <ArticleDetailsHolder
