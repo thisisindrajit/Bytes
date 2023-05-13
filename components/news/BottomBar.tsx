@@ -90,7 +90,7 @@ const BottomBar: FC<BottomBarProps> = ({
       <a
         href={link}
         tabIndex={tabIndex}
-        target="_blank"
+        target={innerWidth < 768 ? "_self" : "_blank"}
         className="bg-[#ecd9cb] p-3 flex items-center justify-center"
         rel="noopener noreferrer"
       >
