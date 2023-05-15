@@ -82,18 +82,18 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
         <div className="h-[1px] w-full bg-[#ecd9cb]"></div>
       </div>
       {/* Article holder */}
-      <div className="flex-1 max-h-[calc(100dvh-10rem)]">
+      <div className="flex-1 max-h-[calc(100dvh-9rem)]">
         {/* Content holder */}
-        <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100dvh-10rem)]">
+        <div className="grid grid-rows-1 lg:grid-cols-[3fr_1fr] gap-3 max-h-[calc(100dvh-9rem)]">
           {/* Carousel holder */}
-          <div className="bg-[#303030] rounded flex flex-col overflow-hidden max-h-[calc(100dvh-10rem)]">
-            <div className="flex-1 flex flex-col justify-between rounded max-h-[calc(100dvh-10rem)]">
+          <div className="bg-[#303030] rounded flex flex-col overflow-hidden max-h-[calc(100dvh-9rem)]">
+            <div className="flex-1 flex flex-col justify-between rounded max-h-[calc(100dvh-9rem)]">
               <Slider tabIndex={-1}>
                 {/* Two urls are added in background image so that even if the first link is broken, the default background image is used */}
                 <Slide
                   index={0}
                   tabIndex={-1}
-                  className="article-content-holder p-4 text-white overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)]"
+                  className="article-content-holder p-4 text-white overflow-y-auto bg-scroll bg-no-repeat bg-cover bg-center min-h-[calc(100dvh-21rem)] lg:min-h-[calc(100dvh-12rem)]"
                   style={{
                     backgroundImage: imgUrl
                       ? `linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 1) 100%), url("${imgUrl}"), url("/images/default_article_bg.jpeg")`
@@ -111,7 +111,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                   index={1}
                   tabIndex={-1}
                   className="article-content-holder p-4 text-white
-                    overflow-y-auto min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)]"
+                    overflow-y-auto min-h-[calc(100dvh-21rem)] lg:min-h-[calc(100dvh-12rem)]"
                 >
                   <ArticleSummaryHolder
                     source={source}
@@ -123,7 +123,7 @@ const ArticleHolder: FC<ArticleHolderProps> = ({
                 <Slide
                   index={2}
                   tabIndex={-1}
-                  className="article-content-holder p-4 text-white overflow-y-auto min-h-[calc(100dvh-22rem)] lg:min-h-[calc(100dvh-13rem)]"
+                  className="article-content-holder p-4 text-white overflow-y-auto min-h-[calc(100dvh-21rem)] lg:min-h-[calc(100dvh-12rem)]"
                 >
                   <ArticleDetailsHolder
                     category={category}
