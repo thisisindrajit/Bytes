@@ -78,7 +78,7 @@ const Home = () => {
       setPagesFetched((pagesFetched) => pagesFetched + 1);
       setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
-  }, 500);
+  }, 750);
 
   // intersection observer
   useIntersectionObserver({
@@ -86,7 +86,7 @@ const Home = () => {
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
-    rootMargin: "0px 0px 400% 0px",
+    rootMargin: "0px 0px 200% 0px",
   });
 
   useEffect(() => {

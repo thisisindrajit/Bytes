@@ -2,6 +2,7 @@ import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
 import Loading from "../common/Loading";
 import { showInView } from "@/utilities/articleUtilites";
+import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 
 interface BottomBarProps {
   className?: string;
@@ -24,6 +25,8 @@ const BottomBar: FC<BottomBarProps> = ({
   tabIndex,
   isFetchingNewArticles,
 }) => {
+  const { isInPwaMode } = useIsInPwaMode();
+
   return (
     <div
       className={`grid grid-cols-3 place-content-stretch w-full md:w-[32rem] m-auto rounded overflow-hidden ${className}`}
@@ -84,22 +87,42 @@ const BottomBar: FC<BottomBarProps> = ({
           />
         )}
       </div>
-      <a
-        href={link}
-        tabIndex={tabIndex}
-        target="_blank"
-        className="bg-[#ecd9cb] p-3 flex items-center justify-center"
-        rel="noopener noreferrer"
-      >
-        <ImageHolder
-          heightAndWidthClasses="h-5 w-5"
-          src="/images/svg/link.svg"
-          alt="link icon"
-          loadingIconColor="black"
-          priority={true}
-          showLoading
-        />
-      </a>
+      {isInPwaMode ? (
+        <div
+          tabIndex={tabIndex}
+          onClick={() => {
+            // Open a new window in popup mode
+            window.open(link, "_blank", "popup");
+          }}
+          className="bg-[#ecd9cb] p-3 flex items-center justify-center cursor-pointer"
+        >
+          <ImageHolder
+            heightAndWidthClasses="h-5 w-5"
+            src="/images/svg/link.svg"
+            alt="link icon"
+            loadingIconColor="black"
+            priority={true}
+            showLoading
+          />
+        </div>
+      ) : (
+        <a
+          href={link}
+          tabIndex={tabIndex}
+          target="_blank"
+          className="bg-[#ecd9cb] p-3 flex items-center justify-center"
+          rel="noopener noreferrer"
+        >
+          <ImageHolder
+            heightAndWidthClasses="h-5 w-5"
+            src="/images/svg/link.svg"
+            alt="link icon"
+            loadingIconColor="black"
+            priority={true}
+            showLoading
+          />
+        </a>
+      )}
     </div>
   );
 };
