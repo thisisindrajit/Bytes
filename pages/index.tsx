@@ -14,16 +14,9 @@ import {
   scrollAllArticlesHolderToTop,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
-import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
-
-  const { isInPwaMode } = useIsInPwaMode();
-
-  useEffect(() => {
-    console.error("isInPwaMode: ", isInPwaMode);
-  }, [isInPwaMode])
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [
@@ -85,7 +78,7 @@ const Home = () => {
       setPagesFetched((pagesFetched) => pagesFetched + 1);
       setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
-  }, 750);
+  }, 300);
 
   // intersection observer
   useIntersectionObserver({
@@ -93,7 +86,7 @@ const Home = () => {
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
-    rootMargin: "0px 0px 200% 0px",
+    rootMargin: "0px 0px 300% 0px",
   });
 
   useEffect(() => {
@@ -136,9 +129,7 @@ const Home = () => {
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
       ref={allArticlesHolderRef}
-      className={`w-full relative overflow-y-auto outline-none ${
-        isInPwaMode ? "max-h-screen" : "max-h-[100dvh]"
-      }`}
+      className={`w-full relative overflow-y-auto outline-none max-h-[100dvh]`}
     >
       {/* Top bar */}
       <TopBar onClickIcon={scrollAllArticlesHolderToTop} />
@@ -146,9 +137,7 @@ const Home = () => {
       <Holder
         className={`${
           (isError || isLoading || isRefetchError) &&
-          `w-full flex items-center justify-center ${
-            isInPwaMode ? "h-screen" : "h-[100dvh]"
-          }`
+          `w-full flex items-center justify-center h-[100dvh]`
         }`}
       >
         {isError || isRefetchError ? (
@@ -174,9 +163,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className={`article-holder snap-always snap-center p-4 ${
-                      isInPwaMode ? "min-h-screen" : "min-h-[100dvh]"
-                    }`}
+                    className={`article-holder snap-always snap-center p-4 min-h-[100dvh]`}
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
@@ -234,9 +221,7 @@ const Home = () => {
               // If there are no articles in DB
               articlesData.length === 0 ? (
                 <div
-                  className={`w-full flex items-center justify-center text-white ${
-                    isInPwaMode ? "h-screen" : "h-[100dvh]"
-                  }`}
+                  className={`w-full flex items-center justify-center text-white h-[100dvh]`}
                 >
                   No articles available! 🥺
                 </div>
