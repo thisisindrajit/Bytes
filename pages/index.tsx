@@ -21,6 +21,10 @@ const Home = () => {
 
   const { isInPwaMode } = useIsInPwaMode();
 
+  useEffect(() => {
+    console.error("isInPwaMode: ", isInPwaMode);
+  }, [isInPwaMode])
+
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [
     waitingForNewSetOfArticlesToBeSetInState,
@@ -133,7 +137,7 @@ const Home = () => {
       id="all-articles-holder"
       ref={allArticlesHolderRef}
       className={`w-full relative overflow-y-auto outline-none ${
-        isInPwaMode ? "max-h-[100vh]" : "max-h-[100dvh]"
+        isInPwaMode ? "max-h-screen" : "max-h-[100dvh]"
       }`}
     >
       {/* Top bar */}
@@ -143,7 +147,7 @@ const Home = () => {
         className={`${
           (isError || isLoading || isRefetchError) &&
           `w-full flex items-center justify-center ${
-            isInPwaMode ? "h-[100vh]" : "h-[100dvh]"
+            isInPwaMode ? "h-screen" : "h-[100dvh]"
           }`
         }`}
       >
@@ -171,7 +175,7 @@ const Home = () => {
                   <ArticleHolder
                     id={article.id}
                     className={`article-holder snap-always snap-center p-4 ${
-                      isInPwaMode ? "min-h-[100vh]" : "min-h-[100dvh]"
+                      isInPwaMode ? "min-h-screen" : "min-h-[100dvh]"
                     }`}
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
@@ -231,7 +235,7 @@ const Home = () => {
               articlesData.length === 0 ? (
                 <div
                   className={`w-full flex items-center justify-center text-white ${
-                    isInPwaMode ? "h-[100vh]" : "h-[100dvh]"
+                    isInPwaMode ? "h-screen" : "h-[100dvh]"
                   }`}
                 >
                   No articles available! 🥺

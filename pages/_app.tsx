@@ -10,6 +10,8 @@ import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "react-responsive-modal/styles.css";
 import useIsInPwaMode from "@/hooks/useIsInPwaMode";
+import Loading from "@/components/common/Loading";
+import Holder from "@/components/common/Holder";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,26 +33,37 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Bytes</title>
       </Head>
       <AnimatedBackground>
-        {/* In case of very small screens, don't show the UI and show custom message */}
-        <div
-          id="small-screen-holder"
-          className={`overflow-y-auto ${
-            isInPwaMode ? "min-h-[100vh]" : "min-h-[100dvh]"
-          }`}
-        >
-          <div className="text-red-500 text-sm/relaxed p-4 text-justify">
-            🥺 We apologize, but this device is not supported due to its smaller
-            screen dimensions. For an optimal experience, we recommend using a
-            device with a larger screen.
-          </div>
-        </div>
-        {/* Main UI */}
-        <div id="main-ui-holder">
-          <Component {...pageProps} />
-        </div>
-        <Analytics />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {isInPwaMode !== null ? (
+          <>
+            {/* In case of very small screens, don't show the UI and show custom message */}
+            <div
+              id="small-screen-holder"
+              className={`overflow-y-auto ${
+                isInPwaMode ? "min-h-screen" : "min-h-[100dvh]"
+              }`}
+            >
+              <div className="text-red-500 text-sm/relaxed p-4 text-justify">
+                🥺 We apologize, but this device is not supported due to its
+                smaller screen dimensions. For an optimal experience, we
+                recommend using a device with a larger screen.
+              </div>
+            </div>
+            {/* Main UI */}
+            <div id="main-ui-holder">
+              <Component {...pageProps} />
+            </div>
+          </>
+        ) : (
+          <Holder className="w-full flex items-center justify-center h-screen">
+            <Loading
+              heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
+              noText
+            />
+          </Holder>
+        )}
       </AnimatedBackground>
+      <Analytics />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }

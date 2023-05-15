@@ -1,10 +1,10 @@
 import { isPwa } from "@/utilities/commonUtilities";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useIsInPwaMode = () => {
-  const [isInPwaMode, setIsInPwaMode] = useState<boolean>(true);
+  const [isInPwaMode, setIsInPwaMode] = useState<boolean | null>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIsInPwaMode(isPwa());
   }, []);
 

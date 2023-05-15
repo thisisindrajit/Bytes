@@ -11,7 +11,7 @@ const AnimatedBackground: FC<AnimatedBackgroundProps> = ({ children }) => {
   return (
     <div
       className={`animated-background w-full ${
-        isInPwaMode ? "min-h-[100vh]" : "min-h-[100dvh]"
+        isInPwaMode ? "min-h-screen" : "min-h-[100dvh]"
       }`}
     >
       {children}
