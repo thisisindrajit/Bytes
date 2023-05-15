@@ -87,42 +87,22 @@ const BottomBar: FC<BottomBarProps> = ({
           />
         )}
       </div>
-      {isInPwaMode ? (
-        <div
-          tabIndex={tabIndex}
-          onClick={() => {
-            // Open a new window in popup mode
-            window.open(link, "_blank", "popup");
-          }}
-          className="bg-[#ecd9cb] p-3 flex items-center justify-center cursor-pointer"
-        >
-          <ImageHolder
-            heightAndWidthClasses="h-5 w-5"
-            src="/images/svg/link.svg"
-            alt="link icon"
-            loadingIconColor="black"
-            priority={true}
-            showLoading
-          />
-        </div>
-      ) : (
-        <a
-          href={link}
-          tabIndex={tabIndex}
-          target="_blank"
-          className="bg-[#ecd9cb] p-3 flex items-center justify-center"
-          rel="noopener noreferrer"
-        >
-          <ImageHolder
-            heightAndWidthClasses="h-5 w-5"
-            src="/images/svg/link.svg"
-            alt="link icon"
-            loadingIconColor="black"
-            priority={true}
-            showLoading
-          />
-        </a>
-      )}
+      <a
+        href={link}
+        tabIndex={tabIndex}
+        target={isInPwaMode ? "_self" : "_blank"}
+        className="bg-[#ecd9cb] p-3 flex items-center justify-center"
+        rel="noopener noreferrer"
+      >
+        <ImageHolder
+          heightAndWidthClasses="h-5 w-5"
+          src="/images/svg/link.svg"
+          alt="link icon"
+          loadingIconColor="black"
+          priority={true}
+          showLoading
+        />
+      </a>
     </div>
   );
 };

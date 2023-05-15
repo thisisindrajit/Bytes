@@ -9,6 +9,7 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import "tippy.js/dist/tippy.css";
 import "tippy.js/themes/light.css";
 import "react-responsive-modal/styles.css";
+import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,6 +19,8 @@ export const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const { isInPwaMode } = useIsInPwaMode();
+
   return (
     <QueryClientProvider client={queryClient}>
       <Head>
@@ -31,7 +34,9 @@ export default function App({ Component, pageProps }: AppProps) {
         {/* In case of very small screens, don't show the UI and show custom message */}
         <div
           id="small-screen-holder"
-          className="overflow-y-auto min-h-[100dvh]"
+          className={`overflow-y-auto ${
+            isInPwaMode ? "min-h-[100vh]" : "min-h-[100dvh]"
+          }`}
         >
           <div className="text-red-500 text-sm/relaxed p-4 text-justify">
             🥺 We apologize, but this device is not supported due to its smaller
