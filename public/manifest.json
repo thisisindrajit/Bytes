@@ -1,8 +1,8 @@
 {
   "theme_color": "#ecd9cb",
   "background_color": "#131313",
-  "display_override": ["standalone"],
-  "display": "browser",
+  "display_override": ["fullscreen"],
+  "display": "standalone",
   "orientation": "portrait",
   "scope": "/",
   "start_url": "/",

@@ -235,13 +235,13 @@ const Home = () => {
               <>
                 {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes closer to the last fetched article */}
                 <div ref={loadMoreRef}></div>
-                <div>
+                {/* <div>
                   {articlesData.length > 0 && (
                     <div className="bg-white flex items-center justify-center text-sm lg:text-base p-6">
                       Fetching more articles...
                     </div>
                   )}
-                </div>
+                </div> */}
               </>
             )}
           </>
