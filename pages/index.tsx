@@ -129,7 +129,7 @@ const Home = () => {
       tabIndex={1} // This makes sure this is the first element to be focused
       id="all-articles-holder"
       ref={allArticlesHolderRef}
-      className={`w-full relative overflow-y-auto outline-none max-h-[100dvh]`}
+      className={`w-full relative overflow-y-auto outline-none max-h-[100svh]`}
     >
       {/* Top bar */}
       <TopBar onClickIcon={scrollAllArticlesHolderToTop} />
@@ -137,7 +137,7 @@ const Home = () => {
       <Holder
         className={`${
           (isError || isLoading || isRefetchError) &&
-          `w-full flex items-center justify-center h-[100dvh]`
+          `w-full flex items-center justify-center h-[100svh]`
         }`}
       >
         {isError || isRefetchError ? (
@@ -163,7 +163,7 @@ const Home = () => {
                 >
                   <ArticleHolder
                     id={article.id}
-                    className={`article-holder snap-always snap-center p-4 min-h-[100dvh]`}
+                    className={`article-holder snap-always snap-center p-4 min-h-[100svh]`}
                     hasPrevious={index === 0 ? false : true}
                     hasNext={index === articlesData.length - 1 ? false : true}
                     prevId={articlesData[index - 1]?.id}
@@ -221,7 +221,7 @@ const Home = () => {
               // If there are no articles in DB
               articlesData.length === 0 ? (
                 <div
-                  className={`w-full flex items-center justify-center text-white h-[100dvh]`}
+                  className={`w-full flex items-center justify-center text-white h-[100svh]`}
                 >
                   No articles available! 🥺
                 </div>
