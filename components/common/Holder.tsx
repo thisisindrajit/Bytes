@@ -9,7 +9,7 @@ interface HolderProps {
 const Holder: FC<HolderProps> = ({ children, otherStyles, className = "" }) => {
   return (
     <div
-      className={`min-h-[100svh] h-fit w-full xl:max-w-[1440px] 2xl:max-w-[1920px] m-auto ${className}`}
+      className={`min-h-[100lvh] h-fit w-full xl:max-w-[1440px] 2xl:max-w-[1920px] m-auto ${className}`}
       style={otherStyles}
     >
       {children}
