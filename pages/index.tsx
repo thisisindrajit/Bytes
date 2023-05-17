@@ -78,7 +78,7 @@ const Home = () => {
       setPagesFetched((pagesFetched) => pagesFetched + 1);
       setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
-  }, 300);
+  }, 1000);
 
   // intersection observer
   useIntersectionObserver({
