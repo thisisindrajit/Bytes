@@ -67,6 +67,5 @@ To know more about the creation and working of Bytes, do check out this [article
 
 - Find an issue with Bytes? Please report it [here](https://github.com/thisisindrajit/Bytes/issues) so that it can be fixed at the earliest. 
 - Want a new feature in Bytes? Suggest it [here](https://github.com/thisisindrajit/Bytes/issues)!
-- This is an open-source app and everyone is free to contribute 😎!
 
-Created with ❤️ by [Indrajit](https://thisisindrajit.github.io/portfolio/) for the [MindsDB](https://cloud.mindsdb.com) x [Hashnode](https://hashnode.com) hackathon!
+Created with ❤️ by [Indrajit](https://thisisindrajit.github.io/portfolio/)!
