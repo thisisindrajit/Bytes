@@ -69,7 +69,7 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
-    // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling for 500 ms
+    // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling for 1s
     if (results && waitingForNewSetOfArticlesToBeSetInState) {
       setArticlesData((prevArticles) => [
         ...prevArticles,
@@ -78,7 +78,7 @@ const Home = () => {
       setPagesFetched((pagesFetched) => pagesFetched + 1);
       setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
-  }, 500);
+  }, 1000);
 
   // intersection observer
   useIntersectionObserver({
@@ -86,7 +86,7 @@ const Home = () => {
     target: loadMoreRef,
     onIntersect: fetchNextPage,
     enabled: !!hasNextPage,
-    rootMargin: "0px 0px 200% 0px",
+    rootMargin: "0px 0px 400% 0px",
   });
 
   useEffect(() => {
