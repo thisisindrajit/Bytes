@@ -69,7 +69,7 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
-    // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling for 1s
+    // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling for 750 ms
     if (results && waitingForNewSetOfArticlesToBeSetInState) {
       setArticlesData((prevArticles) => [
         ...prevArticles,
@@ -78,7 +78,7 @@ const Home = () => {
       setPagesFetched((pagesFetched) => pagesFetched + 1);
       setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
-  }, 1000);
+  }, 750);
 
   // intersection observer
   useIntersectionObserver({
