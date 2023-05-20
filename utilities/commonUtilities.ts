@@ -21,3 +21,19 @@ export const isPwa = () => {
     document.referrer.includes("ios-app://")
   );
 };
+
+export const fetchTitleFromUrl = async (url: string) => {
+  try {
+    const response = await fetch(url);
+
+    const html = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    const pageTitle = doc.querySelector("title")?.textContent;
+
+    return pageTitle || null;
+  } catch (error) {
+    console.error("Error fetching website title: ", error);
+    return null;
+  }
+};

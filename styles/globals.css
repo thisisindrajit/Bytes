@@ -66,6 +66,12 @@ body {
   }
 }
 
+/* Modal styling */
+.modal-styles {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* This styling is to remove the outline in the carousel slides */
 .focusRing___1airF.carousel__slide-focus-ring {
   outline: none !important;
@@ -86,7 +92,7 @@ body {
 }
 
 /* Article content holder styling */
-.article-content-holder{
+.article-content-holder {
   scrollbar-gutter: stable;
 }
 
