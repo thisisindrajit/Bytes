@@ -4,7 +4,9 @@ import Modal from "react-responsive-modal";
 interface InfoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
+  title?: string;
+  fullScreen?: boolean;
+  noTitleAndCloseButton?: boolean;
   children?: ReactNode;
 }
 
@@ -12,6 +14,8 @@ const InfoModal: FC<InfoModalProps> = ({
   isOpen,
   onClose,
   title,
+  fullScreen = false,
+  noTitleAndCloseButton = false,
   children,
 }) => {
   return (
@@ -20,13 +24,18 @@ const InfoModal: FC<InfoModalProps> = ({
       onClose={onClose}
       focusTrapped={false}
       modalId="modal"
-      classNames={{ modal: "rounded outline-none", closeIcon: "mt-[0.15rem]" }}
+      classNames={{
+        modal: `outline-none ${
+          fullScreen ? "min-h-full min-w-full modal-styles" : "rounded"
+        }`,
+        closeIcon: `${noTitleAndCloseButton ? "hidden" : "mt-[0.15rem]"}`,
+      }}
       onAnimationEnd={() => {
         document.getElementById("modal")?.focus({ preventScroll: true });
       }}
     >
       {/* Title */}
-      <div className="w-fit font-bold">{title}</div>
+      {!noTitleAndCloseButton && <div className="w-fit font-bold">{title}</div>}
       {/* Children */}
       {children}
     </Modal>

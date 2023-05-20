@@ -6,12 +6,11 @@ import BytesInfo from "@/components/common/BytesInfo";
 import InstallButton from "./InstallButton";
 
 interface TopBarProps {
-  page?: string;
   className?: string;
   onClickIcon?: () => void;
 }
 
-const TopBar: FC<TopBarProps> = ({ page, className = "", onClickIcon }) => {
+const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
   const router = useRouter();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -90,7 +89,7 @@ const TopBar: FC<TopBarProps> = ({ page, className = "", onClickIcon }) => {
           <div className="flex">
             {/* Info button */}
             <div
-              className="bg-white backdrop-blur-md p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer"
+              className="bg-white p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer"
               onClick={openModal}
             >
               <ImageHolder
