@@ -72,6 +72,12 @@ body {
   padding: 0 !important;
 }
 
+/* Toast styling */
+.toast-status {
+  @apply text-sm;
+  font-family: var(--font-family) !important;
+}
+
 /* This styling is to remove the outline in the carousel slides */
 .focusRing___1airF.carousel__slide-focus-ring {
   outline: none !important;

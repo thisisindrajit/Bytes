@@ -20,7 +20,16 @@ const ArticleIframeHolder: FC<ArticleIframeHolderProps> = ({
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(link);
-    toast("Copied link to clipboard!");
+    toast.success("Copied link to clipboard!", {
+      className: "toast-status",
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeButton: false,
+      draggable: false,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   useEffect(() => {
@@ -77,7 +86,7 @@ const ArticleIframeHolder: FC<ArticleIframeHolderProps> = ({
           />
         </div>
         {/* Title/Link holder */}
-        <div className="hidden md:block truncate md:max-w-[32rem]">
+        <div className="truncate max-w-[12rem] sm:max-w-[24rem] md:max-w-[32rem]">
           {title ? title : link}
         </div>
         {/* Copy to clipboard button */}
