@@ -76,7 +76,7 @@ const Home = () => {
   );
 
   const allArticlesHolderRef = useScrollStopListener(() => {
-    // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling for 750 ms
+    // If a new set of articles have been fetched, then store them in state and update "pages fetched" state variable when the user stops scrolling for 300 ms
     if (results && waitingForNewSetOfArticlesToBeSetInState) {
       setArticlesData((prevArticles) => [
         ...prevArticles,
@@ -85,7 +85,7 @@ const Home = () => {
       setPagesFetched((pagesFetched) => pagesFetched + 1);
       setWaitingForNewSetOfArticlesToBeSetInState(false);
     }
-  }, 750);
+  }, 300);
 
   // intersection observer
   useIntersectionObserver({
@@ -139,7 +139,7 @@ const Home = () => {
       {!!router.query.info && (
         <InfoModal
           isOpen={!!router.query.info}
-          onClose={() => router.push(`/`, undefined, { scroll: false })}
+          onClose={() => router.replace(`/`, undefined, { scroll: false })}
           title="About Bytes"
         >
           <BytesInfo />
@@ -149,7 +149,7 @@ const Home = () => {
       {!!router.query.articleLink && (
         <InfoModal
           isOpen={!!router.query.articleLink}
-          onClose={() => router.push(`/`, undefined, { scroll: false })}
+          onClose={() => router.replace(`/`, undefined, { scroll: false })}
           noTitleAndCloseButton
           fullScreen
         >
