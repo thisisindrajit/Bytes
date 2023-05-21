@@ -26,7 +26,7 @@ const InfoModal: FC<InfoModalProps> = ({
       modalId="modal"
       classNames={{
         modal: `outline-none ${
-          fullScreen ? "min-h-full min-w-full modal-styles" : "rounded"
+          fullScreen ? "min-h-[100dvh] min-w-full modal-styles" : "rounded"
         }`,
         closeIcon: `${noTitleAndCloseButton ? "hidden" : "mt-[0.15rem]"}`,
       }}
