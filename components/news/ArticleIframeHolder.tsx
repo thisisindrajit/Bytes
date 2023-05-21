@@ -2,10 +2,11 @@ import { FC, useEffect, useState } from "react";
 import Loading from "../common/Loading";
 import { fetchTitleFromUrl } from "@/utilities/commonUtilities";
 import ImageHolder from "../common/ImageHolder";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
+import { useRouter } from "next/router";
 
 interface ArticleIframeHolderProps {
-  link: string;
+  link: string | undefined;
   onClose: () => void;
   className?: string;
 }
@@ -15,21 +16,41 @@ const ArticleIframeHolder: FC<ArticleIframeHolderProps> = ({
   onClose,
   className,
 }) => {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [title, setTitle] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (link === undefined) {
+      toast.error("Article link not available!", {
+        className: "toast-status",
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeButton: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
+      router.push("/");
+    }
+  }, [link]);
+
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(link);
-    toast.success("Copied link to clipboard!", {
-      className: "toast-status",
-      position: "top-right",
-      autoClose: 2000,
-      hideProgressBar: false,
-      closeButton: false,
-      draggable: false,
-      progress: undefined,
-      theme: "colored",
-    });
+    if (link) {
+      navigator.clipboard.writeText(link);
+      toast.success("Copied link to clipboard!", {
+        className: "toast-status",
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeButton: false,
+        draggable: false,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
   };
 
   useEffect(() => {
@@ -45,7 +66,6 @@ const ArticleIframeHolder: FC<ArticleIframeHolderProps> = ({
 
   return (
     <div>
-      <ToastContainer />
       {/* Loading */}
       {isLoading ? (
         <div

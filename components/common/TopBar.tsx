@@ -1,9 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import ImageHolder from "./ImageHolder";
-import { useRouter } from "next/router";
-import InfoModal from "@/components/common/InfoModal";
-import BytesInfo from "@/components/common/BytesInfo";
 import InstallButton from "./InstallButton";
+import Link from "next/link";
 
 interface TopBarProps {
   className?: string;
@@ -11,45 +9,8 @@ interface TopBarProps {
 }
 
 const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
-  const router = useRouter();
-
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-
-  const openModal = () => {
-    router.push("/?type=modal", undefined, { shallow: true });
-    document.getElementById("all-articles-holder")?.blur();
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    router.back();
-    document.getElementById("all-articles-holder")?.focus();
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    router.beforePopState(({ url, as, options }) => {
-      if (url === "/") {
-        // Close modal when navigating back to home page
-        setIsModalOpen(false);
-      }
-
-      return true;
-    });
-  }, [router]);
-
   return (
     <>
-      {/* Modal */}
-      {isModalOpen && (
-        <InfoModal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          title="About Bytes"
-        >
-          <BytesInfo />
-        </InfoModal>
-      )}
       {/* Uncomment this after pull down to refresh is implemented */}
       {/* <div
         className={`bg-[#ecd9cb]/80 backdrop-blur-xl w-full flex items-center justify-between text-sm sticky top-0 drop-shadow-[0_25px_25px_rgba(0,0,0,0.25)] z-20 ${className}`}
@@ -87,9 +48,10 @@ const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
           </a>
           <div className="flex">
             {/* Info button */}
-            <div
-              className="bg-white p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer"
-              onClick={openModal}
+            <Link
+              scroll={false}
+              href={`/?info=true`}
+              className="bg-white p-[18px] sm:p-4 w-fit flex items-center gap-2"
             >
               <ImageHolder
                 heightAndWidthClasses="h-4 w-4"
@@ -100,7 +62,7 @@ const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
                 showLoading
               />
               <span className="hidden sm:block">Info</span>
-            </div>
+            </Link>
             {/* Install button */}
             <InstallButton>
               <div className="bg-[#ecd9cb] p-[18px] sm:p-4 w-fit flex items-center gap-2 cursor-pointer">
