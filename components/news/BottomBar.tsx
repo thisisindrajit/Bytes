@@ -89,7 +89,7 @@ const BottomBar: FC<BottomBarProps> = ({
           />
         )}
       </div>
-      {!isInPwaMode && innerWidth >= 1024 ? (
+      {isInPwaMode && innerWidth <= 1024 ? (
         <Link
           scroll={false}
           href={`/?articleLink=${link}`}
