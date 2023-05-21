@@ -5,6 +5,7 @@ import { showInView } from "@/utilities/articleUtilites";
 import useIsInPwaMode from "@/hooks/useIsInPwaMode";
 import InfoModal from "../common/InfoModal";
 import ArticleIframeHolder from "./ArticleIframeHolder";
+import useOnResizeOrOnOrientationChange from "@/hooks/useOnResizeOrOnOrientationChange";
 
 interface BottomBarProps {
   className?: string;
@@ -28,6 +29,7 @@ const BottomBar: FC<BottomBarProps> = ({
   isFetchingNewArticles,
 }) => {
   const { isInPwaMode } = useIsInPwaMode();
+  const { innerWidth } = useOnResizeOrOnOrientationChange();
 
   const [isArticleHolderModalOpen, setIsArticleHolderModalOpen] =
     useState<boolean>(false);
@@ -115,7 +117,7 @@ const BottomBar: FC<BottomBarProps> = ({
             />
           )}
         </div>
-        {isInPwaMode ? (
+        {isInPwaMode && innerWidth <= 1024 ? (
           <div
             onClick={openModal}
             className="bg-[#ecd9cb] p-3 flex items-center justify-center cursor-pointer"
