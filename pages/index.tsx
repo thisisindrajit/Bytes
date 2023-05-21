@@ -14,9 +14,16 @@ import {
   scrollAllArticlesHolderToTop,
 } from "@/utilities/articleUtilites";
 import useScrollStopListener from "@/hooks/useScrollStopListener";
+import InfoModal from "@/components/common/InfoModal";
+import { useRouter } from "next/router";
+import ArticleIframeHolder from "@/components/news/ArticleIframeHolder";
+import { ToastContainer } from "react-toastify";
+import BytesInfo from "@/components/common/BytesInfo";
 
 const Home = () => {
   let curTabIndexStartValue = 2;
+
+  const router = useRouter();
 
   const [pagesFetched, setPagesFetched] = useState<number>(0);
   const [
@@ -125,135 +132,163 @@ const Home = () => {
   }, []);
 
   return (
-    <div
-      tabIndex={1} // This makes sure this is the first element to be focused
-      id="all-articles-holder"
-      ref={allArticlesHolderRef}
-      className={`w-full relative overflow-y-auto outline-none max-h-[100dvh]`}
-    >
-      {/* Top bar */}
-      <TopBar onClickIcon={scrollAllArticlesHolderToTop} />
-      {/* Articles holder */}
-      <Holder
-        className={`${
-          (isError || isLoading || isRefetchError) &&
-          `w-full flex items-center justify-center h-[100dvh]`
-        }`}
-      >
-        {isError || isRefetchError ? (
-          <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500 m-6">
-            Error fetching articles! Please try again by refreshing the page!
-          </span>
-        ) : !isLoading && articlesData ? (
-          <>
-            {articlesData.map((article: Article, index: number) => {
-              if (index > 0) {
-                curTabIndexStartValue += 5;
-              }
-
-              return (
-                <CarouselProvider
-                  key={article.id}
-                  naturalSlideWidth={0}
-                  naturalSlideHeight={0}
-                  isIntrinsicHeight={false}
-                  totalSlides={3}
-                  touchEnabled={false}
-                  dragEnabled={false}
-                >
-                  <ArticleHolder
-                    id={article.id}
-                    className={`article-holder snap-always snap-center p-4 min-h-[100dvh]`}
-                    hasPrevious={index === 0 ? false : true}
-                    hasNext={index === articlesData.length - 1 ? false : true}
-                    prevId={articlesData[index - 1]?.id}
-                    nextId={articlesData[index + 1]?.id}
-                    title={
-                      article.source === "moneycontrol"
-                        ? cleanIfSourceIsMoneycontrol(article.title)
-                        : decode(article.title)
-                    }
-                    description={
-                      article.description
-                        ? article.source === "moneycontrol"
-                          ? cleanIfSourceIsMoneycontrol(article.description)
-                          : decode(article.description)
-                        : null
-                    }
-                    pubDate={
-                      article.pub_date
-                        ? new Date(article.pub_date).toUTCString()
-                        : null
-                    }
-                    imgUrl={article.image_url}
-                    articleUrl={article.link}
-                    summary={
-                      article.summarized_text
-                        ? article.summarized_text
-                        : "It seems that no summary has been generated for this article. We apologize for the inconvenience."
-                    }
-                    generatedByAi={article.summarized_text ? true : false}
-                    category={article.category}
-                    creator={article.creator}
-                    source={article.source}
-                    country={article.country}
-                    keywords={article.keywords}
-                    sentiment={
-                      article.predicted_sentiment
-                        ? article.predicted_sentiment
-                        : "na"
-                    }
-                    emotion={
-                      article.predicted_emotion
-                        ? article.predicted_emotion
-                        : "na"
-                    }
-                    tabIndexStart={curTabIndexStartValue}
-                    isFetchingNewArticles={
-                      isFetchingNextPage ||
-                      waitingForNewSetOfArticlesToBeSetInState
-                    }
-                  />
-                </CarouselProvider>
-              );
-            })}
-            {!hasNextPage ? (
-              // If there are no articles in DB
-              articlesData.length === 0 ? (
-                <div
-                  className={`w-full flex items-center justify-center text-white h-[100dvh]`}
-                >
-                  No articles available! 🥺
-                </div>
-              ) : (
-                // If user has viewed all articles
-                <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
-                  You have viewed all articles! 🎉
-                </div>
-              )
-            ) : (
-              <>
-                {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes closer to the last fetched article */}
-                <div ref={loadMoreRef}></div>
-                <div>
-                  {articlesData.length > 0 && (
-                    <div className="bg-white flex items-center justify-center text-sm lg:text-base p-6">
-                      Fetching more articles...
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
-          <Loading
-            heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
-            loadingText="Fetching articles..."
-            className="text-white text-sm lg:text-base m-6"
+    <>
+      {/* Toast container */}
+      <ToastContainer />
+      {/* Bytes info modal holder */}
+      {!!router.query.info && (
+        <InfoModal
+          isOpen={!!router.query.info}
+          onClose={() => router.push(`/`, undefined, { scroll: false })}
+          title="About Bytes"
+        >
+          <BytesInfo />
+        </InfoModal>
+      )}
+      {/* Article iframe modal holder */}
+      {!!router.query.articleLink && (
+        <InfoModal
+          isOpen={!!router.query.articleLink}
+          onClose={() => router.push(`/`, undefined, { scroll: false })}
+          noTitleAndCloseButton
+          fullScreen
+        >
+          <ArticleIframeHolder
+            link={router.query.articleLink as string}
+            onClose={() => router.push(`/`, undefined, { scroll: false })}
           />
-        )}
-      </Holder>
-    </div>
+        </InfoModal>
+      )}
+      <div
+        tabIndex={1} // This makes sure this is the first element to be focused
+        id="all-articles-holder"
+        ref={allArticlesHolderRef}
+        className={`w-full relative overflow-y-auto outline-none max-h-[100dvh]`}
+      >
+        {/* Top bar */}
+        <TopBar onClickIcon={scrollAllArticlesHolderToTop} />
+        {/* Articles holder */}
+        <Holder
+          className={`${
+            (isError || isLoading || isRefetchError) &&
+            `w-full flex items-center justify-center h-[100dvh]`
+          }`}
+        >
+          {isError || isRefetchError ? (
+            <span className="text-sm/loose lg:text-base/loose border border-red-500 p-3 rounded text-center text-red-500 m-6">
+              Error fetching articles! Please try again by refreshing the page!
+            </span>
+          ) : !isLoading && articlesData ? (
+            <>
+              {articlesData.map((article: Article, index: number) => {
+                if (index > 0) {
+                  curTabIndexStartValue += 5;
+                }
+
+                return (
+                  <CarouselProvider
+                    key={article.id}
+                    naturalSlideWidth={0}
+                    naturalSlideHeight={0}
+                    isIntrinsicHeight={false}
+                    totalSlides={3}
+                    touchEnabled={false}
+                    dragEnabled={false}
+                  >
+                    <ArticleHolder
+                      id={article.id}
+                      className={`article-holder snap-always snap-center p-4 min-h-[100dvh]`}
+                      hasPrevious={index === 0 ? false : true}
+                      hasNext={index === articlesData.length - 1 ? false : true}
+                      prevId={articlesData[index - 1]?.id}
+                      nextId={articlesData[index + 1]?.id}
+                      title={
+                        article.source === "moneycontrol"
+                          ? cleanIfSourceIsMoneycontrol(article.title)
+                          : decode(article.title)
+                      }
+                      description={
+                        article.description
+                          ? article.source === "moneycontrol"
+                            ? cleanIfSourceIsMoneycontrol(article.description)
+                            : decode(article.description)
+                          : null
+                      }
+                      pubDate={
+                        article.pub_date
+                          ? new Date(article.pub_date).toUTCString()
+                          : null
+                      }
+                      imgUrl={article.image_url}
+                      articleUrl={article.link}
+                      summary={
+                        article.summarized_text
+                          ? article.summarized_text
+                          : "It seems that no summary has been generated for this article. We apologize for the inconvenience."
+                      }
+                      generatedByAi={article.summarized_text ? true : false}
+                      category={article.category}
+                      creator={article.creator}
+                      source={article.source}
+                      country={article.country}
+                      keywords={article.keywords}
+                      sentiment={
+                        article.predicted_sentiment
+                          ? article.predicted_sentiment
+                          : "na"
+                      }
+                      emotion={
+                        article.predicted_emotion
+                          ? article.predicted_emotion
+                          : "na"
+                      }
+                      tabIndexStart={curTabIndexStartValue}
+                      isFetchingNewArticles={
+                        isFetchingNextPage ||
+                        waitingForNewSetOfArticlesToBeSetInState
+                      }
+                    />
+                  </CarouselProvider>
+                );
+              })}
+              {!hasNextPage ? (
+                // If there are no articles in DB
+                articlesData.length === 0 ? (
+                  <div
+                    className={`w-full flex items-center justify-center text-white h-[100dvh]`}
+                  >
+                    No articles available! 🥺
+                  </div>
+                ) : (
+                  // If user has viewed all articles
+                  <div className="bg-[#ecd9cb] flex items-center justify-center p-6">
+                    You have viewed all articles! 🎉
+                  </div>
+                )
+              ) : (
+                <>
+                  {/* This ref is separate to make sure the next set of articles are loaded as soon as the user comes closer to the last fetched article */}
+                  <div ref={loadMoreRef}></div>
+                  <div>
+                    {articlesData.length > 0 && (
+                      <div className="bg-white flex items-center justify-center text-sm lg:text-base p-6">
+                        Fetching more articles...
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </>
+          ) : (
+            <Loading
+              heightAndWidthClassesForLoadingIcon="h-10 w-10 lg:h-12 lg:w-12"
+              loadingText="Fetching articles..."
+              className="text-white text-sm lg:text-base m-6"
+            />
+          )}
+        </Holder>
+      </div>
+    </>
   );
 };
 
