@@ -83,7 +83,6 @@ const TopBar: FC<TopBarProps> = ({ className = "", onClickIcon }) => {
               src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=394870&theme=light"
               alt="Bytes - News&#0044;&#0032;redefined&#0046; | Product Hunt"
               style={{ width: "175px" }}
-              width="175"
             />
           </a>
           <div className="flex">
