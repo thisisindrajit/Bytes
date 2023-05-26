@@ -1,5 +1,6 @@
 import { FC } from "react";
 import ImageHolder from "../common/ImageHolder";
+import { ButtonNext } from "pure-react-carousel";
 
 interface ArticleSummaryHolderProps {
   source: string | null;
@@ -68,9 +69,11 @@ const ArticleSummaryHolder: FC<ArticleSummaryHolderProps> = ({
         {/* Check out article details text block */}
         <div>
           <span>Click on</span>
-          <span className="inline mx-1.5 text-sm uppercase text-[#ecd9cb] underline decoration-dotted underline-offset-4">
-            Details
-          </span>
+          <ButtonNext>
+            <span className="inline mx-1.5 text-sm uppercase text-[#ecd9cb] underline decoration-dotted underline-offset-4">
+              Details
+            </span>
+          </ButtonNext>
           <span>to view details of the article.</span>
         </div>
       </div>

@@ -23,7 +23,7 @@ const SentimentHolder: FC<SentimentHolderProps> = ({ sentiment }) => {
   useEffect(() => {
     setIsTopPlacement(innerHeight <= 667 && innerWidth >= 1024);
   }, [innerHeight, innerWidth]);
-  
+
   return (
     <Tippy
       theme="light"

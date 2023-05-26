@@ -4,6 +4,7 @@ import {
   formatCountry,
   formatDateAndTime,
 } from "@/utilities/articleHolderUtilities";
+import { ButtonNext } from "pure-react-carousel";
 
 interface ArticleThumbnailHolderProps {
   title: string;
@@ -57,9 +58,11 @@ const ArticleThumbnailHolder: FC<ArticleThumbnailHolderProps> = ({
         {/* Check out AI summary text block */}
         <div>
           <span>Click on</span>
-          <span className="inline mx-1.5 text-sm uppercase text-[#ecd9cb] underline decoration-dotted underline-offset-4">
-            Summary by AI
-          </span>
+          <ButtonNext>
+            <span className="inline mx-1.5 text-sm uppercase text-[#ecd9cb] underline decoration-dotted underline-offset-4">
+              Summary by AI
+            </span>
+          </ButtonNext>
           <span>to read the AI generated summary for the article.</span>
         </div>
         {/* Read full article text block */}
