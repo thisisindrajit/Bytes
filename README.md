@@ -65,6 +65,8 @@ To know more about the creation and working of Bytes, do check out this [article
 
 ## Issues, feature requests and contribution
 
+This is an open-source project, so anyone is free to contribute!😎
+
 - Find an issue with Bytes? Please report it [here](https://github.com/thisisindrajit/Bytes/issues) so that it can be fixed at the earliest. 
 - Want a new feature in Bytes? Suggest it [here](https://github.com/thisisindrajit/Bytes/issues)!
 
